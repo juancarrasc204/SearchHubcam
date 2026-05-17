@@ -119,11 +119,11 @@
             opacity: 0.9;
         }
 
-        /* Buscador más sexy y con barra más ancha */
+        /* Buscador */
         .search-box {
             display: flex;
             gap: 0.5rem;
-            margin-bottom: 1.8rem;
+            margin-bottom: 1.2rem;
             align-items: center;
             position: relative;
             z-index: 1;
@@ -232,6 +232,62 @@
             75%{transform:translateX(5px);}
         }
 
+        /* Chips de modelos sugeridas */
+        .quick-models {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .quick-models .label-chips {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #b2909e;
+            margin-bottom: 0.1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .chips-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+        }
+        .model-chip {
+            background: rgba(255, 80, 120, 0.08);
+            border: 1px solid rgba(255, 120, 150, 0.25);
+            color: #f5ced8;
+            font-weight: 600;
+            font-size: 0.8rem;
+            padding: 0.45rem 0.9rem;
+            border-radius: 50px;
+            cursor: pointer;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            transition: all var(--transition-smooth);
+            letter-spacing: 0.3px;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .model-chip:hover {
+            background: rgba(255, 60, 90, 0.2);
+            border-color: rgba(255, 100, 140, 0.5);
+            box-shadow: 0 6px 16px rgba(255, 60, 90, 0.3);
+            transform: translateY(-2px);
+            color: #fff;
+        }
+        .model-chip:active {
+            transform: scale(0.94);
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
         .results-container {
             display: flex;
             flex-direction: column;
@@ -337,6 +393,7 @@
             .glass-panel { padding: 1.8rem 1rem 1.8rem; }
             .btn-generate { padding: 0 1rem; font-size: 0.9rem; }
             input { font-size: 0.9rem; }
+            .model-chip { font-size: 0.72rem; padding: 0.4rem 0.7rem; }
         }
     </style>
 </head>
@@ -357,6 +414,17 @@
                 <span>✨</span> Buscar
             </button>
         </div>
+
+        <!-- Chips de modelos sugeridas -->
+        <div class="quick-models">
+            <div class="label-chips">
+                <span>🔥</span> Modelos sugeridas
+            </div>
+            <div class="chips-container" id="chipsContainer">
+                <!-- Se generan dinámicamente con JS -->
+            </div>
+        </div>
+
         <div class="error-msg" id="errorMsg">
             <span>⚠️</span> <span id="errorText"></span>
         </div>
@@ -380,8 +448,9 @@
             const resultsContainer = document.getElementById('resultsContainer');
             const errorMsg = document.getElementById('errorMsg');
             const errorText = document.getElementById('errorText');
+            const chipsContainer = document.getElementById('chipsContainer');
 
-            // Lista con el nuevo enlace añadido en segunda posición
+            // Lista de sitios
             const sites = [
                 {
                     name: 'CumCams',
@@ -413,6 +482,20 @@
                     icon: '🎬',
                     urlPattern: 'https://www.showcamrips.com/model/en/{model}/',
                 }
+            ];
+
+            // Lista de nombres de modelos sin repetir (incluye alice-blaker)
+            const modelNames = [
+                'LunaaRosse',
+                'amor_smith_',
+                'lolaslatary1',
+                'SexyDee025',
+                'riri_brunnete',
+                'Esmeralda_Duarte',
+                'anny_vittar',
+                'Mia_sweet80',
+                'shainadavis',
+                'alice-blaker'
             ];
 
             function sanitizeModelName(rawName) {
@@ -495,6 +578,23 @@
                 }, 160);
             }
 
+            function selectModel(modelName) {
+                input.value = modelName;
+                handleGenerate();
+            }
+
+            function renderModelChips() {
+                chipsContainer.innerHTML = '';
+                modelNames.forEach(name => {
+                    const chip = document.createElement('button');
+                    chip.className = 'model-chip';
+                    chip.textContent = name;
+                    chip.setAttribute('aria-label', `Buscar ${name}`);
+                    chip.addEventListener('click', () => selectModel(name));
+                    chipsContainer.appendChild(chip);
+                });
+            }
+
             generateBtn.addEventListener('click', handleGenerate);
             input.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter') {
@@ -504,6 +604,8 @@
                 if (errorMsg.style.display === 'flex') hideError();
             });
 
+            // Inicializar chips y foco
+            renderModelChips();
             input.focus();
             document.addEventListener('gesturestart', (e) => e.preventDefault());
         })();
