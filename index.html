@@ -8,12 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
             --bg-deep: #0d0814;
             --glass-bg: rgba(22, 15, 30, 0.7);
@@ -28,9 +23,8 @@
             --radius-sm: 16px;
             --transition-smooth: 0.28s cubic-bezier(0.2, 0.9, 0.4, 1);
         }
-
         body {
-            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
             background: radial-gradient(circle at 20% 15%, #2a132a 0%, #0d0814 80%);
             min-height: 100vh;
             display: flex;
@@ -39,10 +33,8 @@
             padding: 1rem;
             color: var(--text-primary);
             -webkit-tap-highlight-color: transparent;
-            -webkit-font-smoothing: antialiased;
             background-attachment: fixed;
         }
-
         .glass-panel {
             width: 100%;
             max-width: 520px;
@@ -53,40 +45,30 @@
             border-radius: var(--radius-lg);
             box-shadow: var(--shadow-card), 0 0 70px rgba(255, 60, 90, 0.15);
             padding: 2.2rem 1.5rem 2rem;
-            transition: all var(--transition-smooth);
             animation: floatIn 0.8s ease-out;
             position: relative;
             overflow: hidden;
         }
-
         .glass-panel::before {
             content: "";
             position: absolute;
-            top: -40%;
-            right: -30%;
-            width: 250px;
-            height: 250px;
+            top: -40%; right: -30%;
+            width: 250px; height: 250px;
             background: radial-gradient(circle, rgba(255, 60, 90, 0.2) 0%, transparent 70%);
             border-radius: 50%;
             z-index: 0;
             pointer-events: none;
         }
-
         @keyframes floatIn {
             0% { opacity: 0; transform: translateY(30px) scale(0.95); }
             100% { opacity: 1; transform: translateY(0) scale(1); }
         }
-
         .header {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-            margin-bottom: 2.2rem;
+            position: relative; z-index: 1;
+            text-align: center; margin-bottom: 2.2rem;
         }
         .header .icon-row {
-            font-size: 3rem;
-            margin-bottom: 0.3rem;
-            letter-spacing: 6px;
+            font-size: 3rem; letter-spacing: 6px;
             filter: drop-shadow(0 8px 18px rgba(255, 60, 90, 0.6));
             animation: sensualPulse 2s infinite ease-in-out;
         }
@@ -95,103 +77,55 @@
             50% { transform: scale(1.06); opacity: 1; }
         }
         .header h1 {
-            font-size: 2.1rem;
-            font-weight: 800;
-            letter-spacing: -0.8px;
+            font-size: 2.1rem; font-weight: 800; letter-spacing: -0.8px;
             background: linear-gradient(135deg, #ffb3c6, #ff4d6d);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.3rem;
-            text-shadow: 0 0 20px rgba(255, 60, 90, 0.4);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text; text-shadow: 0 0 20px rgba(255, 60, 90, 0.4);
         }
         .header .sub {
-            font-size: 0.95rem;
-            font-weight: 500;
-            color: var(--text-secondary);
-            letter-spacing: 0.4px;
-            opacity: 0.9;
+            font-size: 0.95rem; font-weight: 500;
+            color: var(--text-secondary); letter-spacing: 0.4px; opacity: 0.9;
         }
-
         /* Buscador */
         .search-box {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1.2rem;
-            align-items: center;
-            position: relative;
-            z-index: 1;
+            display: flex; gap: 0.5rem; margin-bottom: 1.2rem;
+            align-items: center; position: relative; z-index: 1;
         }
-        .input-wrapper {
-            flex: 1;
-            position: relative;
-        }
+        .input-wrapper { flex: 1; position: relative; }
         .input-wrapper i {
-            position: absolute;
-            left: 0.9rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #e5738c;
-            font-size: 0.9rem;
+            position: absolute; left: 0.9rem; top: 50%;
+            transform: translateY(-50%); color: #e5738c; font-size: 0.9rem;
             pointer-events: none;
-            transition: all 0.2s;
         }
         input {
-            width: 100%;
-            padding: 0.9rem 1rem 0.9rem 2.4rem;
+            width: 100%; padding: 0.9rem 1rem 0.9rem 2.4rem;
             background: rgba(15, 8, 20, 0.75);
             border: 1.5px solid rgba(255, 100, 130, 0.25);
-            border-radius: 50px;
-            font-size: 1rem;
-            font-weight: 500;
-            color: #fce4ec;
-            outline: none;
-            transition: all var(--transition-smooth);
-            letter-spacing: 0.3px;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            border-radius: 50px; font-size: 1rem; font-weight: 500;
+            color: #fce4ec; outline: none;
+            transition: all var(--transition-smooth); letter-spacing: 0.3px;
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
         }
-        input::placeholder {
-            color: #a88494;
-            font-weight: 400;
-            font-size: 0.95rem;
-        }
+        input::placeholder { color: #a88494; font-weight: 400; font-size: 0.95rem; }
         input:focus {
             border-color: var(--accent);
             box-shadow: 0 0 24px var(--accent-glow), 0 0 0 3px rgba(255, 60, 90, 0.2);
             background: rgba(18, 10, 26, 0.8);
         }
-
         .btn-generate {
             background: linear-gradient(135deg, #ff4d6d, #c9184a);
-            border: none;
-            color: white;
-            font-weight: 700;
-            font-size: 0.95rem;
-            padding: 0 1.3rem;
-            height: 50px;
-            border-radius: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.3rem;
-            cursor: pointer;
-            box-shadow: 0 10px 22px -6px rgba(255, 60, 90, 0.55);
-            transition: all var(--transition-smooth);
-            letter-spacing: 0.5px;
-            white-space: nowrap;
-            backdrop-filter: blur(12px);
+            border: none; color: white; font-weight: 700; font-size: 0.95rem;
+            padding: 0 1.3rem; height: 50px; border-radius: 50px;
+            display: flex; align-items: center; gap: 0.3rem;
+            cursor: pointer; box-shadow: 0 10px 22px -6px rgba(255, 60, 90, 0.55);
+            transition: all var(--transition-smooth); letter-spacing: 0.5px;
+            white-space: nowrap; backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            position: relative;
-            overflow: hidden;
+            position: relative; overflow: hidden;
         }
         .btn-generate::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
+            content: ""; position: absolute; top: 0; left: -100%;
+            width: 100%; height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
             transition: left 0.5s;
         }
@@ -201,92 +135,65 @@
             box-shadow: 0 14px 28px -4px rgba(255, 60, 90, 0.7);
             transform: translateY(-2px);
         }
-        .btn-generate:active {
-            transform: scale(0.95);
-            box-shadow: 0 5px 14px rgba(255, 60, 90, 0.6);
-        }
-
+        .btn-generate:active { transform: scale(0.95); }
         .error-msg {
-            color: #ff9eb5;
-            font-size: 0.85rem;
-            margin-top: 0.4rem;
-            margin-bottom: 0.2rem;
-            display: none;
-            align-items: center;
-            gap: 0.3rem;
-            animation: shake 0.3s ease;
-            position: relative;
-            z-index: 1;
+            color: #ff9eb5; font-size: 0.85rem; margin-top: 0.4rem;
+            display: none; align-items: center; gap: 0.3rem;
+            animation: shake 0.3s ease; position: relative; z-index: 1;
         }
         @keyframes shake {
             0%,100%{transform:translateX(0);}
             25%{transform:translateX(-5px);}
             75%{transform:translateX(5px);}
         }
-
-        /* Chips de modelos sugeridas */
+        /* Chips */
         .quick-models {
-            position: relative;
-            z-index: 1;
-            margin-bottom: 1.2rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
+            position: relative; z-index: 1; margin-bottom: 1.2rem;
+            display: flex; flex-direction: column; gap: 0.5rem;
         }
         .quick-models .label-chips {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #b2909e;
-            margin-bottom: 0.1rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
+            font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px;
+            color: #b2909e; margin-bottom: 0.1rem; font-weight: 600;
+            display: flex; align-items: center; gap: 0.3rem;
         }
-        .chips-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.45rem;
-        }
+        .chips-container { display: flex; flex-wrap: wrap; gap: 0.45rem; }
         .model-chip {
             background: rgba(255, 80, 120, 0.08);
             border: 1px solid rgba(255, 120, 150, 0.25);
-            color: #f5ced8;
-            font-weight: 600;
-            font-size: 0.8rem;
-            padding: 0.45rem 0.9rem;
-            border-radius: 50px;
-            cursor: pointer;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            transition: all var(--transition-smooth);
-            letter-spacing: 0.3px;
-            white-space: nowrap;
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
+            color: #f5ced8; font-weight: 600; font-size: 0.8rem;
+            padding: 0.45rem 0.9rem; border-radius: 50px; cursor: pointer;
+            backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+            transition: all var(--transition-smooth); letter-spacing: 0.3px;
+            white-space: nowrap; display: flex; align-items: center; gap: 0.3rem;
         }
         .model-chip:hover {
             background: rgba(255, 60, 90, 0.2);
             border-color: rgba(255, 100, 140, 0.5);
             box-shadow: 0 6px 16px rgba(255, 60, 90, 0.3);
-            transform: translateY(-2px);
+            transform: translateY(-2px); color: #fff;
+        }
+        .model-chip:active { transform: scale(0.94); background: var(--accent); }
+        
+        /* ✅ CHIPS VERDES (para las modelos nuevas) */
+        .model-chip.chip-green {
+            background: rgba(0, 255, 140, 0.08);
+            border: 1px solid rgba(0, 255, 150, 0.3);
+            color: #b9ffe0;
+        }
+        .model-chip.chip-green:hover {
+            background: rgba(0, 255, 140, 0.2);
+            border-color: rgba(0, 255, 150, 0.6);
+            box-shadow: 0 6px 16px rgba(0, 255, 140, 0.35);
             color: #fff;
         }
-        .model-chip:active {
-            transform: scale(0.94);
-            background: var(--accent);
-            border-color: var(--accent);
+        .model-chip.chip-green:active {
+            background: #00d68f; border-color: #00d68f;
         }
 
-        /* Sección de perfil de Stripchat */
+        /* Perfil de Stripchat */
         .stripchat-profile {
-            position: relative;
-            z-index: 1;
-            margin: 1.2rem 0 1.5rem;
-            display: none;
-            animation: fadeSlide 0.4s ease;
+            position: relative; z-index: 1; margin: 1.2rem 0 1.5rem;
+            display: none; animation: fadeSlide 0.4s ease;
         }
         @keyframes fadeSlide {
             from { opacity: 0; transform: translateY(10px); }
@@ -295,169 +202,67 @@
         .profile-card {
             background: rgba(255, 245, 250, 0.05);
             border: 1px solid rgba(255, 120, 150, 0.2);
-            border-radius: var(--radius-md);
-            padding: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            border-radius: var(--radius-md); padding: 1rem;
+            display: flex; align-items: center; gap: 1rem;
+            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
         }
         .avatar-wrapper {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            overflow: hidden;
-            flex-shrink: 0;
-            background: rgba(15,8,20,0.6);
+            width: 70px; height: 70px; border-radius: 50%; overflow: hidden;
+            flex-shrink: 0; background: rgba(15,8,20,0.6);
             border: 2px solid rgba(255, 60, 90, 0.3);
             box-shadow: 0 0 20px rgba(255, 60, 90, 0.25);
         }
-        .avatar-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-        .profile-info {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 0.3rem;
-        }
-        .profile-name {
-            font-weight: 700;
-            font-size: 1.1rem;
-            letter-spacing: 0.3px;
-            color: #fff;
-        }
-        .profile-site {
-            font-size: 0.75rem;
-            color: #e598b0;
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-        }
+        .avatar-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .profile-info { flex: 1; display: flex; flex-direction: column; gap: 0.3rem; }
+        .profile-name { font-weight: 700; font-size: 1.1rem; color: #fff; }
+        .profile-site { font-size: 0.75rem; color: #e598b0; display: flex; align-items: center; gap: 0.3rem; }
         .btn-stripchat {
-            background: var(--accent);
-            border: none;
-            color: white;
-            font-weight: 700;
-            font-size: 0.8rem;
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-            align-self: flex-start;
+            background: var(--accent); border: none; color: white;
+            font-weight: 700; font-size: 0.8rem; padding: 0.5rem 1rem;
+            border-radius: 50px; cursor: pointer; display: flex; align-items: center;
+            gap: 0.3rem; align-self: flex-start;
             box-shadow: 0 6px 16px rgba(255, 60, 90, 0.45);
-            transition: all var(--transition-smooth);
-            white-space: nowrap;
+            transition: all var(--transition-smooth); white-space: nowrap;
         }
-        .btn-stripchat:hover {
-            background: #ff5e7a;
-            box-shadow: 0 10px 22px rgba(255, 60, 90, 0.65);
-            transform: translateY(-2px);
-        }
+        .btn-stripchat:hover { background: #ff5e7a; box-shadow: 0 10px 22px rgba(255, 60, 90, 0.65); }
         .btn-stripchat:active { transform: scale(0.95); }
-
-        .results-container {
-            display: flex;
-            flex-direction: column;
-            gap: 0.85rem;
-            margin-top: 0.8rem;
-            position: relative;
-            z-index: 1;
-        }
+        
+        .results-container { display: flex; flex-direction: column; gap: 0.85rem; margin-top: 0.8rem; position: relative; z-index: 1; }
         .link-card {
             background: rgba(255, 245, 250, 0.04);
             border: 1px solid rgba(255, 120, 150, 0.2);
-            border-radius: var(--radius-md);
-            padding: 0.9rem 1.2rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            transition: all 0.22s ease;
+            border-radius: var(--radius-md); padding: 0.9rem 1.2rem;
+            display: flex; align-items: center; justify-content: space-between;
+            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
             animation: cardRise 0.45s ease backwards;
             box-shadow: 0 10px 20px rgba(0,0,0,0.3), 0 0 8px rgba(255,60,90,0.1);
             cursor: pointer;
+        }
+        @keyframes cardRise {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         .link-card:hover {
             border-color: rgba(255, 80, 110, 0.45);
             background: rgba(255, 240, 245, 0.07);
             box-shadow: 0 14px 26px rgba(0,0,0,0.45), 0 0 20px rgba(255,60,90,0.25);
         }
-        @keyframes cardRise {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .site-info {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            font-weight: 600;
-            color: #f3d7e0;
-            letter-spacing: 0.3px;
-        }
+        .site-info { display: flex; align-items: center; gap: 0.8rem; font-weight: 600; color: #f3d7e0; }
         .site-icon { font-size: 1.5rem; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4)); }
         .btn-visit {
             background: rgba(255, 90, 120, 0.15);
             border: 1px solid rgba(255, 120, 150, 0.35);
-            color: #ffe0e8;
-            font-weight: 700;
-            font-size: 0.85rem;
-            padding: 0.55rem 1.2rem;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all var(--transition-smooth);
-            letter-spacing: 0.4px;
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            color: #ffe0e8; font-weight: 700; font-size: 0.85rem;
+            padding: 0.55rem 1.2rem; border-radius: 50px;
+            cursor: pointer; transition: all var(--transition-smooth);
+            display: flex; align-items: center; gap: 0.3rem;
+            backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
             white-space: nowrap;
         }
-        .btn-visit:hover {
-            background: var(--accent);
-            border-color: var(--accent);
-            color: white;
-            box-shadow: 0 6px 20px rgba(255, 60, 90, 0.55);
-            transform: scale(1.04);
-        }
+        .btn-visit:hover { background: var(--accent); border-color: var(--accent); color: white; }
         .btn-visit:active { transform: scale(0.94); }
-
-        .empty-state {
-            text-align: center;
-            color: #b295a6;
-            padding: 1.5rem 0.5rem;
-            font-size: 0.9rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.3rem;
-            opacity: 0.8;
-        }
-
-        .footer-note {
-            margin-top: 2rem;
-            text-align: center;
-            font-size: 0.7rem;
-            color: #6d5663;
-            letter-spacing: 0.6px;
-            border-top: 1px solid rgba(255, 100, 130, 0.12);
-            padding-top: 1.3rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.3rem;
-            position: relative;
-            z-index: 1;
-        }
-
+        .empty-state { text-align: center; color: #b295a6; padding: 1.5rem 0.5rem; font-size: 0.9rem; display: flex; flex-direction: column; align-items: center; gap: 0.3rem; opacity: 0.8; }
+        .footer-note { margin-top: 2rem; text-align: center; font-size: 0.7rem; color: #6d5663; letter-spacing: 0.6px; border-top: 1px solid rgba(255, 100, 130, 0.12); padding-top: 1.3rem; display: flex; align-items: center; justify-content: center; gap: 0.3rem; position: relative; z-index: 1; }
         @media (max-width: 380px) {
             .glass-panel { padding: 1.8rem 1rem 1.8rem; }
             .btn-generate { padding: 0 1rem; font-size: 0.9rem; }
@@ -477,26 +282,18 @@
         <div class="search-box">
             <div class="input-wrapper">
                 <i>🔍</i>
-                <input type="text" id="modelNameInput" placeholder="Nombre de la modelo..." autocomplete="off" autofocus>
+                <input type="text" id="modelNameInput" placeholder="Nombre exacto (ej. SexyDee025)" autocomplete="off" autofocus>
             </div>
-            <button class="btn-generate" id="generateBtn">
-                <span>✨</span> Buscar
-            </button>
+            <button class="btn-generate" id="generateBtn"><span>✨</span> Buscar</button>
         </div>
 
-        <!-- Chips de modelos sugeridas -->
         <div class="quick-models">
-            <div class="label-chips">
-                <span>🔥</span> Modelos sugeridas
-            </div>
+            <div class="label-chips"><span>🔥</span> Modelos sugeridas</div>
             <div class="chips-container" id="chipsContainer"></div>
         </div>
 
-        <div class="error-msg" id="errorMsg">
-            <span>⚠️</span> <span id="errorText"></span>
-        </div>
+        <div class="error-msg" id="errorMsg"><span>⚠️</span> <span id="errorText"></span></div>
 
-        <!-- NUEVA sección: perfil de Stripchat con imagen -->
         <div class="stripchat-profile" id="stripchatProfile">
             <div class="profile-card">
                 <div class="avatar-wrapper">
@@ -505,23 +302,16 @@
                 <div class="profile-info">
                     <span class="profile-name" id="profileDisplayName"></span>
                     <span class="profile-site">🍑 Stripchat</span>
-                    <button class="btn-stripchat" id="btnOpenStripchat">
-                        <span>Ver perfil</span> <span style="font-size:0.8rem;">↗️</span>
-                    </button>
+                    <button class="btn-stripchat" id="btnOpenStripchat"><span>Ver perfil</span> ↗️</button>
                 </div>
             </div>
         </div>
 
         <div class="results-container" id="resultsContainer">
-            <div class="empty-state">
-                <span style="font-size:2.2rem;">🌹</span>
-                <span>Escribe un nombre y pulsa "Buscar"</span>
-            </div>
+            <div class="empty-state"><span style="font-size:2.2rem;">🌹</span><span>Escribe un nombre y pulsa "Buscar"</span></div>
         </div>
 
-        <div class="footer-note">
-            <span>🔞</span> Solo para adultos · Disfruta con responsabilidad
-        </div>
+        <div class="footer-note"><span>🔞</span> Solo para adultos · Disfruta con responsabilidad</div>
     </main>
 
     <script>
@@ -537,7 +327,6 @@
             const profileDisplayName = document.getElementById('profileDisplayName');
             const btnOpenStripchat = document.getElementById('btnOpenStripchat');
 
-            // URLs de avatar conocidas (se prueban en orden, la primera que cargue se usa)
             const avatarBaseUrls = [
                 'https://img.stripchat.com/avatar/{model}',
                 'https://edge.stripchat.com/avatar/{model}'
@@ -553,14 +342,25 @@
                 { name: 'ShowCamRips', icon: '🎬', urlPattern: 'https://www.showcamrips.com/model/en/{model}/' }
             ];
 
+            // TODOS los nombres de modelos (antiguos + los nuevos verdes)
             const modelNames = [
                 'LunaaRosse', 'amor_smith_', 'lolaslatary1', 'SexyDee025',
                 'riri_brunnete', 'Esmeralda_Duarte', 'anny_vittar', 'Mia_sweet80',
-                'shainadavis', 'alice-blaker'
+                'shainadavis', 'alice-blaker',
+                // 🌿 NUEVAS MODELOS (en verde)
+                'rose_berry', 'violeta_rosex', '_lasuenscun', 'anabelle_bluee10',
+                'sofi_johansson', 'sofierosse_', 'steacy_19', 'fox_roxxan'
             ];
 
+            // Lista de nombres que deben mostrarse en verde
+            const greenModels = new Set([
+                'rose_berry', 'violeta_rosex', '_lasuenscun', 'anabelle_bluee10',
+                'sofi_johansson', 'sofierosse_', 'steacy_19', 'fox_roxxan'
+            ]);
+
             function sanitizeModelName(rawName) {
-                return rawName.trim().replace(/\s+/g, '').toLowerCase();
+                // ✅ respeta mayúsculas/minúsculas (sin toLowerCase)
+                return rawName.trim().replace(/\s+/g, '');
             }
 
             function showError(message) {
@@ -572,19 +372,13 @@
             }
             function hideError() { errorMsg.style.display = 'none'; }
 
-            // Intenta cargar el avatar desde varias URLs, usando la primera que funcione
             function loadStripchatAvatar(cleanName) {
                 profileDisplayName.textContent = cleanName;
-                // Limpiar src primero
                 profileAvatar.src = '';
                 let loaded = false;
-
                 function tryNext(index) {
                     if (index >= avatarBaseUrls.length || loaded) {
-                        if (!loaded) {
-                            // Si ninguna cargó, ocultamos la sección
-                            stripchatProfile.style.display = 'none';
-                        }
+                        if (!loaded) stripchatProfile.style.display = 'none';
                         return;
                     }
                     const url = avatarBaseUrls[index].replace('{model}', cleanName);
@@ -596,12 +390,9 @@
                             stripchatProfile.style.display = 'block';
                         }
                     };
-                    testImg.onerror = function() {
-                        tryNext(index + 1);
-                    };
+                    testImg.onerror = function() { tryNext(index + 1); };
                     testImg.src = url;
                 }
-
                 tryNext(0);
             }
 
@@ -616,31 +407,22 @@
             function renderLinks(cleanName) {
                 resultsContainer.innerHTML = '';
                 if (!cleanName) {
-                    resultsContainer.innerHTML = `
-                        <div class="empty-state">
-                            <span style="font-size:2.2rem;">🌙</span>
-                            <span>Nombre no válido</span>
-                        </div>`;
+                    resultsContainer.innerHTML = '<div class="empty-state"><span style="font-size:2.2rem;">🌙</span><span>Nombre no válido</span></div>';
                     stripchatProfile.style.display = 'none';
                     return;
                 }
-
                 sites.forEach((site, index) => {
                     const finalUrl = site.urlPattern.replace('{model}', cleanName);
                     const card = document.createElement('div');
                     card.className = 'link-card';
                     card.style.animationDelay = `${index * 0.07}s`;
-
                     card.innerHTML = `
                         <div class="site-info">
                             <span class="site-icon">${site.icon}</span>
                             <span>${site.name}</span>
                         </div>
-                        <button class="btn-visit" data-url="${finalUrl}" aria-label="Abrir ${site.name}">
-                            <span>Ir</span> <span style="font-size:0.8rem;">↗️</span>
-                        </button>
+                        <button class="btn-visit" data-url="${finalUrl}">Ir ↗️</button>
                     `;
-
                     const visitBtn = card.querySelector('.btn-visit');
                     visitBtn.addEventListener('click', (e) => {
                         e.stopPropagation();
@@ -650,7 +432,6 @@
                         if (e.target.closest('.btn-visit')) return;
                         window.open(finalUrl, '_blank', 'noopener,noreferrer');
                     });
-
                     resultsContainer.appendChild(card);
                 });
             }
@@ -660,11 +441,7 @@
                 const cleanName = sanitizeModelName(rawValue);
                 if (!cleanName) {
                     showError('Por favor, introduce un nombre válido.');
-                    resultsContainer.innerHTML = `
-                        <div class="empty-state">
-                            <span style="font-size:2.2rem;">🌹</span>
-                            <span>Escribe un nombre y pulsa "Buscar"</span>
-                        </div>`;
+                    resultsContainer.innerHTML = '<div class="empty-state"><span style="font-size:2.2rem;">🌹</span><span>Escribe un nombre y pulsa "Buscar"</span></div>';
                     stripchatProfile.style.display = 'none';
                     return;
                 }
@@ -672,10 +449,8 @@
                 generateBtn.style.opacity = '0.7';
                 generateBtn.style.pointerEvents = 'none';
                 setTimeout(() => {
-                    // Cargar perfil de Stripchat (intentará obtener el avatar)
                     loadStripchatAvatar(cleanName);
                     setupStripchatLink(cleanName);
-                    // Renderizar enlaces a sitios de archivo
                     renderLinks(cleanName);
                     generateBtn.style.opacity = '1';
                     generateBtn.style.pointerEvents = 'auto';
@@ -692,6 +467,10 @@
                 modelNames.forEach(name => {
                     const chip = document.createElement('button');
                     chip.className = 'model-chip';
+                    // 🌿 Si el nombre está en la lista verde, añadir clase especial
+                    if (greenModels.has(name)) {
+                        chip.classList.add('chip-green');
+                    }
                     chip.textContent = name;
                     chip.setAttribute('aria-label', `Buscar ${name}`);
                     chip.addEventListener('click', () => selectModel(name));
@@ -708,7 +487,6 @@
                 if (errorMsg.style.display === 'flex') hideError();
             });
 
-            // Inicializar
             renderModelChips();
             input.focus();
             stripchatProfile.style.display = 'none';
