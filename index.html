@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>🥀 VelvetL1nk · Discreet Access Portal</title>
+    <title>🥀 VelvetLink · Discreet Access Portal</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
@@ -170,6 +170,46 @@
             25%{transform:translateX(-5px);}
             75%{transform:translateX(5px);}
         }
+
+        /* Barra de ordenación */
+        .sort-bar {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+            background: rgba(25, 20, 30, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 50px;
+            padding: 0.3rem;
+            border: 1px solid rgba(255, 80, 120, 0.25);
+        }
+        .sort-btn {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: #b8a3ae;
+            font-weight: 600;
+            font-size: 0.75rem;
+            padding: 0.5rem 0.4rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all var(--transition-smooth);
+            white-space: nowrap;
+            letter-spacing: 0.3px;
+        }
+        .sort-btn.active {
+            background: rgba(255, 60, 90, 0.25);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(255, 60, 90, 0.3);
+        }
+        .sort-btn:hover:not(.active) {
+            background: rgba(255, 60, 90, 0.1);
+            color: #e0d4db;
+        }
+
         .quick-models {
             position: relative; z-index: 1; margin-bottom: 1.3rem;
             display: flex; flex-direction: column; gap: 0.55rem;
@@ -330,13 +370,14 @@
             .btn-generate { padding: 0 1.1rem; font-size: 0.9rem; }
             input { font-size: 0.9rem; }
             .model-chip, .model-chip-blue { font-size: 0.72rem; padding: 0.45rem 0.8rem; }
+            .sort-btn { font-size: 0.7rem; padding: 0.4rem 0.3rem; }
         }
     </style>
 </head>
 <body>
     <main class="glass-panel">
         <div class="header">
-            <div class="icon-row">🥀🐢💋✨</div>
+            <div class="icon-row">🥀💋✨</div>
             <h1>VelvetLink</h1>
             <p class="sub"><span>🔞</span> Discreet access · curated profiles</p>
         </div>
@@ -347,6 +388,13 @@
                 <input type="text" id="modelNameInput" placeholder="Enter model name..." autocomplete="off" autofocus>
             </div>
             <button class="btn-generate" id="generateBtn"><span>✨</span> Find</button>
+        </div>
+
+        <!-- Barra de ordenación -->
+        <div class="sort-bar" id="sortBar">
+            <button class="sort-btn active" data-sort="default">📋 Original</button>
+            <button class="sort-btn" data-sort="az">🔤 A-Z</button>
+            <button class="sort-btn" data-sort="newest">🆕 Más nuevo</button>
         </div>
 
         <div class="quick-models section-latina">
@@ -405,6 +453,7 @@
             const profileAvatar = document.getElementById('profileAvatar');
             const profileDisplayName = document.getElementById('profileDisplayName');
             const btnOpenStripchat = document.getElementById('btnOpenStripchat');
+            const sortButtons = document.querySelectorAll('.sort-btn');
 
             const avatarBaseUrls = [
                 'https://img.stripchat.com/avatar/{model}',
@@ -421,17 +470,21 @@
                 { name: 'ShowCamRips', icon: '🎬', urlPattern: 'https://www.showcamrips.com/model/en/{model}/' }
             ];
 
-            const categories = {
-                latina: ['LunaaRosse', 'amor_smith_', 'riri_brunnete', 'Esmeralda_Duarte', 'anny_vittar', 'violeta_rosex', '_lasuenscun', 'sofierosse_', 'steacy_19', 'karolvipxxx'],
-                mom: ['lolaslatary1', 'Mia_sweet80', 'shainadavis'],
+            // Orden original (añadidos cronológicamente)
+            const categoriesOriginal = {
+                latina: ['LunaaRosse', 'amor_smith_', 'riri_brunnete', 'Esmeralda_Duarte', 'anny_vittar', 'violeta_rosex', '_lasuenscun', 'sofierosse_', 'steacy_19', 'karolvipxxx', 'MorenazaAcsa', 'HotSweetAngel', 'DearAbbiee'],
+                mom: ['lolaslatary1', 'Mia_sweet80', 'shainadavis', 'Masked_SexyMelons'],
                 ebony: ['SexyDee025', 'alice-blaker', 'xxxsexyamazon'],
                 couple: ['rose_berry', 'sofi_johansson', 'fox_roxxan', 'anabelle_bluee10', 'Danteandviolete_cr', 'hot69temptation_', 'DAVID_VICTORIAA']
             };
 
+            // Copia que usaremos para mostrar, se modificará con el orden
+            let categories = JSON.parse(JSON.stringify(categoriesOriginal));
+
             const greenModels = new Set([
                 'rose_berry', 'violeta_rosex', '_lasuenscun', 'anabelle_bluee10',
                 'sofi_johansson', 'sofierosse_', 'steacy_19', 'fox_roxxan',
-                'Danteandviolete_cr', 'hot69temptation_', 'DAVID_VICTORIAA', 'karolvipxxx'
+                'Danteandviolete_cr', 'hot69temptation_', 'DAVID_VICTORIAA', 'karolvipxxx', 'Masked_SexyMelons', 'MorenazaAcsa', 'HotSweetAngel', 'DearAbbiee'
             ]);
 
             const directLinks = [
@@ -440,6 +493,46 @@
                 { label: 'myc_hot', url: 'https://livecamrips.to/model/7530/myc_hot' },
                 { label: 'SinCityDoll', url: 'https://livecamrips.to/model/391731/SinCityDoll' }
             ];
+
+            let currentSort = 'default'; // 'default', 'az', 'newest'
+
+            function applySort(mode) {
+                for (let cat in categoriesOriginal) {
+                    let arr = [...categoriesOriginal[cat]];
+                    if (mode === 'az') {
+                        arr.sort((a, b) => a.localeCompare(b, 'es', { sensitivity: 'base' }));
+                    } else if (mode === 'newest') {
+                        arr.reverse(); // el original está del más antiguo al más nuevo, invertir da el más nuevo primero
+                    }
+                    // 'default' mantiene el orden original
+                    categories[cat] = arr;
+                }
+            }
+
+            function updateSortButtons(activeMode) {
+                sortButtons.forEach(btn => {
+                    const mode = btn.getAttribute('data-sort');
+                    if (mode === activeMode) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+            }
+
+            sortButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const mode = btn.getAttribute('data-sort');
+                    if (mode === currentSort) return;
+                    currentSort = mode;
+                    updateSortButtons(mode);
+                    applySort(mode);
+                    initCategories(); // re-renderiza las categorías
+                });
+            });
+
+            // Inicializar con orden por defecto
+            applySort('default');
 
             function sanitizeModelName(rawName) {
                 return rawName.trim().replace(/\s+/g, '');
