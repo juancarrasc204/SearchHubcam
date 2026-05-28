@@ -171,7 +171,6 @@
             75%{transform:translateX(5px);}
         }
 
-        /* Barra de ordenación */
         .sort-bar {
             display: flex;
             align-items: center;
@@ -226,6 +225,7 @@
         .section-ebony .label-chips { color: #b8a0d0; border-left-color: #b388ff; }
         .section-couple .label-chips { color: #ff80ab; border-left-color: #ff4081; }
         .section-direct .label-chips { color: #6fa8dc; border-left-color: #448aff; }
+        .section-new .label-chips { color: #69f0ae; border-left-color: #00e676; }
 
         .chips-container { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 
@@ -390,11 +390,16 @@
             <button class="btn-generate" id="generateBtn"><span>✨</span> Find</button>
         </div>
 
-        <!-- Barra de ordenación -->
         <div class="sort-bar" id="sortBar">
             <button class="sort-btn active" data-sort="default">📋 Original</button>
             <button class="sort-btn" data-sort="az">🔤 A-Z</button>
             <button class="sort-btn" data-sort="newest">🆕 Más nuevo</button>
+        </div>
+
+        <!-- Sección New (recién añadidas) -->
+        <div class="quick-models section-new">
+            <div class="label-chips"><span>✨</span> New Additions</div>
+            <div class="chips-container" id="newChips"></div>
         </div>
 
         <div class="quick-models section-latina">
@@ -415,7 +420,7 @@
         </div>
 
         <div class="quick-models section-direct">
-            <div class="label-chips"><span>🔗</span> Direct links</div>
+            <div class="label-chips"><span>🔗</span> Direct links / Video Fav</div>
             <div class="chips-container" id="directChipsContainer"></div>
         </div>
 
@@ -470,31 +475,33 @@
                 { name: 'ShowCamRips', icon: '🎬', urlPattern: 'https://www.showcamrips.com/model/en/{model}/' }
             ];
 
-            // Orden original (añadidos cronológicamente)
+            // Órdenes originales (añadidos cronológicamente)
             const categoriesOriginal = {
+                new: ['SaharaArisa', 'nurse_becky', 'isabella_lovem', 'the_titis_outdoors', 'celine_bell20', 'Ivelleee_', 'ava_blue', 'Deisy_torres', 'Joha_ross92'],
                 latina: ['LunaaRosse', 'amor_smith_', 'riri_brunnete', 'Esmeralda_Duarte', 'anny_vittar', 'violeta_rosex', '_lasuenscun', 'sofierosse_', 'steacy_19', 'karolvipxxx', 'MorenazaAcsa', 'HotSweetAngel', 'DearAbbiee'],
                 mom: ['lolaslatary1', 'Mia_sweet80', 'shainadavis', 'Masked_SexyMelons'],
                 ebony: ['SexyDee025', 'alice-blaker', 'xxxsexyamazon'],
                 couple: ['rose_berry', 'sofi_johansson', 'fox_roxxan', 'anabelle_bluee10', 'Danteandviolete_cr', 'hot69temptation_', 'DAVID_VICTORIAA']
             };
 
-            // Copia que usaremos para mostrar, se modificará con el orden
             let categories = JSON.parse(JSON.stringify(categoriesOriginal));
 
             const greenModels = new Set([
                 'rose_berry', 'violeta_rosex', '_lasuenscun', 'anabelle_bluee10',
                 'sofi_johansson', 'sofierosse_', 'steacy_19', 'fox_roxxan',
-                'Danteandviolete_cr', 'hot69temptation_', 'DAVID_VICTORIAA', 'karolvipxxx', 'Masked_SexyMelons', 'MorenazaAcsa', 'HotSweetAngel', 'DearAbbiee'
+                'Danteandviolete_cr', 'hot69temptation_', 'DAVID_VICTORIAA', 'karolvipxxx', 'Masked_SexyMelons', 'MorenazaAcsa', 'HotSweetAngel', 'DearAbbiee',
+                'SaharaArisa', 'nurse_becky', 'isabella_lovem', 'the_titis_outdoors', 'celine_bell20', 'Ivelleee_', 'ava_blue', 'Deisy_torres', 'Joha_ross92'
             ]);
 
             const directLinks = [
                 { label: 'Video 175361655', url: 'https://es.cumcams.cc/video/175361655/play' },
                 { label: 'sol_and_andy', url: 'https://livecamrips.to/model/413943/sol_and_andy' },
                 { label: 'myc_hot', url: 'https://livecamrips.to/model/7530/myc_hot' },
-                { label: 'SinCityDoll', url: 'https://livecamrips.to/model/391731/SinCityDoll' }
+                { label: 'SinCityDoll', url: 'https://livecamrips.to/model/391731/SinCityDoll' },
+                { label: 'SxyPrn Video', url: 'https://sxyprn.com/post/6a16236f557a0.html?asgtbndr=1' }
             ];
 
-            let currentSort = 'default'; // 'default', 'az', 'newest'
+            let currentSort = 'default';
 
             function applySort(mode) {
                 for (let cat in categoriesOriginal) {
@@ -502,9 +509,8 @@
                     if (mode === 'az') {
                         arr.sort((a, b) => a.localeCompare(b, 'es', { sensitivity: 'base' }));
                     } else if (mode === 'newest') {
-                        arr.reverse(); // el original está del más antiguo al más nuevo, invertir da el más nuevo primero
+                        arr.reverse();
                     }
-                    // 'default' mantiene el orden original
                     categories[cat] = arr;
                 }
             }
@@ -512,11 +518,7 @@
             function updateSortButtons(activeMode) {
                 sortButtons.forEach(btn => {
                     const mode = btn.getAttribute('data-sort');
-                    if (mode === activeMode) {
-                        btn.classList.add('active');
-                    } else {
-                        btn.classList.remove('active');
-                    }
+                    btn.classList.toggle('active', mode === activeMode);
                 });
             }
 
@@ -527,11 +529,10 @@
                     currentSort = mode;
                     updateSortButtons(mode);
                     applySort(mode);
-                    initCategories(); // re-renderiza las categorías
+                    initCategories();
                 });
             });
 
-            // Inicializar con orden por defecto
             applySort('default');
 
             function sanitizeModelName(rawName) {
@@ -670,6 +671,7 @@
             }
 
             function initCategories() {
+                renderCategory('newChips', categories.new, 'chip-latina');
                 renderCategory('latinaChips', categories.latina, 'chip-latina');
                 renderCategory('momChips', categories.mom, 'chip-mom');
                 renderCategory('ebonyChips', categories.ebony, 'chip-ebony');
