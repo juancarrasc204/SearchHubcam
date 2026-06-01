@@ -3,34 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>🥀 VelvetLink · Discreet Access Portal</title>
+    <title>🥀 VelvetLink · Discreet Access</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
-            --bg-wood: #2c1a0e;
-            --bg-panel: rgba(20, 12, 6, 0.88);
+            --bg-black: #0a0a0a;
+            --panel-bg: rgba(18, 18, 18, 0.9);
             --gold: #d4af37;
             --gold-light: #f0c040;
             --gold-dim: #b8922e;
-            --neon-blue: #00bcd4;
-            --neon-blue-glow: rgba(0, 188, 212, 0.3);
             --text-light: #e8dcc8;
             --text-dim: #b8a58b;
-            --border-wood: rgba(212, 175, 55, 0.35);
+            --border-gold: rgba(212, 175, 55, 0.4);
             --shadow-gold: 0 20px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(212, 175, 55, 0.25);
-            --shadow-hover: 0 18px 35px rgba(0,0,0,0.7), 0 0 0 1px rgba(212, 175, 55, 0.6);
             --radius-xl: 28px;
             --radius-lg: 20px;
             --radius-md: 14px;
-            --radius-sm: 10px;
             --transition-smooth: 0.28s cubic-bezier(0.23, 1, 0.32, 1);
         }
         body {
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            background: radial-gradient(circle at 30% 20%, #3e2a1a 0%, #1a0f07 80%);
+            background: radial-gradient(circle at 30% 20%, #1a1a1a 0%, #0a0a0a 80%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -39,194 +35,79 @@
             color: var(--text-light);
             -webkit-tap-highlight-color: transparent;
             background-attachment: fixed;
-            position: relative;
-            overflow-x: hidden;
-        }
-        /* Textura de madera de fondo (vetas y nudos) */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: 
-                /* Vetas horizontales sutiles */
-                repeating-linear-gradient(
-                    0deg,
-                    transparent,
-                    transparent 3px,
-                    rgba(139, 90, 43, 0.15) 3px,
-                    rgba(139, 90, 43, 0.15) 4px
-                ),
-                /* Vetas onduladas */
-                repeating-linear-gradient(
-                    2deg,
-                    transparent,
-                    transparent 8px,
-                    rgba(160, 100, 40, 0.1) 8px,
-                    rgba(160, 100, 40, 0.1) 9px
-                ),
-                /* Nudos de madera */
-                radial-gradient(circle at 20% 30%, rgba(120, 70, 30, 0.3) 0%, transparent 15%),
-                radial-gradient(circle at 75% 60%, rgba(140, 80, 35, 0.25) 0%, transparent 18%),
-                radial-gradient(circle at 50% 85%, rgba(100, 60, 25, 0.3) 0%, transparent 12%),
-                /* Brillo barnizado */
-                radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.06) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(0, 188, 212, 0.03) 0%, transparent 50%);
-            pointer-events: none;
-            z-index: 0;
         }
         .glass-panel {
             width: 100%;
-            max-width: 550px;
-            background: var(--bg-panel);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--border-wood);
+            max-width: 530px;
+            background: var(--panel-bg);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid var(--border-gold);
             border-radius: var(--radius-xl);
-            box-shadow: var(--shadow-gold), inset 0 0 30px rgba(212, 175, 55, 0.08);
-            padding: 2.5rem 1.8rem 2.2rem;
+            box-shadow: var(--shadow-gold);
+            padding: 2.2rem 1.8rem 2rem;
             animation: floatIn 0.8s ease-out;
             position: relative;
             z-index: 2;
-            overflow: hidden;
-        }
-        /* Textura de madera dentro del panel */
-        .glass-panel::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: 
-                /* Vetas internas */
-                repeating-linear-gradient(
-                    1deg,
-                    transparent,
-                    transparent 6px,
-                    rgba(139, 90, 43, 0.08) 6px,
-                    rgba(139, 90, 43, 0.08) 7px
-                ),
-                repeating-linear-gradient(
-                    -0.5deg,
-                    transparent,
-                    transparent 12px,
-                    rgba(160, 100, 40, 0.05) 12px,
-                    rgba(160, 100, 40, 0.05) 13px
-                ),
-                /* Nudo de madera en esquina */
-                radial-gradient(ellipse at 85% 15%, rgba(140, 80, 35, 0.2) 0%, transparent 25%),
-                /* Brillo dorado central */
-                radial-gradient(ellipse at 50% 50%, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
-            border-radius: var(--radius-xl);
-            z-index: 0;
-            pointer-events: none;
         }
         @keyframes floatIn {
             0% { opacity: 0; transform: translateY(30px) scale(0.96); }
             100% { opacity: 1; transform: translateY(0) scale(1); }
         }
         .header {
-            position: relative; z-index: 1;
-            text-align: center; margin-bottom: 1.8rem;
+            text-align: center;
+            margin-bottom: 2rem;
         }
         .header .icon-row {
-            font-size: 2.4rem; letter-spacing: 6px;
+            font-size: 2.4rem;
+            letter-spacing: 6px;
             filter: drop-shadow(0 4px 12px rgba(212, 175, 55, 0.5));
-            animation: sensualPulse 2.8s infinite ease-in-out;
+            animation: pulse 2.8s infinite ease-in-out;
         }
-        @keyframes sensualPulse {
+        @keyframes pulse {
             0%, 100% { transform: scale(1); opacity: 0.85; }
             50% { transform: scale(1.04); opacity: 1; }
         }
         .header h1 {
-            font-size: 2.2rem; font-weight: 800; letter-spacing: -0.5px;
+            font-size: 2.2rem; font-weight: 800;
             background: linear-gradient(135deg, #f0c040, #d4af37);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 0.2rem;
-            filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.5));
+            margin: 0.2rem 0;
         }
         .header .sub {
-            font-size: 0.85rem; font-weight: 500;
-            color: var(--text-dim); letter-spacing: 0.4px;
-        }
-
-        /* Banner de la más reciente */
-        .latest-badge {
-            position: relative; z-index: 1;
-            background: linear-gradient(135deg, rgba(30, 15, 8, 0.9), rgba(44, 26, 14, 0.9));
-            border: 1px solid rgba(212, 175, 55, 0.5);
-            border-radius: var(--radius-md);
-            padding: 0.8rem 1rem;
-            margin-bottom: 1.2rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 0.8rem;
-            box-shadow: 0 6px 18px rgba(0,0,0,0.5), 0 0 10px rgba(212, 175, 55, 0.2);
-            animation: fadeSlide 0.5s ease;
-        }
-        .latest-badge .latest-label {
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            font-weight: 700;
-            font-size: 0.8rem;
-            color: var(--gold-light);
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-        }
-        .latest-badge .latest-name {
-            font-weight: 700;
-            font-size: 0.95rem;
-            color: #f0e6d2;
-            background: rgba(212, 175, 55, 0.15);
-            padding: 0.3rem 0.8rem;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all var(--transition-smooth);
-            border: 1px solid rgba(212, 175, 55, 0.4);
-        }
-        .latest-badge .latest-name:hover {
-            background: var(--gold);
-            color: #1a0f07;
-            border-color: var(--gold);
-            box-shadow: 0 4px 14px rgba(212, 175, 55, 0.5);
+            font-size: 0.85rem; color: var(--text-dim); letter-spacing: 0.4px;
         }
 
         .search-box {
             display: flex; gap: 0.5rem; margin-bottom: 1.5rem;
-            align-items: center; position: relative; z-index: 1;
         }
         .input-wrapper { flex: 1; position: relative; }
         .input-wrapper i {
             position: absolute; left: 1rem; top: 50%;
             transform: translateY(-50%); color: var(--gold-dim); font-size: 0.9rem;
-            pointer-events: none;
         }
         input {
             width: 100%; padding: 0.9rem 1rem 0.9rem 2.5rem;
-            background: rgba(10, 6, 3, 0.75);
-            border: 1.5px solid rgba(212, 175, 55, 0.4);
+            background: rgba(10, 10, 10, 0.8);
+            border: 1.5px solid var(--border-gold);
             border-radius: 50px; font-size: 1rem; font-weight: 500;
             color: var(--text-light); outline: none;
             transition: all var(--transition-smooth); letter-spacing: 0.3px;
-            box-shadow: inset 0 2px 8px rgba(0,0,0,0.5);
         }
-        input::placeholder { color: #7a6a54; font-weight: 400; font-size: 0.95rem; }
+        input::placeholder { color: #7a6a54; }
         input:focus {
             border-color: var(--gold);
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5), 0 0 0 3px rgba(212, 175, 55, 0.2);
-            background: rgba(15, 8, 4, 0.9);
+            box-shadow: 0 0 18px rgba(212, 175, 55, 0.4);
+            background: rgba(15, 15, 15, 0.9);
         }
         .btn-generate {
             background: linear-gradient(135deg, #d4af37, #b8922e);
-            border: none; color: #1a0f07; font-weight: 700; font-size: 0.95rem;
+            border: none; color: #0a0a0a; font-weight: 700; font-size: 0.95rem;
             padding: 0 1.4rem; height: 48px; border-radius: 50px;
             display: flex; align-items: center; gap: 0.3rem;
             cursor: pointer; box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
-            transition: all var(--transition-smooth); letter-spacing: 0.5px;
-            white-space: nowrap;
-            position: relative; overflow: hidden;
+            transition: all var(--transition-smooth); white-space: nowrap;
         }
         .btn-generate:hover {
             background: linear-gradient(135deg, #f0c040, #c9a837);
@@ -238,141 +119,54 @@
         .error-msg {
             color: #ffb3b3; font-size: 0.85rem; margin-top: 0.4rem;
             display: none; align-items: center; gap: 0.3rem;
-            animation: shake 0.3s ease; position: relative; z-index: 1;
             background: rgba(180, 30, 30, 0.4);
             padding: 0.4rem 0.8rem; border-radius: 20px;
         }
-        @keyframes shake {
-            0%,100%{transform:translateX(0);}
-            25%{transform:translateX(-5px);}
-            75%{transform:translateX(5px);}
-        }
-
-        /* Barra de ordenación con textura */
-        .sort-bar {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-            z-index: 1;
-            background: rgba(10, 6, 3, 0.6);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 50px;
-            padding: 0.3rem;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            box-shadow: inset 0 2px 6px rgba(0,0,0,0.4);
-        }
-        .sort-btn {
-            flex: 1;
-            background: transparent;
-            border: none;
-            color: var(--text-dim);
-            font-weight: 600;
-            font-size: 0.75rem;
-            padding: 0.5rem 0.4rem;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all var(--transition-smooth);
-            white-space: nowrap;
-            letter-spacing: 0.3px;
-        }
-        .sort-btn.active {
-            background: var(--gold);
-            color: #1a0f07;
-            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.5);
-            font-weight: 700;
-        }
-        .sort-btn:hover:not(.active) {
-            background: rgba(212, 175, 55, 0.2);
-            color: var(--gold-light);
-        }
 
         .quick-models {
-            position: relative; z-index: 1; margin-bottom: 1.3rem;
-            display: flex; flex-direction: column; gap: 0.55rem;
+            margin-bottom: 1.3rem;
         }
         .quick-models .label-chips {
             font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.2px;
             font-weight: 700;
             display: flex; align-items: center; gap: 0.4rem;
             padding-left: 0.5rem;
-            border-left: 3px solid transparent;
+            border-left: 3px solid var(--gold);
+            color: var(--gold-light);
+            margin-bottom: 0.5rem;
         }
-        .section-new .label-chips { color: var(--gold-light); border-left-color: var(--gold); }
-        .section-latina .label-chips { color: #ff8a80; border-left-color: #ff5252; }
-        .section-mom .label-chips { color: #e0b070; border-left-color: #d4af37; }
-        .section-ebony .label-chips { color: #b39ddb; border-left-color: #b388ff; }
-        .section-couple .label-chips { color: #f48fb1; border-left-color: #ff4081; }
-        .section-direct .label-chips { color: var(--neon-blue); border-left-color: var(--neon-blue); }
-
         .chips-container { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 
         .model-chip {
             font-weight: 600; font-size: 0.8rem;
             padding: 0.5rem 1rem; border-radius: 50px; cursor: pointer;
-            backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
             transition: all var(--transition-smooth); letter-spacing: 0.3px;
             white-space: nowrap; display: flex; align-items: center; gap: 0.3rem;
-            border: 1px solid transparent;
-            background: rgba(15, 8, 4, 0.7);
+            border: 1px solid var(--border-gold);
+            background: rgba(10, 10, 10, 0.7);
             color: var(--text-light);
-            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
         }
         .model-chip:hover {
+            background: rgba(212, 175, 55, 0.2);
+            border-color: var(--gold);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
             transform: translateY(-2px);
-            box-shadow: 0 6px 18px rgba(0,0,0,0.5);
         }
         .model-chip:active { transform: scale(0.95); }
 
-        .chip-new { border-color: rgba(212, 175, 55, 0.5); }
-        .chip-new:hover { background: rgba(212, 175, 55, 0.2); border-color: var(--gold); box-shadow: 0 6px 18px rgba(212, 175, 55, 0.3); }
-        .chip-latina { border-color: rgba(255, 82, 82, 0.5); }
-        .chip-latina:hover { background: rgba(255, 82, 82, 0.15); border-color: #ff5252; }
-        .chip-mom { border-color: rgba(212, 175, 55, 0.5); }
-        .chip-mom:hover { background: rgba(212, 175, 55, 0.15); border-color: var(--gold); }
-        .chip-ebony { border-color: rgba(179, 136, 255, 0.5); }
-        .chip-ebony:hover { background: rgba(179, 136, 255, 0.15); border-color: #b388ff; }
-        .chip-couple { border-color: rgba(255, 64, 129, 0.5); }
-        .chip-couple:hover { background: rgba(255, 64, 129, 0.15); border-color: #ff4081; }
-
-        .model-chip.chip-green {
-            background: rgba(212, 175, 55, 0.15);
-            border-color: rgba(212, 175, 55, 0.7);
-            color: #ffecb3;
+        /* Enlaces directos también en dorado */
+        .model-chip.direct-link {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--gold-dim);
+            color: var(--gold-light);
         }
-        .model-chip.chip-green:hover {
-            background: rgba(212, 175, 55, 0.3);
-            border-color: var(--gold-light);
-            box-shadow: 0 6px 18px rgba(212, 175, 55, 0.4);
-        }
-
-        .model-chip-blue {
-            background: rgba(0, 188, 212, 0.1);
-            border: 1px solid rgba(0, 188, 212, 0.5);
-            color: #b2ebf2;
-            font-weight: 600; font-size: 0.8rem;
-            padding: 0.5rem 1rem; border-radius: 50px; cursor: pointer;
-            backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-            transition: all var(--transition-smooth); letter-spacing: 0.3px;
-            white-space: nowrap; display: flex; align-items: center; gap: 0.3rem;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-        }
-        .model-chip-blue:hover {
-            background: rgba(0, 188, 212, 0.25);
-            border-color: var(--neon-blue);
-            box-shadow: 0 6px 18px rgba(0, 188, 212, 0.4);
-            transform: translateY(-2px);
-        }
-        .model-chip-blue:active {
-            transform: scale(0.95);
-            background: var(--neon-blue);
-            color: #0a1a1f;
+        .model-chip.direct-link:hover {
+            background: rgba(212, 175, 55, 0.25);
+            border-color: var(--gold);
         }
 
         .stripchat-profile {
-            position: relative; z-index: 1; margin: 1.2rem 0 1.5rem;
+            margin: 1.2rem 0 1.5rem;
             display: none; animation: fadeSlide 0.4s ease;
         }
         @keyframes fadeSlide {
@@ -380,43 +174,40 @@
             to { opacity: 1; transform: translateY(0); }
         }
         .profile-card {
-            background: rgba(20, 12, 6, 0.85);
-            border: 1px solid rgba(212, 175, 55, 0.4);
+            background: rgba(15, 15, 15, 0.85);
+            border: 1px solid var(--border-gold);
             border-radius: var(--radius-lg); padding: 1rem;
             display: flex; align-items: center; gap: 1rem;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5), 0 0 15px rgba(212, 175, 55, 0.2);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.6);
         }
         .avatar-wrapper {
             width: 60px; height: 60px; border-radius: 50%; overflow: hidden;
-            flex-shrink: 0; background: #2c1a0e;
-            border: 2px solid rgba(212, 175, 55, 0.7);
+            background: #1a1a1a;
+            border: 2px solid var(--gold);
             box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
         }
-        .avatar-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .avatar-img { width: 100%; height: 100%; object-fit: cover; }
         .profile-info { flex: 1; display: flex; flex-direction: column; gap: 0.3rem; }
         .profile-name { font-weight: 700; font-size: 1.05rem; color: var(--text-light); }
-        .profile-site { font-size: 0.75rem; color: var(--gold); display: flex; align-items: center; gap: 0.3rem; }
+        .profile-site { font-size: 0.75rem; color: var(--gold); }
         .btn-stripchat {
             background: linear-gradient(135deg, #d4af37, #b8922e);
-            border: none; color: #1a0f07; font-weight: 700; font-size: 0.8rem;
+            border: none; color: #0a0a0a; font-weight: 700; font-size: 0.8rem;
             padding: 0.5rem 1.1rem; border-radius: 50px; cursor: pointer;
-            display: flex; align-items: center; gap: 0.3rem; align-self: flex-start;
             box-shadow: 0 6px 16px rgba(212, 175, 55, 0.4);
-            transition: all var(--transition-smooth); white-space: nowrap;
+            transition: all var(--transition-smooth);
         }
-        .btn-stripchat:hover { background: #f0c040; box-shadow: 0 8px 20px rgba(212, 175, 55, 0.6); }
-        .btn-stripchat:active { transform: scale(0.95); }
+        .btn-stripchat:hover { background: #f0c040; }
 
-        .results-container { display: flex; flex-direction: column; gap: 0.8rem; margin-top: 0.8rem; position: relative; z-index: 1; }
+        .results-container { display: flex; flex-direction: column; gap: 0.8rem; margin-top: 0.8rem; }
         .link-card {
-            background: rgba(20, 12, 6, 0.8);
-            border: 1px solid rgba(212, 175, 55, 0.3);
+            background: rgba(15, 15, 15, 0.8);
+            border: 1px solid var(--border-gold);
             border-radius: var(--radius-md); padding: 0.9rem 1.2rem;
             display: flex; align-items: center; justify-content: space-between;
-            animation: cardRise 0.45s ease backwards;
             box-shadow: 0 6px 14px rgba(0,0,0,0.4);
-            cursor: pointer;
-            transition: all var(--transition-smooth);
+            cursor: pointer; transition: all var(--transition-smooth);
+            animation: cardRise 0.45s ease backwards;
         }
         @keyframes cardRise {
             from { opacity: 0; transform: translateY(20px); }
@@ -424,31 +215,22 @@
         }
         .link-card:hover {
             border-color: var(--gold);
-            box-shadow: var(--shadow-hover);
-            transform: translateY(-1px);
+            box-shadow: 0 10px 22px rgba(0,0,0,0.6), 0 0 0 1px rgba(212, 175, 55, 0.5);
         }
         .site-info { display: flex; align-items: center; gap: 0.8rem; font-weight: 600; color: var(--text-light); }
-        .site-icon { font-size: 1.3rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5)); }
+        .site-icon { font-size: 1.3rem; }
         .btn-visit {
             background: rgba(212, 175, 55, 0.12);
-            border: 1px solid rgba(212, 175, 55, 0.5);
+            border: 1px solid var(--border-gold);
             color: var(--gold-light); font-weight: 700; font-size: 0.85rem;
             padding: 0.5rem 1.2rem; border-radius: 50px;
             cursor: pointer; transition: all var(--transition-smooth);
-            display: flex; align-items: center; gap: 0.3rem;
             white-space: nowrap;
         }
-        .btn-visit:hover { background: var(--gold); border-color: var(--gold); color: #1a0f07; }
-        .btn-visit:active { transform: scale(0.94); }
-        .empty-state { text-align: center; color: #7a6a54; padding: 1.5rem 0.5rem; font-size: 0.9rem; display: flex; flex-direction: column; align-items: center; gap: 0.3rem; opacity: 0.8; }
-        .footer-note { margin-top: 2rem; text-align: center; font-size: 0.7rem; color: #6b5a44; letter-spacing: 0.6px; border-top: 1px solid rgba(212, 175, 55, 0.2); padding-top: 1.3rem; }
-        @media (max-width: 380px) {
-            .glass-panel { padding: 2rem 1.2rem 1.8rem; }
-            .btn-generate { padding: 0 1.1rem; font-size: 0.9rem; }
-            input { font-size: 0.9rem; }
-            .model-chip, .model-chip-blue { font-size: 0.72rem; padding: 0.45rem 0.8rem; }
-            .sort-btn { font-size: 0.7rem; padding: 0.4rem 0.3rem; }
-        }
+        .btn-visit:hover { background: var(--gold); border-color: var(--gold); color: #0a0a0a; }
+
+        .empty-state { text-align: center; color: #7a6a54; padding: 1.5rem 0.5rem; font-size: 0.9rem; }
+        .footer-note { margin-top: 2rem; text-align: center; font-size: 0.7rem; color: #6b5a44; border-top: 1px solid rgba(212, 175, 55, 0.2); padding-top: 1.3rem; }
     </style>
 </head>
 <body>
@@ -459,11 +241,6 @@
             <p class="sub">Discreet access · curated profiles</p>
         </div>
 
-        <div class="latest-badge" id="latestBadge">
-            <span class="latest-label"><span>✨</span> Recién añadida</span>
-            <span class="latest-name" id="latestModelName">Sasha_0012</span>
-        </div>
-
         <div class="search-box">
             <div class="input-wrapper">
                 <i>🔍</i>
@@ -471,51 +248,35 @@
             </div>
             <button class="btn-generate" id="generateBtn"><span>✨</span> Find</button>
         </div>
+        <div class="error-msg" id="errorMsg"><span>⚠️</span> <span id="errorText"></span></div>
 
-        <div class="sort-bar" id="sortBar">
-            <button class="sort-btn active" data-sort="default">📋 Original</button>
-            <button class="sort-btn" data-sort="az">🔤 A-Z</button>
-            <button class="sort-btn" data-sort="newest">🆕 Más nuevo</button>
-        </div>
-
-        <div class="quick-models section-new">
-            <div class="label-chips"><span>✨</span> New Additions</div>
-            <div class="chips-container" id="newChips"></div>
-        </div>
-
-        <div class="quick-models section-latina">
+        <!-- Sección Latina -->
+        <div class="quick-models">
             <div class="label-chips"><span>🌶️</span> Latina</div>
             <div class="chips-container" id="latinaChips"></div>
         </div>
-        <div class="quick-models section-mom">
-            <div class="label-chips"><span>👩</span> Mom</div>
-            <div class="chips-container" id="momChips"></div>
-        </div>
-        <div class="quick-models section-ebony">
-            <div class="label-chips"><span>🌑</span> Ebony</div>
-            <div class="chips-container" id="ebonyChips"></div>
-        </div>
-        <div class="quick-models section-couple">
-            <div class="label-chips"><span>💑</span> Couple</div>
-            <div class="chips-container" id="coupleChips"></div>
+
+        <!-- Sección Otras (no latinas) -->
+        <div class="quick-models">
+            <div class="label-chips"><span>🌑</span> Other Models</div>
+            <div class="chips-container" id="otherChips"></div>
         </div>
 
-        <div class="quick-models section-direct">
-            <div class="label-chips"><span>🔗</span> Direct links / Video Fav</div>
+        <!-- Enlaces directos -->
+        <div class="quick-models">
+            <div class="label-chips"><span>🔗</span> Direct links</div>
             <div class="chips-container" id="directChipsContainer"></div>
         </div>
-
-        <div class="error-msg" id="errorMsg"><span>⚠️</span> <span id="errorText"></span></div>
 
         <div class="stripchat-profile" id="stripchatProfile">
             <div class="profile-card">
                 <div class="avatar-wrapper">
-                    <img class="avatar-img" id="profileAvatar" src="" alt="Model avatar" loading="lazy">
+                    <img class="avatar-img" id="profileAvatar" src="" alt="Model avatar">
                 </div>
                 <div class="profile-info">
                     <span class="profile-name" id="profileDisplayName"></span>
                     <span class="profile-site">🍑 Stripchat · live</span>
-                    <button class="btn-stripchat" id="btnOpenStripchat"><span>Visit</span> ↗️</button>
+                    <button class="btn-stripchat" id="btnOpenStripchat">Visit ↗️</button>
                 </div>
             </div>
         </div>
@@ -534,13 +295,10 @@
             const resultsContainer = document.getElementById('resultsContainer');
             const errorMsg = document.getElementById('errorMsg');
             const errorText = document.getElementById('errorText');
-            const directChipsContainer = document.getElementById('directChipsContainer');
             const stripchatProfile = document.getElementById('stripchatProfile');
             const profileAvatar = document.getElementById('profileAvatar');
             const profileDisplayName = document.getElementById('profileDisplayName');
             const btnOpenStripchat = document.getElementById('btnOpenStripchat');
-            const sortButtons = document.querySelectorAll('.sort-btn');
-            const latestModelNameEl = document.getElementById('latestModelName');
 
             const avatarBaseUrls = [
                 'https://img.stripchat.com/avatar/{model}',
@@ -557,25 +315,28 @@
                 { name: 'ShowCamRips', icon: '🎬', urlPattern: 'https://www.showcamrips.com/model/en/{model}/' }
             ];
 
-            const latestModel = 'Sasha_0012';
+            // Lista de latinas (orden alfabético)
+            const latinaModels = [
+                'amor_smith_', 'anny_vittar', 'DearAbbiee', 'Esmeralda_Duarte',
+                'HotSweetAngel', 'karolvipxxx', 'LunaaRosse', 'MorenazaAcsa',
+                'riri_brunnete', 'sofierosse_', 'steacy_19', '_lasuenscun',
+                'violeta_rosex'
+            ].sort((a,b) => a.localeCompare(b, 'es', {sensitivity:'base'}));
 
-            const categoriesOriginal = {
-                new: ['Sasha_0012', '18_salo', 'monicaflower', 'bellapaty', 'rave_connor', 'StormiRoseb', 'Lizzie_Williams_', 'Cristal-Jonnes', '_mishelle', 'kathdolly', 'Joha_ross92', 'Deisy_torres', 'ava_blue', 'Ivelleee_', 'celine_bell20', 'the_titis_outdoors', 'isabella_lovem', 'nurse_becky', 'SaharaArisa'],
-                latina: ['LunaaRosse', 'amor_smith_', 'riri_brunnete', 'Esmeralda_Duarte', 'anny_vittar', 'violeta_rosex', '_lasuenscun', 'sofierosse_', 'steacy_19', 'karolvipxxx', 'MorenazaAcsa', 'HotSweetAngel', 'DearAbbiee'],
-                mom: ['lolaslatary1', 'Mia_sweet80', 'shainadavis', 'Masked_SexyMelons'],
-                ebony: ['SexyDee025', 'alice-blaker', 'xxxsexyamazon'],
-                couple: ['rose_berry', 'sofi_johansson', 'fox_roxxan', 'anabelle_bluee10', 'Danteandviolete_cr', 'hot69temptation_', 'DAVID_VICTORIAA']
-            };
+            // Resto de modelos (no latinas) – combinación de mom, ebony, couple y new, orden alfabético
+            const otherModelsRaw = [
+                '18_salo', 'alice-blaker', 'anabelle_bluee10', 'ava_blue',
+                'bellapaty', 'celine_bell20', 'Cristal-Jonnes', 'DAVID_VICTORIAA',
+                'Danteandviolete_cr', 'Deisy_torres', 'fox_roxxan', 'hot69temptation_',
+                'isabella_lovem', 'Ivelleee_', 'Joha_ross92', 'kathdolly',
+                'Lizzie_Williams_', 'lolaslatary1', 'Masked_SexyMelons', 'Mia_sweet80',
+                '_mishelle', 'monicaflower', 'myc_hot', 'nurse_becky',
+                'rave_connor', 'rose_berry', 'SaharaArisa', 'Sasha_0012',
+                'SexyDee025', 'shainadavis', 'SinCityDoll', 'sofi_johansson',
+                'StormiRoseb', 'the_titis_outdoors', 'xxxsexyamazon'
+            ].sort((a,b) => a.localeCompare(b, 'es', {sensitivity:'base'}));
 
-            let categories = JSON.parse(JSON.stringify(categoriesOriginal));
-
-            const greenModels = new Set([
-                'rose_berry', 'violeta_rosex', '_lasuenscun', 'anabelle_bluee10',
-                'sofi_johansson', 'sofierosse_', 'steacy_19', 'fox_roxxan',
-                'Danteandviolete_cr', 'hot69temptation_', 'DAVID_VICTORIAA', 'karolvipxxx', 'Masked_SexyMelons', 'MorenazaAcsa', 'HotSweetAngel', 'DearAbbiee',
-                'SaharaArisa', 'nurse_becky', 'isabella_lovem', 'the_titis_outdoors', 'celine_bell20', 'Ivelleee_', 'ava_blue', 'Deisy_torres', 'Joha_ross92', 'Lizzie_Williams_', 'Cristal-Jonnes', '_mishelle', 'kathdolly', 'StormiRoseb', 'rave_connor', 'bellapaty', 'monicaflower', '18_salo', 'Sasha_0012'
-            ]);
-
+            // Enlaces directos (se mantienen como antes)
             const directLinks = [
                 { label: 'Video 175361655', url: 'https://es.cumcams.cc/video/175361655/play' },
                 { label: 'sol_and_andy', url: 'https://livecamrips.to/model/413943/sol_and_andy' },
@@ -584,57 +345,51 @@
                 { label: 'SxyPrn Video', url: 'https://sxyprn.com/post/6a16236f557a0.html?asgtbndr=1' }
             ];
 
-            let currentSort = 'default';
-
-            latestModelNameEl.textContent = latestModel;
-            latestModelNameEl.addEventListener('click', () => {
-                input.value = latestModel;
-                handleGenerate();
-            });
-
-            function applySort(mode) {
-                for (let cat in categoriesOriginal) {
-                    let arr = [...categoriesOriginal[cat]];
-                    if (mode === 'az') {
-                        arr.sort((a, b) => a.localeCompare(b, 'es', { sensitivity: 'base' }));
-                    } else if (mode === 'newest') {
-                        if (cat !== 'new') arr.reverse();
-                    }
-                    categories[cat] = arr;
-                }
-            }
-
-            function updateSortButtons(activeMode) {
-                sortButtons.forEach(btn => {
-                    const mode = btn.getAttribute('data-sort');
-                    btn.classList.toggle('active', mode === activeMode);
+            function renderChips(containerId, models) {
+                const container = document.getElementById(containerId);
+                if (!container) return;
+                container.innerHTML = '';
+                models.forEach(name => {
+                    const chip = document.createElement('button');
+                    chip.className = 'model-chip';
+                    chip.textContent = name;
+                    chip.addEventListener('click', () => {
+                        input.value = name;
+                        handleGenerate();
+                    });
+                    container.appendChild(chip);
                 });
             }
 
-            sortButtons.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const mode = btn.getAttribute('data-sort');
-                    if (mode === currentSort) return;
-                    currentSort = mode;
-                    updateSortButtons(mode);
-                    applySort(mode);
-                    initCategories();
+            function renderDirectLinks() {
+                const container = document.getElementById('directChipsContainer');
+                if (!container) return;
+                container.innerHTML = '';
+                directLinks.forEach(link => {
+                    const chip = document.createElement('button');
+                    chip.className = 'model-chip direct-link';
+                    chip.textContent = link.label;
+                    chip.addEventListener('click', () => window.open(link.url, '_blank', 'noopener,noreferrer'));
+                    container.appendChild(chip);
                 });
-            });
+            }
 
-            applySort('default');
+            // Inicializar chips
+            renderChips('latinaChips', latinaModels);
+            renderChips('otherChips', otherModelsRaw);
+            renderDirectLinks();
 
-            function sanitizeModelName(rawName) { return rawName.trim().replace(/\s+/g, ''); }
+            function sanitizeModelName(rawName) {
+                return rawName.trim().replace(/\s+/g, '');
+            }
+
             function showError(message) {
                 errorText.textContent = message;
                 errorMsg.style.display = 'flex';
-                errorMsg.style.animation = 'none';
-                errorMsg.offsetHeight;
-                errorMsg.style.animation = 'shake 0.3s ease';
             }
             function hideError() { errorMsg.style.display = 'none'; }
 
-            function loadStripchatAvatar(cleanName) {
+            function loadAvatar(cleanName) {
                 profileDisplayName.textContent = cleanName;
                 profileAvatar.src = '';
                 let loaded = false;
@@ -645,14 +400,14 @@
                     }
                     const url = avatarBaseUrls[index].replace('{model}', cleanName);
                     const testImg = new Image();
-                    testImg.onload = function() {
+                    testImg.onload = () => {
                         if (!loaded) {
                             loaded = true;
                             profileAvatar.src = url;
                             stripchatProfile.style.display = 'block';
                         }
                     };
-                    testImg.onerror = function() { tryNext(index + 1); };
+                    testImg.onerror = () => tryNext(index + 1);
                     testImg.src = url;
                 }
                 tryNext(0);
@@ -660,7 +415,7 @@
 
             function setupStripchatLink(cleanName) {
                 const url = stripchatProfileUrl.replace('{model}', cleanName);
-                btnOpenStripchat.onclick = function(e) {
+                btnOpenStripchat.onclick = (e) => {
                     e.stopPropagation();
                     window.open(url, '_blank', 'noopener,noreferrer');
                 };
@@ -711,55 +466,12 @@
                 generateBtn.style.opacity = '0.7';
                 generateBtn.style.pointerEvents = 'none';
                 setTimeout(() => {
-                    loadStripchatAvatar(cleanName);
+                    loadAvatar(cleanName);
                     setupStripchatLink(cleanName);
                     renderLinks(cleanName);
                     generateBtn.style.opacity = '1';
                     generateBtn.style.pointerEvents = 'auto';
                 }, 160);
-            }
-
-            function selectModel(modelName) {
-                input.value = modelName;
-                handleGenerate();
-            }
-
-            function createChip(name, categoryClass, isGreen = false) {
-                const chip = document.createElement('button');
-                chip.className = `model-chip ${categoryClass}`;
-                if (isGreen) chip.classList.add('chip-green');
-                chip.textContent = name;
-                chip.addEventListener('click', () => selectModel(name));
-                return chip;
-            }
-
-            function renderCategory(containerId, names, categoryClass) {
-                const container = document.getElementById(containerId);
-                if (!container) return;
-                container.innerHTML = '';
-                names.forEach(name => {
-                    const isGreen = greenModels.has(name);
-                    container.appendChild(createChip(name, categoryClass, isGreen));
-                });
-            }
-
-            function renderDirectChips() {
-                directChipsContainer.innerHTML = '';
-                directLinks.forEach(link => {
-                    const chip = document.createElement('button');
-                    chip.className = 'model-chip-blue';
-                    chip.textContent = link.label;
-                    chip.addEventListener('click', () => window.open(link.url, '_blank', 'noopener,noreferrer'));
-                    directChipsContainer.appendChild(chip);
-                });
-            }
-
-            function initCategories() {
-                renderCategory('newChips', categories.new, 'chip-new');
-                renderCategory('latinaChips', categories.latina, 'chip-latina');
-                renderCategory('momChips', categories.mom, 'chip-mom');
-                renderCategory('ebonyChips', categories.ebony, 'chip-ebony');
-                renderCategory('coupleChips', categories.couple, 'chip-couple');
             }
 
             generateBtn.addEventListener('click', handleGenerate);
@@ -771,12 +483,9 @@
                 if (errorMsg.style.display === 'flex') hideError();
             });
 
-            initCategories();
-            renderDirectChips();
             input.focus();
             stripchatProfile.style.display = 'none';
-            document.addEventListener('gesturestart', (e) => e.preventDefault());
         })();
     </script>
 </body>
-</html> 
+</html>
