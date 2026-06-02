@@ -68,6 +68,20 @@
         }
         .header .sub { font-size: 0.85rem; color: var(--text-secondary); letter-spacing: 0.4px; }
 
+        .sort-bar {
+            display: flex; gap: 0.5rem; margin-bottom: 1.5rem;
+            background: rgba(255,255,255,0.03); border-radius: 50px; padding: 0.3rem;
+            border: 1px solid var(--border);
+        }
+        .sort-btn {
+            flex: 1; background: transparent; border: none;
+            color: var(--text-secondary); font-weight: 600; font-size: 0.85rem;
+            padding: 0.6rem 0.8rem; border-radius: 50px; cursor: pointer;
+            transition: all var(--transition); display: flex; align-items: center; justify-content: center; gap: 0.4rem;
+        }
+        .sort-btn.active { background: var(--gold); color: #000; box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4); font-weight: 700; }
+        .sort-btn:hover:not(.active) { color: #fff; background: rgba(255,255,255,0.05); }
+
         .search-box { display: flex; gap: 0.5rem; margin-bottom: 1.8rem; }
         .input-wrapper { flex: 1; position: relative; }
         .input-wrapper i {
@@ -117,6 +131,18 @@
             box-shadow: 0 6px 16px rgba(212, 175, 55, 0.2); transform: translateY(-2px);
         }
         .model-chip:active { transform: scale(0.95); }
+
+        /* Estilo especial para modelos favoritas */
+        .model-chip.fav {
+            border-color: var(--gold);
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.5), 0 0 24px rgba(212, 175, 55, 0.2);
+            background: rgba(212, 175, 55, 0.12);
+            font-weight: 700;
+        }
+        .model-chip.fav:hover {
+            box-shadow: 0 0 18px rgba(240, 192, 64, 0.7), 0 0 32px rgba(212, 175, 55, 0.3);
+            background: rgba(212, 175, 55, 0.2);
+        }
 
         .direct-link-chip {
             border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.05);
@@ -172,6 +198,12 @@
             <p class="sub">Discreet access · curated profiles</p>
         </div>
 
+        <!-- Barra de ordenación -->
+        <div class="sort-bar" id="sortBar">
+            <button class="sort-btn active" data-sort="az">🔤 A - Z</button>
+            <button class="sort-btn" data-sort="newest">🆕 Más reciente</button>
+        </div>
+
         <div class="search-box">
             <div class="input-wrapper">
                 <i>🔍</i>
@@ -180,13 +212,13 @@
             <button class="btn-generate" id="generateBtn"><span>✨</span> Find</button>
         </div>
 
-        <!-- Sección Latina (orden A-Z) -->
+        <!-- Sección Latina -->
         <div class="quick-models">
             <div class="label-chips"><span>🌶️</span> Latina</div>
             <div class="chips-container" id="latinaChips"></div>
         </div>
 
-        <!-- Sección Other Models (orden A-Z) -->
+        <!-- Sección Other Models -->
         <div class="quick-models">
             <div class="label-chips"><span>🌑</span> Other Models</div>
             <div class="chips-container" id="otherChips"></div>
@@ -224,6 +256,7 @@
             const profileAvatar = document.getElementById('profileAvatar');
             const profileDisplayName = document.getElementById('profileDisplayName');
             const btnOpenStripchat = document.getElementById('btnOpenStripchat');
+            const sortButtons = document.querySelectorAll('.sort-btn');
 
             const avatarBaseUrls = [
                 'https://img.stripchat.com/avatar/{model}',
@@ -240,28 +273,71 @@
                 { name: 'ShowCamRips', icon: '🎬', urlPattern: 'https://www.showcamrips.com/model/en/{model}/' }
             ];
 
-            // Lista de latinas (ordenada A-Z)
-            const latinaModels = [
-                'amor_smith_', 'anny_vittar', 'DearAbbiee', 'Esmeralda_Duarte',
-                'HotSweetAngel', 'karla-bruni', 'karolvipxxx', 'KattalellaGomez',
-                'LunaaRosse', 'MorenazaAcsa', 'riri_brunnete', 'sofierosse_',
-                'steacy_19', '_lasuenscun', 'violeta_rosex'
-            ].sort((a,b) => a.localeCompare(b, 'es', {sensitivity:'base'}));
-
-            // Resto de modelos (ordenadas A-Z)
-            const otherModels = [
-                '18_salo', 'adri_miller', 'alice-blaker', 'anabelle_bluee10',
-                'ava_blue', 'bellapaty', 'Brownie_With_Milk', 'celine_bell20',
-                'Chloe_02g', 'Cristal-Jonnes', 'DAVID_VICTORIAA', 'Danteandviolete_cr',
-                'Deisy_torres', 'fox_roxxan', 'Giviper1', 'ginaakemi',
-                'hot69temptation_', 'hot_sophy', 'isabella_lovem', 'Ivelleee_',
-                'Joha_ross92', 'kathdolly', 'Lizzie_Williams_', 'lolaslatary1',
-                'Masked_SexyMelons', 'Mia_sweet80', '_mishelle', 'monicaflower',
-                'myc_hot', 'nurse_becky', 'rave_connor', 'rose_berry',
-                'SaharaArisa', 'Sarah-Office1', 'Sasha_0012', 'SexyDee025',
-                'shainadavis', 'SinCityDoll', 'sofi_johansson', 'StormiRoseb',
-                'the_titis_outdoors', 'xxxsexyamazon'
-            ].sort((a,b) => a.localeCompare(b, 'es', {sensitivity:'base'}));
+            // Lista completa con orden cronológico (índice = orden de añadido, 0 = más antiguo)
+            const allModels = [
+                { name: 'LunaaRosse', isLatina: true, isFav: false },
+                { name: 'amor_smith_', isLatina: true, isFav: false },
+                { name: 'lolaslatary1', isLatina: false, isFav: false },
+                { name: 'SexyDee025', isLatina: false, isFav: false },
+                { name: 'riri_brunnete', isLatina: true, isFav: false },
+                { name: 'Esmeralda_Duarte', isLatina: true, isFav: false },
+                { name: 'anny_vittar', isLatina: true, isFav: false },
+                { name: 'Mia_sweet80', isLatina: false, isFav: false },
+                { name: 'shainadavis', isLatina: false, isFav: false },
+                { name: 'alice-blaker', isLatina: false, isFav: false },
+                { name: 'rose_berry', isLatina: false, isFav: false },
+                { name: 'violeta_rosex', isLatina: true, isFav: false },
+                { name: '_lasuenscun', isLatina: true, isFav: false },
+                { name: 'anabelle_bluee10', isLatina: false, isFav: false },
+                { name: 'sofi_johansson', isLatina: false, isFav: false },
+                { name: 'sofierosse_', isLatina: true, isFav: false },
+                { name: 'steacy_19', isLatina: true, isFav: false },
+                { name: 'fox_roxxan', isLatina: false, isFav: false },
+                { name: 'xxxsexyamazon', isLatina: false, isFav: false },
+                { name: 'karolvipxxx', isLatina: true, isFav: false },
+                { name: 'Masked_SexyMelons', isLatina: false, isFav: false },
+                { name: 'Danteandviolete_cr', isLatina: false, isFav: false },
+                { name: 'hot69temptation_', isLatina: false, isFav: false },
+                { name: 'DAVID_VICTORIAA', isLatina: false, isFav: false },
+                { name: 'MorenazaAcsa', isLatina: true, isFav: false },
+                { name: 'HotSweetAngel', isLatina: true, isFav: false },
+                { name: 'DearAbbiee', isLatina: true, isFav: false },
+                { name: 'myc_hot', isLatina: false, isFav: false },
+                { name: 'SinCityDoll', isLatina: false, isFav: false },
+                { name: 'SaharaArisa', isLatina: false, isFav: false },
+                { name: 'nurse_becky', isLatina: false, isFav: false },
+                { name: 'isabella_lovem', isLatina: false, isFav: false },
+                { name: 'the_titis_outdoors', isLatina: false, isFav: false },
+                { name: 'celine_bell20', isLatina: false, isFav: false },
+                { name: 'Ivelleee_', isLatina: false, isFav: false },
+                { name: 'ava_blue', isLatina: false, isFav: false },
+                { name: 'Deisy_torres', isLatina: false, isFav: false },
+                { name: 'Joha_ross92', isLatina: false, isFav: false },
+                { name: 'StormiRoseb', isLatina: false, isFav: false },
+                { name: 'Lizzie_Williams_', isLatina: false, isFav: false },
+                { name: 'Cristal-Jonnes', isLatina: false, isFav: false },
+                { name: '_mishelle', isLatina: false, isFav: false },
+                { name: 'kathdolly', isLatina: false, isFav: false },
+                { name: 'rave_connor', isLatina: false, isFav: false },
+                { name: 'bellapaty', isLatina: false, isFav: false },
+                { name: 'monicaflower', isLatina: false, isFav: false },
+                { name: '18_salo', isLatina: false, isFav: false },
+                { name: 'Sasha_0012', isLatina: false, isFav: false },
+                { name: 'Chloe_02g', isLatina: false, isFav: false },
+                { name: 'Brownie_With_Milk', isLatina: false, isFav: true }, // Fav
+                { name: 'ginaakemi', isLatina: false, isFav: false },
+                { name: 'karla-bruni', isLatina: true, isFav: false },
+                { name: 'Sarah-Office1', isLatina: false, isFav: false },
+                { name: 'hot_sophy', isLatina: false, isFav: false },
+                { name: 'adri_miller', isLatina: false, isFav: false },
+                { name: 'KattalellaGomez', isLatina: true, isFav: false },
+                { name: 'Giviper1', isLatina: false, isFav: false },
+                { name: 'Allice_Evens', isLatina: false, isFav: false },
+                { name: 'Gigi_hart7', isLatina: false, isFav: false },
+                { name: 'Cataleya-x03', isLatina: true, isFav: false },
+                { name: 'PlacerTallaXXX', isLatina: true, isFav: false },
+                { name: 'alexa_forbes_', isLatina: false, isFav: true } // Nueva fav
+            ];
 
             const directLinks = [
                 { label: 'Video 175361655', url: 'https://es.cumcams.cc/video/175361655/play' },
@@ -271,20 +347,54 @@
                 { label: 'SxyPrn Video', url: 'https://sxyprn.com/post/6a16236f557a0.html?asgtbndr=1' }
             ];
 
+            let currentSort = 'az'; // 'az' o 'newest'
+
+            function getLatinaModels() {
+                return allModels.filter(m => m.isLatina);
+            }
+
+            function getOtherModels() {
+                return allModels.filter(m => !m.isLatina);
+            }
+
+            function sortModels(modelArray, sortMode) {
+                if (sortMode === 'az') {
+                    return [...modelArray].sort((a, b) => a.name.localeCompare(b.name, 'es', { sensitivity: 'base' }));
+                } else { // 'newest' -> orden cronológico inverso
+                    const indexMap = {};
+                    allModels.forEach((m, idx) => { indexMap[m.name] = idx; });
+                    return [...modelArray].sort((a, b) => indexMap[b.name] - indexMap[a.name]);
+                }
+            }
+
             function renderChips(containerId, models) {
                 const container = document.getElementById(containerId);
                 if (!container) return;
                 container.innerHTML = '';
-                models.forEach(name => {
+                models.forEach(m => {
                     const chip = document.createElement('button');
                     chip.className = 'model-chip';
-                    chip.textContent = name;
+                    if (m.isFav) {
+                        chip.classList.add('fav');
+                        chip.innerHTML = `❤️ ${m.name}`; // Añade corazón antes del nombre
+                    } else {
+                        chip.textContent = m.name;
+                    }
                     chip.addEventListener('click', () => {
-                        input.value = name;
+                        input.value = m.name;
                         handleGenerate();
                     });
                     container.appendChild(chip);
                 });
+            }
+
+            function renderAllModels() {
+                const latinaModels = getLatinaModels();
+                const otherModels = getOtherModels();
+                const sortedLatina = sortModels(latinaModels, currentSort);
+                const sortedOther = sortModels(otherModels, currentSort);
+                renderChips('latinaChips', sortedLatina);
+                renderChips('otherChips', sortedOther);
             }
 
             function renderDirectLinks() {
@@ -300,10 +410,21 @@
                 });
             }
 
-            // Inicializar chips
-            renderChips('latinaChips', latinaModels);
-            renderChips('otherChips', otherModels);
+            // Inicializar
+            renderAllModels();
             renderDirectLinks();
+
+            // Listeners de ordenación
+            sortButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const mode = btn.getAttribute('data-sort');
+                    if (mode === currentSort) return;
+                    currentSort = mode;
+                    sortButtons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    renderAllModels();
+                });
+            });
 
             function sanitizeModelName(rawName) { return rawName.trim().replace(/\s+/g, ''); }
 
@@ -374,7 +495,6 @@
                     renderLinks(cleanName);
                     generateBtn.style.opacity = '1';
                     generateBtn.style.pointerEvents = 'auto';
-                    // Scroll automático hasta los resultados
                     resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }, 200);
             }
