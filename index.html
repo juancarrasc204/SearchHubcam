@@ -10,57 +10,49 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
-            --bg-black: #0a0a0a;
-            --panel-bg: rgba(18, 18, 18, 0.9);
+            --bg: #020202;
+            --panel-bg: rgba(8, 8, 8, 0.85);
             --gold: #d4af37;
-            --gold-light: #f0c040;
-            --gold-dim: #b8922e;
-            --text-light: #e8dcc8;
-            --text-dim: #b8a58b;
-            --border-gold: rgba(212, 175, 55, 0.4);
-            --shadow-gold: 0 20px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(212, 175, 55, 0.25);
+            --gold-hover: #f0c040;
+            --text: #ffffff;
+            --text-secondary: #aaaaaa;
+            --border: rgba(255, 255, 255, 0.15);
+            --border-gold: rgba(212, 175, 55, 0.5);
+            --shadow: 0 20px 40px rgba(0,0,0,0.8);
             --radius-xl: 28px;
-            --radius-lg: 20px;
             --radius-md: 14px;
-            --transition-smooth: 0.28s cubic-bezier(0.23, 1, 0.32, 1);
+            --transition: 0.3s cubic-bezier(0.23, 1, 0.32, 1);
         }
         body {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            background: radial-gradient(circle at 30% 20%, #1a1a1a 0%, #0a0a0a 80%);
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at 30% 20%, #1a1a1a 0%, #020202 80%);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 1.2rem;
-            color: var(--text-light);
+            color: var(--text);
             -webkit-tap-highlight-color: transparent;
-            background-attachment: fixed;
         }
         .glass-panel {
             width: 100%;
-            max-width: 530px;
+            max-width: 550px;
             background: var(--panel-bg);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-            border: 1px solid var(--border-gold);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--border);
             border-radius: var(--radius-xl);
-            box-shadow: var(--shadow-gold);
+            box-shadow: var(--shadow);
             padding: 2.2rem 1.8rem 2rem;
             animation: floatIn 0.8s ease-out;
-            position: relative;
-            z-index: 2;
         }
         @keyframes floatIn {
             0% { opacity: 0; transform: translateY(30px) scale(0.96); }
             100% { opacity: 1; transform: translateY(0) scale(1); }
         }
-        .header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
+        .header { text-align: center; margin-bottom: 2rem; }
         .header .icon-row {
-            font-size: 2.4rem;
-            letter-spacing: 6px;
+            font-size: 2.4rem; letter-spacing: 6px;
             filter: drop-shadow(0 4px 12px rgba(212, 175, 55, 0.5));
             animation: pulse 2.8s infinite ease-in-out;
         }
@@ -72,165 +64,118 @@
             font-size: 2.2rem; font-weight: 800;
             background: linear-gradient(135deg, #f0c040, #d4af37);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin: 0.2rem 0;
+            background-clip: text; margin: 0.2rem 0;
         }
-        .header .sub {
-            font-size: 0.85rem; color: var(--text-dim); letter-spacing: 0.4px;
-        }
+        .header .sub { font-size: 0.85rem; color: var(--text-secondary); letter-spacing: 0.4px; }
 
-        .search-box {
-            display: flex; gap: 0.5rem; margin-bottom: 1.5rem;
-        }
+        .search-box { display: flex; gap: 0.5rem; margin-bottom: 1.8rem; }
         .input-wrapper { flex: 1; position: relative; }
         .input-wrapper i {
             position: absolute; left: 1rem; top: 50%;
-            transform: translateY(-50%); color: var(--gold-dim); font-size: 0.9rem;
+            transform: translateY(-50%); color: var(--gold); font-size: 0.9rem;
         }
         input {
             width: 100%; padding: 0.9rem 1rem 0.9rem 2.5rem;
-            background: rgba(10, 10, 10, 0.8);
-            border: 1.5px solid var(--border-gold);
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
             border-radius: 50px; font-size: 1rem; font-weight: 500;
-            color: var(--text-light); outline: none;
-            transition: all var(--transition-smooth); letter-spacing: 0.3px;
+            color: var(--text); outline: none; transition: all var(--transition);
+            letter-spacing: 0.3px;
         }
-        input::placeholder { color: #7a6a54; }
-        input:focus {
-            border-color: var(--gold);
-            box-shadow: 0 0 18px rgba(212, 175, 55, 0.4);
-            background: rgba(15, 15, 15, 0.9);
-        }
+        input::placeholder { color: #888; }
+        input:focus { border-color: var(--gold); box-shadow: 0 0 18px rgba(212, 175, 55, 0.3); background: rgba(255,255,255,0.08); }
         .btn-generate {
             background: linear-gradient(135deg, #d4af37, #b8922e);
-            border: none; color: #0a0a0a; font-weight: 700; font-size: 0.95rem;
+            border: none; color: #000; font-weight: 700; font-size: 0.95rem;
             padding: 0 1.4rem; height: 48px; border-radius: 50px;
             display: flex; align-items: center; gap: 0.3rem;
-            cursor: pointer; box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
-            transition: all var(--transition-smooth); white-space: nowrap;
+            cursor: pointer; transition: all var(--transition); white-space: nowrap;
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
         }
-        .btn-generate:hover {
-            background: linear-gradient(135deg, #f0c040, #c9a837);
-            box-shadow: 0 12px 28px rgba(212, 175, 55, 0.6);
-            transform: translateY(-1px);
-        }
+        .btn-generate:hover { background: var(--gold-hover); box-shadow: 0 12px 24px rgba(212, 175, 55, 0.5); transform: translateY(-1px); }
         .btn-generate:active { transform: scale(0.96); }
 
-        .error-msg {
-            color: #ffb3b3; font-size: 0.85rem; margin-top: 0.4rem;
-            display: none; align-items: center; gap: 0.3rem;
-            background: rgba(180, 30, 30, 0.4);
-            padding: 0.4rem 0.8rem; border-radius: 20px;
+        .sort-bar {
+            display: flex; gap: 0.5rem; margin-bottom: 1.5rem;
+            background: rgba(255,255,255,0.03); border-radius: 50px; padding: 0.3rem;
+            border: 1px solid var(--border);
         }
+        .sort-btn {
+            flex: 1; background: transparent; border: none;
+            color: var(--text-secondary); font-weight: 600; font-size: 0.85rem;
+            padding: 0.6rem 0.8rem; border-radius: 50px; cursor: pointer;
+            transition: all var(--transition); display: flex; align-items: center; justify-content: center; gap: 0.4rem;
+        }
+        .sort-btn.active { background: var(--gold); color: #000; box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4); font-weight: 700; }
+        .sort-btn:hover:not(.active) { color: #fff; background: rgba(255,255,255,0.05); }
 
-        .quick-models {
-            margin-bottom: 1.3rem;
-        }
-        .quick-models .label-chips {
-            font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.2px;
-            font-weight: 700;
-            display: flex; align-items: center; gap: 0.4rem;
-            padding-left: 0.5rem;
-            border-left: 3px solid var(--gold);
-            color: var(--gold-light);
-            margin-bottom: 0.5rem;
+        .country-section { margin-bottom: 1.5rem; }
+        .country-header {
+            font-size: 0.9rem; font-weight: 700; color: var(--gold);
+            display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.6rem;
+            border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 0.3rem;
         }
         .chips-container { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 
         .model-chip {
             font-weight: 600; font-size: 0.8rem;
             padding: 0.5rem 1rem; border-radius: 50px; cursor: pointer;
-            transition: all var(--transition-smooth); letter-spacing: 0.3px;
-            white-space: nowrap; display: flex; align-items: center; gap: 0.3rem;
-            border: 1px solid var(--border-gold);
-            background: rgba(10, 10, 10, 0.7);
-            color: var(--text-light);
+            transition: all var(--transition); letter-spacing: 0.3px;
+            border: 1px solid var(--border); background: rgba(255,255,255,0.03);
+            color: var(--text); white-space: nowrap;
+            animation: fadeUp 0.4s ease backwards;
         }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .model-chip:hover {
-            background: rgba(212, 175, 55, 0.2);
-            border-color: var(--gold);
-            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
-            transform: translateY(-2px);
+            border-color: var(--gold); background: rgba(212, 175, 55, 0.1);
+            box-shadow: 0 6px 16px rgba(212, 175, 55, 0.2); transform: translateY(-2px);
         }
         .model-chip:active { transform: scale(0.95); }
 
-        /* Enlaces directos también en dorado */
-        .model-chip.direct-link {
-            background: rgba(212, 175, 55, 0.1);
-            border: 1px solid var(--gold-dim);
-            color: var(--gold-light);
+        .direct-link-chip {
+            border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.05);
+            color: var(--gold-hover);
         }
-        .model-chip.direct-link:hover {
-            background: rgba(212, 175, 55, 0.25);
-            border-color: var(--gold);
-        }
+        .direct-link-chip:hover { border-color: var(--gold); background: rgba(212, 175, 55, 0.15); }
 
-        .stripchat-profile {
-            margin: 1.2rem 0 1.5rem;
-            display: none; animation: fadeSlide 0.4s ease;
-        }
-        @keyframes fadeSlide {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        .stripchat-profile { margin: 1.2rem 0 1.5rem; display: none; animation: fadeSlide 0.4s ease; }
+        @keyframes fadeSlide { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .profile-card {
-            background: rgba(15, 15, 15, 0.85);
-            border: 1px solid var(--border-gold);
-            border-radius: var(--radius-lg); padding: 1rem;
-            display: flex; align-items: center; gap: 1rem;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+            background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+            border-radius: 20px; padding: 1rem; display: flex; align-items: center; gap: 1rem;
         }
         .avatar-wrapper {
-            width: 60px; height: 60px; border-radius: 50%; overflow: hidden;
-            background: #1a1a1a;
-            border: 2px solid var(--gold);
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+            width: 55px; height: 55px; border-radius: 50%; overflow: hidden;
+            border: 2px solid var(--gold); box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
         }
         .avatar-img { width: 100%; height: 100%; object-fit: cover; }
-        .profile-info { flex: 1; display: flex; flex-direction: column; gap: 0.3rem; }
-        .profile-name { font-weight: 700; font-size: 1.05rem; color: var(--text-light); }
+        .profile-info { flex: 1; }
+        .profile-name { font-weight: 700; font-size: 1rem; }
         .profile-site { font-size: 0.75rem; color: var(--gold); }
         .btn-stripchat {
-            background: linear-gradient(135deg, #d4af37, #b8922e);
-            border: none; color: #0a0a0a; font-weight: 700; font-size: 0.8rem;
-            padding: 0.5rem 1.1rem; border-radius: 50px; cursor: pointer;
-            box-shadow: 0 6px 16px rgba(212, 175, 55, 0.4);
-            transition: all var(--transition-smooth);
+            background: var(--gold); border: none; color: #000; font-weight: 700;
+            padding: 0.5rem 1rem; border-radius: 50px; cursor: pointer; transition: all var(--transition);
         }
-        .btn-stripchat:hover { background: #f0c040; }
+        .btn-stripchat:hover { background: var(--gold-hover); }
 
         .results-container { display: flex; flex-direction: column; gap: 0.8rem; margin-top: 0.8rem; }
         .link-card {
-            background: rgba(15, 15, 15, 0.8);
-            border: 1px solid var(--border-gold);
-            border-radius: var(--radius-md); padding: 0.9rem 1.2rem;
-            display: flex; align-items: center; justify-content: space-between;
-            box-shadow: 0 6px 14px rgba(0,0,0,0.4);
-            cursor: pointer; transition: all var(--transition-smooth);
-            animation: cardRise 0.45s ease backwards;
+            background: rgba(255,255,255,0.02); border: 1px solid var(--border);
+            border-radius: 16px; padding: 0.9rem 1.2rem; display: flex;
+            align-items: center; justify-content: space-between; cursor: pointer;
+            transition: all var(--transition); animation: fadeUp 0.4s ease backwards;
         }
-        @keyframes cardRise {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .link-card:hover {
-            border-color: var(--gold);
-            box-shadow: 0 10px 22px rgba(0,0,0,0.6), 0 0 0 1px rgba(212, 175, 55, 0.5);
-        }
-        .site-info { display: flex; align-items: center; gap: 0.8rem; font-weight: 600; color: var(--text-light); }
-        .site-icon { font-size: 1.3rem; }
+        .link-card:hover { border-color: var(--gold); background: rgba(255,255,255,0.05); }
+        .site-info { display: flex; align-items: center; gap: 0.8rem; font-weight: 600; }
         .btn-visit {
-            background: rgba(212, 175, 55, 0.12);
-            border: 1px solid var(--border-gold);
-            color: var(--gold-light); font-weight: 700; font-size: 0.85rem;
-            padding: 0.5rem 1.2rem; border-radius: 50px;
-            cursor: pointer; transition: all var(--transition-smooth);
-            white-space: nowrap;
+            background: transparent; border: 1px solid var(--border-gold); color: var(--gold);
+            font-weight: 700; font-size: 0.85rem; padding: 0.5rem 1.2rem; border-radius: 50px;
+            cursor: pointer; transition: all var(--transition); white-space: nowrap;
         }
-        .btn-visit:hover { background: var(--gold); border-color: var(--gold); color: #0a0a0a; }
+        .btn-visit:hover { background: var(--gold); border-color: var(--gold); color: #000; }
 
-        .empty-state { text-align: center; color: #7a6a54; padding: 1.5rem 0.5rem; font-size: 0.9rem; }
-        .footer-note { margin-top: 2rem; text-align: center; font-size: 0.7rem; color: #6b5a44; border-top: 1px solid rgba(212, 175, 55, 0.2); padding-top: 1.3rem; }
+        .empty-state { text-align: center; color: #888; padding: 1.5rem; }
+        .footer-note { margin-top: 2rem; text-align: center; font-size: 0.7rem; color: #666; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 1.3rem; }
     </style>
 </head>
 <body>
@@ -248,31 +193,24 @@
             </div>
             <button class="btn-generate" id="generateBtn"><span>✨</span> Find</button>
         </div>
-        <div class="error-msg" id="errorMsg"><span>⚠️</span> <span id="errorText"></span></div>
 
-        <!-- Sección Latina -->
-        <div class="quick-models">
-            <div class="label-chips"><span>🌶️</span> Latina</div>
-            <div class="chips-container" id="latinaChips"></div>
+        <div class="sort-bar" id="sortBar">
+            <button class="sort-btn active" data-sort="country">🌍 By Country</button>
+            <button class="sort-btn" data-sort="az">🔤 A - Z</button>
         </div>
 
-        <!-- Sección Otras (no latinas) -->
-        <div class="quick-models">
-            <div class="label-chips"><span>🌑</span> Other Models</div>
-            <div class="chips-container" id="otherChips"></div>
-        </div>
+        <div id="modelsContainer"></div>
 
-        <!-- Enlaces directos -->
-        <div class="quick-models">
-            <div class="label-chips"><span>🔗</span> Direct links</div>
+        <div class="quick-models" style="margin-top: 1rem;">
+            <div class="country-header" style="border-bottom: none; margin-bottom: 0.6rem;">
+                <span>🔗</span> Direct links
+            </div>
             <div class="chips-container" id="directChipsContainer"></div>
         </div>
 
         <div class="stripchat-profile" id="stripchatProfile">
             <div class="profile-card">
-                <div class="avatar-wrapper">
-                    <img class="avatar-img" id="profileAvatar" src="" alt="Model avatar">
-                </div>
+                <div class="avatar-wrapper"><img class="avatar-img" id="profileAvatar" src="" alt="Model"></div>
                 <div class="profile-info">
                     <span class="profile-name" id="profileDisplayName"></span>
                     <span class="profile-site">🍑 Stripchat · live</span>
@@ -284,7 +222,6 @@
         <div class="results-container" id="resultsContainer">
             <div class="empty-state"><span style="font-size:2.2rem;">🥀</span><span>Type a name and press Find</span></div>
         </div>
-
         <div class="footer-note"><span>🔞</span> Adults only · 18+</div>
     </main>
 
@@ -293,12 +230,13 @@
             const input = document.getElementById('modelNameInput');
             const generateBtn = document.getElementById('generateBtn');
             const resultsContainer = document.getElementById('resultsContainer');
-            const errorMsg = document.getElementById('errorMsg');
-            const errorText = document.getElementById('errorText');
             const stripchatProfile = document.getElementById('stripchatProfile');
             const profileAvatar = document.getElementById('profileAvatar');
             const profileDisplayName = document.getElementById('profileDisplayName');
             const btnOpenStripchat = document.getElementById('btnOpenStripchat');
+            const modelsContainer = document.getElementById('modelsContainer');
+            const directChipsContainer = document.getElementById('directChipsContainer');
+            const sortButtons = document.querySelectorAll('.sort-btn');
 
             const avatarBaseUrls = [
                 'https://img.stripchat.com/avatar/{model}',
@@ -315,28 +253,65 @@
                 { name: 'ShowCamRips', icon: '🎬', urlPattern: 'https://www.showcamrips.com/model/en/{model}/' }
             ];
 
-            // Lista de latinas (orden alfabético)
-            const latinaModels = [
-                'amor_smith_', 'anny_vittar', 'DearAbbiee', 'Esmeralda_Duarte',
-                'HotSweetAngel', 'karolvipxxx', 'LunaaRosse', 'MorenazaAcsa',
-                'riri_brunnete', 'sofierosse_', 'steacy_19', '_lasuenscun',
-                'violeta_rosex'
-            ].sort((a,b) => a.localeCompare(b, 'es', {sensitivity:'base'}));
+            // Modelos con país asignado
+            const models = [
+                { name: 'LunaaRosse', country: '🇦🇷 Argentina' },
+                { name: 'violeta_rosex', country: '🇦🇷 Argentina' },
+                { name: 'anny_vittar', country: '🇧🇷 Brasil' },
+                { name: 'bellapaty', country: '🇧🇷 Brasil' },
+                { name: 'isabella_lovem', country: '🇧🇷 Brasil' },
+                { name: 'karla-bruni', country: '🇧🇷 Brasil' },
+                { name: 'MorenazaAcsa', country: '🇧🇷 Brasil' },
+                { name: 'monicaflower', country: '🇧🇷 Brasil' },
+                { name: 'riri_brunnete', country: '🇧🇷 Brasil' },
+                { name: 'amor_smith_', country: '🇨🇴 Colombia' },
+                { name: 'Deisy_torres', country: '🇨🇴 Colombia' },
+                { name: 'HotSweetAngel', country: '🇨🇴 Colombia' },
+                { name: 'Joha_ross92', country: '🇨🇴 Colombia' },
+                { name: 'karolvipxxx', country: '🇨🇴 Colombia' },
+                { name: 'KattalellaGomez', country: '🇨🇴 Colombia' },
+                { name: 'steacy_19', country: '🇨🇴 Colombia' },
+                { name: 'Danteandviolete_cr', country: '🇨🇷 Costa Rica' },
+                { name: 'Lizzie_Williams_', country: '🇬🇧 Reino Unido' },
+                { name: 'Esmeralda_Duarte', country: '🇲🇽 México' },
+                { name: 'sofierosse_', country: '🇲🇽 México' },
+                { name: 'Giviper1', country: '🇷🇺 Rusia' },
+                { name: 'Sasha_0012', country: '🇷🇺 Rusia' },
+                { name: '18_salo', country: '🇪🇸 España' },
+                { name: 'DAVID_VICTORIAA', country: '🇪🇸 España' },
+                { name: 'hot69temptation_', country: '🇪🇸 España' },
+                { name: 'lolaslatary1', country: '🇪🇸 España' },
+                { name: '_lasuenscun', country: '🇪🇸 España' },
+                { name: 'sofi_johansson', country: '🇸🇪 Suecia' },
+                { name: 'adri_miller', country: '🇺🇸 Estados Unidos' },
+                { name: 'alice-blaker', country: '🇺🇸 Estados Unidos' },
+                { name: 'anabelle_bluee10', country: '🇺🇸 Estados Unidos' },
+                { name: 'ava_blue', country: '🇺🇸 Estados Unidos' },
+                { name: 'Brownie_With_Milk', country: '🇺🇸 Estados Unidos' },
+                { name: 'celine_bell20', country: '🇺🇸 Estados Unidos' },
+                { name: 'Chloe_02g', country: '🇺🇸 Estados Unidos' },
+                { name: 'Cristal-Jonnes', country: '🇺🇸 Estados Unidos' },
+                { name: 'DearAbbiee', country: '🇺🇸 Estados Unidos' },
+                { name: 'fox_roxxan', country: '🇺🇸 Estados Unidos' },
+                { name: 'ginaakemi', country: '🇺🇸 Estados Unidos' },
+                { name: 'hot_sophy', country: '🇺🇸 Estados Unidos' },
+                { name: 'Ivelleee_', country: '🇺🇸 Estados Unidos' },
+                { name: 'kathdolly', country: '🇺🇸 Estados Unidos' },
+                { name: 'Masked_SexyMelons', country: '🇺🇸 Estados Unidos' },
+                { name: 'Mia_sweet80', country: '🇺🇸 Estados Unidos' },
+                { name: '_mishelle', country: '🇺🇸 Estados Unidos' },
+                { name: 'nurse_becky', country: '🇺🇸 Estados Unidos' },
+                { name: 'rave_connor', country: '🇺🇸 Estados Unidos' },
+                { name: 'rose_berry', country: '🇺🇸 Estados Unidos' },
+                { name: 'SaharaArisa', country: '🇺🇸 Estados Unidos' },
+                { name: 'Sarah-Office1', country: '🇺🇸 Estados Unidos' },
+                { name: 'SexyDee025', country: '🇺🇸 Estados Unidos' },
+                { name: 'shainadavis', country: '🇺🇸 Estados Unidos' },
+                { name: 'StormiRoseb', country: '🇺🇸 Estados Unidos' },
+                { name: 'the_titis_outdoors', country: '🇺🇸 Estados Unidos' },
+                { name: 'xxxsexyamazon', country: '🇺🇸 Estados Unidos' }
+            ];
 
-            // Resto de modelos (no latinas) – combinación de mom, ebony, couple y new, orden alfabético
-            const otherModelsRaw = [
-                '18_salo', 'alice-blaker', 'anabelle_bluee10', 'ava_blue',
-                'bellapaty', 'celine_bell20', 'Cristal-Jonnes', 'DAVID_VICTORIAA',
-                'Danteandviolete_cr', 'Deisy_torres', 'fox_roxxan', 'hot69temptation_',
-                'isabella_lovem', 'Ivelleee_', 'Joha_ross92', 'kathdolly',
-                'Lizzie_Williams_', 'lolaslatary1', 'Masked_SexyMelons', 'Mia_sweet80',
-                '_mishelle', 'monicaflower', 'myc_hot', 'nurse_becky',
-                'rave_connor', 'rose_berry', 'SaharaArisa', 'Sasha_0012',
-                'SexyDee025', 'shainadavis', 'SinCityDoll', 'sofi_johansson',
-                'StormiRoseb', 'the_titis_outdoors', 'xxxsexyamazon'
-            ].sort((a,b) => a.localeCompare(b, 'es', {sensitivity:'base'}));
-
-            // Enlaces directos (se mantienen como antes)
             const directLinks = [
                 { label: 'Video 175361655', url: 'https://es.cumcams.cc/video/175361655/play' },
                 { label: 'sol_and_andy', url: 'https://livecamrips.to/model/413943/sol_and_andy' },
@@ -345,49 +320,76 @@
                 { label: 'SxyPrn Video', url: 'https://sxyprn.com/post/6a16236f557a0.html?asgtbndr=1' }
             ];
 
-            function renderChips(containerId, models) {
-                const container = document.getElementById(containerId);
-                if (!container) return;
-                container.innerHTML = '';
-                models.forEach(name => {
-                    const chip = document.createElement('button');
-                    chip.className = 'model-chip';
-                    chip.textContent = name;
-                    chip.addEventListener('click', () => {
-                        input.value = name;
-                        handleGenerate();
+            let currentSort = 'country';
+
+            function renderModels() {
+                modelsContainer.innerHTML = '';
+                if (currentSort === 'country') {
+                    const grouped = {};
+                    models.forEach(m => {
+                        if (!grouped[m.country]) grouped[m.country] = [];
+                        grouped[m.country].push(m);
                     });
-                    container.appendChild(chip);
+                    const sortedCountries = Object.keys(grouped).sort((a,b) => a.localeCompare(b));
+                    sortedCountries.forEach(country => {
+                        const section = document.createElement('div');
+                        section.className = 'country-section';
+                        section.innerHTML = `<div class="country-header">${country}</div><div class="chips-container" id="chip-${country.replace(/\s/g,'')}"></div>`;
+                        modelsContainer.appendChild(section);
+                        const container = document.getElementById(`chip-${country.replace(/\s/g,'')}`);
+                        grouped[country].sort((a,b) => a.name.localeCompare(b.name)).forEach(m => {
+                            container.appendChild(createChip(m.name));
+                        });
+                    });
+                } else {
+                    const section = document.createElement('div');
+                    section.className = 'country-section';
+                    section.innerHTML = '<div class="chips-container" id="azContainer"></div>';
+                    modelsContainer.appendChild(section);
+                    const container = document.getElementById('azContainer');
+                    models.sort((a,b) => a.name.localeCompare(b.name)).forEach(m => {
+                        container.appendChild(createChip(m.name));
+                    });
+                }
+            }
+
+            function createChip(name) {
+                const chip = document.createElement('button');
+                chip.className = 'model-chip';
+                chip.textContent = name;
+                chip.addEventListener('click', () => {
+                    input.value = name;
+                    handleGenerate();
                 });
+                return chip;
             }
 
             function renderDirectLinks() {
-                const container = document.getElementById('directChipsContainer');
-                if (!container) return;
-                container.innerHTML = '';
+                directChipsContainer.innerHTML = '';
                 directLinks.forEach(link => {
                     const chip = document.createElement('button');
-                    chip.className = 'model-chip direct-link';
+                    chip.className = 'model-chip direct-link-chip';
                     chip.textContent = link.label;
                     chip.addEventListener('click', () => window.open(link.url, '_blank', 'noopener,noreferrer'));
-                    container.appendChild(chip);
+                    directChipsContainer.appendChild(chip);
                 });
             }
 
-            // Inicializar chips
-            renderChips('latinaChips', latinaModels);
-            renderChips('otherChips', otherModelsRaw);
-            renderDirectLinks();
+            sortButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const mode = btn.getAttribute('data-sort');
+                    if (mode === currentSort) return;
+                    currentSort = mode;
+                    sortButtons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    renderModels();
+                });
+            });
 
-            function sanitizeModelName(rawName) {
-                return rawName.trim().replace(/\s+/g, '');
-            }
-
+            function sanitizeModelName(rawName) { return rawName.trim().replace(/\s+/g, ''); }
             function showError(message) {
-                errorText.textContent = message;
-                errorMsg.style.display = 'flex';
+                alert(message); // Simple error handling
             }
-            function hideError() { errorMsg.style.display = 'none'; }
 
             function loadAvatar(cleanName) {
                 profileDisplayName.textContent = cleanName;
@@ -401,11 +403,7 @@
                     const url = avatarBaseUrls[index].replace('{model}', cleanName);
                     const testImg = new Image();
                     testImg.onload = () => {
-                        if (!loaded) {
-                            loaded = true;
-                            profileAvatar.src = url;
-                            stripchatProfile.style.display = 'block';
-                        }
+                        if (!loaded) { loaded = true; profileAvatar.src = url; stripchatProfile.style.display = 'block'; }
                     };
                     testImg.onerror = () => tryNext(index + 1);
                     testImg.src = url;
@@ -434,21 +432,12 @@
                     card.className = 'link-card';
                     card.style.animationDelay = `${index * 0.07}s`;
                     card.innerHTML = `
-                        <div class="site-info">
-                            <span class="site-icon">${site.icon}</span>
-                            <span>${site.name}</span>
-                        </div>
+                        <div class="site-info"><span>${site.icon}</span><span>${site.name}</span></div>
                         <button class="btn-visit" data-url="${finalUrl}">Open ↗️</button>
                     `;
                     const visitBtn = card.querySelector('.btn-visit');
-                    visitBtn.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        window.open(visitBtn.getAttribute('data-url'), '_blank', 'noopener,noreferrer');
-                    });
-                    card.addEventListener('click', (e) => {
-                        if (e.target.closest('.btn-visit')) return;
-                        window.open(finalUrl, '_blank', 'noopener,noreferrer');
-                    });
+                    visitBtn.addEventListener('click', (e) => { e.stopPropagation(); window.open(finalUrl, '_blank', 'noopener,noreferrer'); });
+                    card.addEventListener('click', () => window.open(finalUrl, '_blank', 'noopener,noreferrer'));
                     resultsContainer.appendChild(card);
                 });
             }
@@ -458,11 +447,10 @@
                 const cleanName = sanitizeModelName(rawValue);
                 if (!cleanName) {
                     showError('Please enter a valid name.');
-                    resultsContainer.innerHTML = '<div class="empty-state"><span style="font-size:2.2rem;">🥀</span><span>Type a name and press Find</span></div>';
+                    resultsContainer.innerHTML = '<div class="empty-state"><span>Type a name and press Find</span></div>';
                     stripchatProfile.style.display = 'none';
                     return;
                 }
-                hideError();
                 generateBtn.style.opacity = '0.7';
                 generateBtn.style.pointerEvents = 'none';
                 setTimeout(() => {
@@ -475,14 +463,11 @@
             }
 
             generateBtn.addEventListener('click', handleGenerate);
-            input.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    handleGenerate();
-                }
-                if (errorMsg.style.display === 'flex') hideError();
-            });
+            input.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleGenerate(); });
 
+            // Init
+            renderModels();
+            renderDirectLinks();
             input.focus();
             stripchatProfile.style.display = 'none';
         })();
