@@ -16,7 +16,7 @@
             --gold-hover: #f0c040;
             --text: #ffffff;
             --text-secondary: #aaaaaa;
-            --border: rgba(255, 255, 255, 0.15);
+            --border: rgba(255, 255, 255, 0.12);
             --border-gold: rgba(212, 175, 55, 0.5);
             --shadow: 0 20px 40px rgba(0,0,0,0.8);
             --radius-xl: 28px;
@@ -95,25 +95,11 @@
         .btn-generate:hover { background: var(--gold-hover); box-shadow: 0 12px 24px rgba(212, 175, 55, 0.5); transform: translateY(-1px); }
         .btn-generate:active { transform: scale(0.96); }
 
-        .sort-bar {
-            display: flex; gap: 0.5rem; margin-bottom: 1.5rem;
-            background: rgba(255,255,255,0.03); border-radius: 50px; padding: 0.3rem;
-            border: 1px solid var(--border);
-        }
-        .sort-btn {
-            flex: 1; background: transparent; border: none;
-            color: var(--text-secondary); font-weight: 600; font-size: 0.85rem;
-            padding: 0.6rem 0.8rem; border-radius: 50px; cursor: pointer;
-            transition: all var(--transition); display: flex; align-items: center; justify-content: center; gap: 0.4rem;
-        }
-        .sort-btn.active { background: var(--gold); color: #000; box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4); font-weight: 700; }
-        .sort-btn:hover:not(.active) { color: #fff; background: rgba(255,255,255,0.05); }
-
-        .country-section { margin-bottom: 1.5rem; }
-        .country-header {
-            font-size: 0.9rem; font-weight: 700; color: var(--gold);
-            display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.6rem;
-            border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 0.3rem;
+        .quick-models { margin-bottom: 1.5rem; }
+        .label-chips {
+            font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1.2px;
+            font-weight: 700; color: var(--gold); margin-bottom: 0.6rem;
+            display: flex; align-items: center; gap: 0.4rem;
         }
         .chips-container { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 
@@ -158,7 +144,7 @@
         }
         .btn-stripchat:hover { background: var(--gold-hover); }
 
-        .results-container { display: flex; flex-direction: column; gap: 0.8rem; margin-top: 0.8rem; }
+        #resultsContainer { display: flex; flex-direction: column; gap: 0.8rem; margin-top: 0.8rem; }
         .link-card {
             background: rgba(255,255,255,0.02); border: 1px solid var(--border);
             border-radius: 16px; padding: 0.9rem 1.2rem; display: flex;
@@ -194,17 +180,21 @@
             <button class="btn-generate" id="generateBtn"><span>✨</span> Find</button>
         </div>
 
-        <div class="sort-bar" id="sortBar">
-            <button class="sort-btn active" data-sort="country">🌍 By Country</button>
-            <button class="sort-btn" data-sort="az">🔤 A - Z</button>
+        <!-- Sección Latina (orden A-Z) -->
+        <div class="quick-models">
+            <div class="label-chips"><span>🌶️</span> Latina</div>
+            <div class="chips-container" id="latinaChips"></div>
         </div>
 
-        <div id="modelsContainer"></div>
+        <!-- Sección Other Models (orden A-Z) -->
+        <div class="quick-models">
+            <div class="label-chips"><span>🌑</span> Other Models</div>
+            <div class="chips-container" id="otherChips"></div>
+        </div>
 
-        <div class="quick-models" style="margin-top: 1rem;">
-            <div class="country-header" style="border-bottom: none; margin-bottom: 0.6rem;">
-                <span>🔗</span> Direct links
-            </div>
+        <!-- Enlaces directos -->
+        <div class="quick-models">
+            <div class="label-chips"><span>🔗</span> Direct links</div>
             <div class="chips-container" id="directChipsContainer"></div>
         </div>
 
@@ -219,7 +209,7 @@
             </div>
         </div>
 
-        <div class="results-container" id="resultsContainer">
+        <div id="resultsContainer">
             <div class="empty-state"><span style="font-size:2.2rem;">🥀</span><span>Type a name and press Find</span></div>
         </div>
         <div class="footer-note"><span>🔞</span> Adults only · 18+</div>
@@ -234,9 +224,6 @@
             const profileAvatar = document.getElementById('profileAvatar');
             const profileDisplayName = document.getElementById('profileDisplayName');
             const btnOpenStripchat = document.getElementById('btnOpenStripchat');
-            const modelsContainer = document.getElementById('modelsContainer');
-            const directChipsContainer = document.getElementById('directChipsContainer');
-            const sortButtons = document.querySelectorAll('.sort-btn');
 
             const avatarBaseUrls = [
                 'https://img.stripchat.com/avatar/{model}',
@@ -253,64 +240,28 @@
                 { name: 'ShowCamRips', icon: '🎬', urlPattern: 'https://www.showcamrips.com/model/en/{model}/' }
             ];
 
-            // Modelos con país asignado
-            const models = [
-                { name: 'LunaaRosse', country: '🇦🇷 Argentina' },
-                { name: 'violeta_rosex', country: '🇦🇷 Argentina' },
-                { name: 'anny_vittar', country: '🇧🇷 Brasil' },
-                { name: 'bellapaty', country: '🇧🇷 Brasil' },
-                { name: 'isabella_lovem', country: '🇧🇷 Brasil' },
-                { name: 'karla-bruni', country: '🇧🇷 Brasil' },
-                { name: 'MorenazaAcsa', country: '🇧🇷 Brasil' },
-                { name: 'monicaflower', country: '🇧🇷 Brasil' },
-                { name: 'riri_brunnete', country: '🇧🇷 Brasil' },
-                { name: 'amor_smith_', country: '🇨🇴 Colombia' },
-                { name: 'Deisy_torres', country: '🇨🇴 Colombia' },
-                { name: 'HotSweetAngel', country: '🇨🇴 Colombia' },
-                { name: 'Joha_ross92', country: '🇨🇴 Colombia' },
-                { name: 'karolvipxxx', country: '🇨🇴 Colombia' },
-                { name: 'KattalellaGomez', country: '🇨🇴 Colombia' },
-                { name: 'steacy_19', country: '🇨🇴 Colombia' },
-                { name: 'Danteandviolete_cr', country: '🇨🇷 Costa Rica' },
-                { name: 'Lizzie_Williams_', country: '🇬🇧 Reino Unido' },
-                { name: 'Esmeralda_Duarte', country: '🇲🇽 México' },
-                { name: 'sofierosse_', country: '🇲🇽 México' },
-                { name: 'Giviper1', country: '🇷🇺 Rusia' },
-                { name: 'Sasha_0012', country: '🇷🇺 Rusia' },
-                { name: '18_salo', country: '🇪🇸 España' },
-                { name: 'DAVID_VICTORIAA', country: '🇪🇸 España' },
-                { name: 'hot69temptation_', country: '🇪🇸 España' },
-                { name: 'lolaslatary1', country: '🇪🇸 España' },
-                { name: '_lasuenscun', country: '🇪🇸 España' },
-                { name: 'sofi_johansson', country: '🇸🇪 Suecia' },
-                { name: 'adri_miller', country: '🇺🇸 Estados Unidos' },
-                { name: 'alice-blaker', country: '🇺🇸 Estados Unidos' },
-                { name: 'anabelle_bluee10', country: '🇺🇸 Estados Unidos' },
-                { name: 'ava_blue', country: '🇺🇸 Estados Unidos' },
-                { name: 'Brownie_With_Milk', country: '🇺🇸 Estados Unidos' },
-                { name: 'celine_bell20', country: '🇺🇸 Estados Unidos' },
-                { name: 'Chloe_02g', country: '🇺🇸 Estados Unidos' },
-                { name: 'Cristal-Jonnes', country: '🇺🇸 Estados Unidos' },
-                { name: 'DearAbbiee', country: '🇺🇸 Estados Unidos' },
-                { name: 'fox_roxxan', country: '🇺🇸 Estados Unidos' },
-                { name: 'ginaakemi', country: '🇺🇸 Estados Unidos' },
-                { name: 'hot_sophy', country: '🇺🇸 Estados Unidos' },
-                { name: 'Ivelleee_', country: '🇺🇸 Estados Unidos' },
-                { name: 'kathdolly', country: '🇺🇸 Estados Unidos' },
-                { name: 'Masked_SexyMelons', country: '🇺🇸 Estados Unidos' },
-                { name: 'Mia_sweet80', country: '🇺🇸 Estados Unidos' },
-                { name: '_mishelle', country: '🇺🇸 Estados Unidos' },
-                { name: 'nurse_becky', country: '🇺🇸 Estados Unidos' },
-                { name: 'rave_connor', country: '🇺🇸 Estados Unidos' },
-                { name: 'rose_berry', country: '🇺🇸 Estados Unidos' },
-                { name: 'SaharaArisa', country: '🇺🇸 Estados Unidos' },
-                { name: 'Sarah-Office1', country: '🇺🇸 Estados Unidos' },
-                { name: 'SexyDee025', country: '🇺🇸 Estados Unidos' },
-                { name: 'shainadavis', country: '🇺🇸 Estados Unidos' },
-                { name: 'StormiRoseb', country: '🇺🇸 Estados Unidos' },
-                { name: 'the_titis_outdoors', country: '🇺🇸 Estados Unidos' },
-                { name: 'xxxsexyamazon', country: '🇺🇸 Estados Unidos' }
-            ];
+            // Lista de latinas (ordenada A-Z)
+            const latinaModels = [
+                'amor_smith_', 'anny_vittar', 'DearAbbiee', 'Esmeralda_Duarte',
+                'HotSweetAngel', 'karla-bruni', 'karolvipxxx', 'KattalellaGomez',
+                'LunaaRosse', 'MorenazaAcsa', 'riri_brunnete', 'sofierosse_',
+                'steacy_19', '_lasuenscun', 'violeta_rosex'
+            ].sort((a,b) => a.localeCompare(b, 'es', {sensitivity:'base'}));
+
+            // Resto de modelos (ordenadas A-Z)
+            const otherModels = [
+                '18_salo', 'adri_miller', 'alice-blaker', 'anabelle_bluee10',
+                'ava_blue', 'bellapaty', 'Brownie_With_Milk', 'celine_bell20',
+                'Chloe_02g', 'Cristal-Jonnes', 'DAVID_VICTORIAA', 'Danteandviolete_cr',
+                'Deisy_torres', 'fox_roxxan', 'Giviper1', 'ginaakemi',
+                'hot69temptation_', 'hot_sophy', 'isabella_lovem', 'Ivelleee_',
+                'Joha_ross92', 'kathdolly', 'Lizzie_Williams_', 'lolaslatary1',
+                'Masked_SexyMelons', 'Mia_sweet80', '_mishelle', 'monicaflower',
+                'myc_hot', 'nurse_becky', 'rave_connor', 'rose_berry',
+                'SaharaArisa', 'Sarah-Office1', 'Sasha_0012', 'SexyDee025',
+                'shainadavis', 'SinCityDoll', 'sofi_johansson', 'StormiRoseb',
+                'the_titis_outdoors', 'xxxsexyamazon'
+            ].sort((a,b) => a.localeCompare(b, 'es', {sensitivity:'base'}));
 
             const directLinks = [
                 { label: 'Video 175361655', url: 'https://es.cumcams.cc/video/175361655/play' },
@@ -320,76 +271,41 @@
                 { label: 'SxyPrn Video', url: 'https://sxyprn.com/post/6a16236f557a0.html?asgtbndr=1' }
             ];
 
-            let currentSort = 'country';
-
-            function renderModels() {
-                modelsContainer.innerHTML = '';
-                if (currentSort === 'country') {
-                    const grouped = {};
-                    models.forEach(m => {
-                        if (!grouped[m.country]) grouped[m.country] = [];
-                        grouped[m.country].push(m);
+            function renderChips(containerId, models) {
+                const container = document.getElementById(containerId);
+                if (!container) return;
+                container.innerHTML = '';
+                models.forEach(name => {
+                    const chip = document.createElement('button');
+                    chip.className = 'model-chip';
+                    chip.textContent = name;
+                    chip.addEventListener('click', () => {
+                        input.value = name;
+                        handleGenerate();
                     });
-                    const sortedCountries = Object.keys(grouped).sort((a,b) => a.localeCompare(b));
-                    sortedCountries.forEach(country => {
-                        const section = document.createElement('div');
-                        section.className = 'country-section';
-                        section.innerHTML = `<div class="country-header">${country}</div><div class="chips-container" id="chip-${country.replace(/\s/g,'')}"></div>`;
-                        modelsContainer.appendChild(section);
-                        const container = document.getElementById(`chip-${country.replace(/\s/g,'')}`);
-                        grouped[country].sort((a,b) => a.name.localeCompare(b.name)).forEach(m => {
-                            container.appendChild(createChip(m.name));
-                        });
-                    });
-                } else {
-                    const section = document.createElement('div');
-                    section.className = 'country-section';
-                    section.innerHTML = '<div class="chips-container" id="azContainer"></div>';
-                    modelsContainer.appendChild(section);
-                    const container = document.getElementById('azContainer');
-                    models.sort((a,b) => a.name.localeCompare(b.name)).forEach(m => {
-                        container.appendChild(createChip(m.name));
-                    });
-                }
-            }
-
-            function createChip(name) {
-                const chip = document.createElement('button');
-                chip.className = 'model-chip';
-                chip.textContent = name;
-                chip.addEventListener('click', () => {
-                    input.value = name;
-                    handleGenerate();
+                    container.appendChild(chip);
                 });
-                return chip;
             }
 
             function renderDirectLinks() {
-                directChipsContainer.innerHTML = '';
+                const container = document.getElementById('directChipsContainer');
+                if (!container) return;
+                container.innerHTML = '';
                 directLinks.forEach(link => {
                     const chip = document.createElement('button');
                     chip.className = 'model-chip direct-link-chip';
                     chip.textContent = link.label;
                     chip.addEventListener('click', () => window.open(link.url, '_blank', 'noopener,noreferrer'));
-                    directChipsContainer.appendChild(chip);
+                    container.appendChild(chip);
                 });
             }
 
-            sortButtons.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const mode = btn.getAttribute('data-sort');
-                    if (mode === currentSort) return;
-                    currentSort = mode;
-                    sortButtons.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    renderModels();
-                });
-            });
+            // Inicializar chips
+            renderChips('latinaChips', latinaModels);
+            renderChips('otherChips', otherModels);
+            renderDirectLinks();
 
             function sanitizeModelName(rawName) { return rawName.trim().replace(/\s+/g, ''); }
-            function showError(message) {
-                alert(message); // Simple error handling
-            }
 
             function loadAvatar(cleanName) {
                 profileDisplayName.textContent = cleanName;
@@ -446,8 +362,7 @@
                 const rawValue = input.value;
                 const cleanName = sanitizeModelName(rawValue);
                 if (!cleanName) {
-                    showError('Please enter a valid name.');
-                    resultsContainer.innerHTML = '<div class="empty-state"><span>Type a name and press Find</span></div>';
+                    resultsContainer.innerHTML = '<div class="empty-state"><span style="font-size:2.2rem;">🥀</span><span>Type a name and press Find</span></div>';
                     stripchatProfile.style.display = 'none';
                     return;
                 }
@@ -459,15 +374,14 @@
                     renderLinks(cleanName);
                     generateBtn.style.opacity = '1';
                     generateBtn.style.pointerEvents = 'auto';
-                }, 160);
+                    // Scroll automático hasta los resultados
+                    resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 200);
             }
 
             generateBtn.addEventListener('click', handleGenerate);
             input.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleGenerate(); });
 
-            // Init
-            renderModels();
-            renderDirectLinks();
             input.focus();
             stripchatProfile.style.display = 'none';
         })();
