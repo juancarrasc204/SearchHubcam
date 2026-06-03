@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>🥀 VelvetLink · Discreet Access</title>
+    <title>VelvetLink · Discreet Access</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
@@ -53,12 +53,7 @@
         .header { text-align: center; margin-bottom: 2rem; }
         .header .icon-row {
             font-size: 2.4rem; letter-spacing: 6px;
-            filter: drop-shadow(0 4px 12px rgba(212, 175, 55, 0.5));
-            animation: pulse 2.8s infinite ease-in-out;
-        }
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.85; }
-            50% { transform: scale(1.04); opacity: 1; }
+            filter: drop-shadow(0 4px 12px rgba(212, 175, 55, 0.4));
         }
         .header h1 {
             font-size: 2.2rem; font-weight: 800;
@@ -132,7 +127,7 @@
         }
         .model-chip:active { transform: scale(0.95); }
 
-        /* Estilo especial para modelos favoritas */
+        /* Favoritas sin corazones, solo resaltado */
         .model-chip.fav {
             border-color: var(--gold);
             box-shadow: 0 0 12px rgba(212, 175, 55, 0.5), 0 0 24px rgba(212, 175, 55, 0.2);
@@ -193,12 +188,11 @@
 <body>
     <main class="glass-panel">
         <div class="header">
-            <div class="icon-row">🥀💋✨</div>
+            <div class="icon-row">✨💎</div>
             <h1>VelvetLink</h1>
             <p class="sub">Discreet access · curated profiles</p>
         </div>
 
-        <!-- Barra de ordenación -->
         <div class="sort-bar" id="sortBar">
             <button class="sort-btn active" data-sort="az">🔤 A - Z</button>
             <button class="sort-btn" data-sort="newest">🆕 Más reciente</button>
@@ -212,19 +206,16 @@
             <button class="btn-generate" id="generateBtn"><span>✨</span> Find</button>
         </div>
 
-        <!-- Sección Latina -->
         <div class="quick-models">
             <div class="label-chips"><span>🌶️</span> Latina</div>
             <div class="chips-container" id="latinaChips"></div>
         </div>
 
-        <!-- Sección Other Models -->
         <div class="quick-models">
             <div class="label-chips"><span>🌑</span> Other Models</div>
             <div class="chips-container" id="otherChips"></div>
         </div>
 
-        <!-- Enlaces directos -->
         <div class="quick-models">
             <div class="label-chips"><span>🔗</span> Direct links</div>
             <div class="chips-container" id="directChipsContainer"></div>
@@ -242,7 +233,7 @@
         </div>
 
         <div id="resultsContainer">
-            <div class="empty-state"><span style="font-size:2.2rem;">🥀</span><span>Type a name and press Find</span></div>
+            <div class="empty-state"><span style="font-size:2.2rem;">✨</span><span>Type a name and press Find</span></div>
         </div>
         <div class="footer-note"><span>🔞</span> Adults only · 18+</div>
     </main>
@@ -324,7 +315,7 @@
                 { name: '18_salo', isLatina: false, isFav: false },
                 { name: 'Sasha_0012', isLatina: false, isFav: false },
                 { name: 'Chloe_02g', isLatina: false, isFav: false },
-                { name: 'Brownie_With_Milk', isLatina: false, isFav: true }, // Fav
+                { name: 'Brownie_With_Milk', isLatina: false, isFav: true },
                 { name: 'ginaakemi', isLatina: false, isFav: false },
                 { name: 'karla-bruni', isLatina: true, isFav: false },
                 { name: 'Sarah-Office1', isLatina: false, isFav: false },
@@ -336,18 +327,65 @@
                 { name: 'Gigi_hart7', isLatina: false, isFav: false },
                 { name: 'Cataleya-x03', isLatina: true, isFav: false },
                 { name: 'PlacerTallaXXX', isLatina: true, isFav: false },
-                { name: 'alexa_forbes_', isLatina: false, isFav: true } // Nueva fav
+                { name: 'alexa_forbes_', isLatina: false, isFav: true },
+                { name: 'Valery_moonss', isLatina: true, isFav: false },
+                { name: 'Lania_spencer2', isLatina: false, isFav: true },
+                { name: 'Tara__Sexy', isLatina: false, isFav: true },
+                { name: 'camiysebas21', isLatina: true, isFav: false },
+                { name: '_KissMyAss_', isLatina: false, isFav: false },
+                { name: 'Aurora19', isLatina: true, isFav: false },
+                { name: 'NiiaMoore', isLatina: false, isFav: false },
+                { name: 'emilyy_r', isLatina: true, isFav: false },
+                { name: 'MayaMoanXXX', isLatina: false, isFav: false },
+                { name: 'Bellaboobs_', isLatina: false, isFav: false },
+                { name: 'Capricornio_', isLatina: true, isFav: false },
+                { name: 'antonelaswete02', isLatina: true, isFav: false },
+                { name: 'Isabella_Daniell', isLatina: true, isFav: false },
+                { name: 'Dark-BerryX', isLatina: false, isFav: false },
+                { name: 'MeganBlazze', isLatina: false, isFav: false },
+                { name: 'LunaRose5', isLatina: true, isFav: false },
+                { name: 'Eva-love12', isLatina: true, isFav: false },
+                { name: 'indialatin', isLatina: true, isFav: false },
+                { name: 'IvonneOwen', isLatina: false, isFav: false },
+                // Nuevas favoritas
+                { name: 'latinsweetx19', isLatina: true, isFav: true },
+                { name: 'stupidnaturalphatbooty_', isLatina: false, isFav: true },
+                // Eva-love12 y Capricornio_ ya existen, las convertimos en fav
+                { name: 'anne_robert', isLatina: false, isFav: true },
+                { name: 'julianacastillo', isLatina: true, isFav: true },
+                { name: 'AlexxiaaMat', isLatina: true, isFav: true },
+                { name: 'Phoenix_lovexxx', isLatina: false, isFav: true },
+                { name: 'pilarjones_', isLatina: true, isFav: true },
+                { name: 'tati_reyess', isLatina: true, isFav: true },
+                { name: 'elena_wolff', isLatina: false, isFav: true }
             ];
+
+            // Ajustar fav de los modelos existentes que fueron pedidos como favoritos
+            allModels.find(m => m.name === 'Eva-love12').isFav = true;
+            allModels.find(m => m.name === 'Capricornio_').isFav = true;
+
+            // Conjunto de nuevos favs para el prefijo especial
+            const newFavs = new Set([
+                'latinsweetx19', 'stupidnaturalphatbooty_', 'anne_robert',
+                'julianacastillo', 'AlexxiaaMat', 'Phoenix_lovexxx',
+                'pilarjones_', 'tati_reyess', 'elena_wolff'
+            ]);
 
             const directLinks = [
                 { label: 'Video 175361655', url: 'https://es.cumcams.cc/video/175361655/play' },
                 { label: 'sol_and_andy', url: 'https://livecamrips.to/model/413943/sol_and_andy' },
                 { label: 'myc_hot', url: 'https://livecamrips.to/model/7530/myc_hot' },
                 { label: 'SinCityDoll', url: 'https://livecamrips.to/model/391731/SinCityDoll' },
-                { label: 'SxyPrn Video', url: 'https://sxyprn.com/post/6a16236f557a0.html?asgtbndr=1' }
+                { label: 'SxyPrn Video', url: 'https://sxyprn.com/post/6a16236f557a0.html?asgtbndr=1' },
+                { label: 'Videosection Vid', url: 'https://es.videosection.com/video/260833656?asgtbndr=1' },
+                { label: 'SearchHubcam', url: 'https://juancarrasc204.github.io/SearchHubcam/index.html' },
+                { label: 'LiveCamRips Vid 1', url: 'https://livecamrips.to/video/14339529' },
+                { label: 'CumCams Vid 184634400', url: 'https://es.cumcams.cc/video/184634400/play' },
+                { label: 'LiveCamRips Vid 14085732', url: 'https://livecamrips.to/video/14085732' },
+                { label: 'LiveCamRips Vid 14348077', url: 'https://livecamrips.to/video/14348077' }
             ];
 
-            let currentSort = 'az'; // 'az' o 'newest'
+            let currentSort = 'az';
 
             function getLatinaModels() {
                 return allModels.filter(m => m.isLatina);
@@ -360,7 +398,7 @@
             function sortModels(modelArray, sortMode) {
                 if (sortMode === 'az') {
                     return [...modelArray].sort((a, b) => a.name.localeCompare(b.name, 'es', { sensitivity: 'base' }));
-                } else { // 'newest' -> orden cronológico inverso
+                } else {
                     const indexMap = {};
                     allModels.forEach((m, idx) => { indexMap[m.name] = idx; });
                     return [...modelArray].sort((a, b) => indexMap[b.name] - indexMap[a.name]);
@@ -376,7 +414,12 @@
                     chip.className = 'model-chip';
                     if (m.isFav) {
                         chip.classList.add('fav');
-                        chip.innerHTML = `❤️ ${m.name}`; // Añade corazón antes del nombre
+                        // Sólo los nuevos favoritos llevan el prefijo ✨💎
+                        if (newFavs.has(m.name)) {
+                            chip.innerHTML = `✨💎 ${m.name}`;
+                        } else {
+                            chip.textContent = m.name;
+                        }
                     } else {
                         chip.textContent = m.name;
                     }
@@ -410,11 +453,9 @@
                 });
             }
 
-            // Inicializar
             renderAllModels();
             renderDirectLinks();
 
-            // Listeners de ordenación
             sortButtons.forEach(btn => {
                 btn.addEventListener('click', () => {
                     const mode = btn.getAttribute('data-sort');
@@ -459,7 +500,7 @@
             function renderLinks(cleanName) {
                 resultsContainer.innerHTML = '';
                 if (!cleanName) {
-                    resultsContainer.innerHTML = '<div class="empty-state"><span style="font-size:2.2rem;">🥀</span><span>Name not valid</span></div>';
+                    resultsContainer.innerHTML = '<div class="empty-state"><span style="font-size:2.2rem;">✨</span><span>Name not valid</span></div>';
                     stripchatProfile.style.display = 'none';
                     return;
                 }
@@ -483,7 +524,7 @@
                 const rawValue = input.value;
                 const cleanName = sanitizeModelName(rawValue);
                 if (!cleanName) {
-                    resultsContainer.innerHTML = '<div class="empty-state"><span style="font-size:2.2rem;">🥀</span><span>Type a name and press Find</span></div>';
+                    resultsContainer.innerHTML = '<div class="empty-state"><span style="font-size:2.2rem;">✨</span><span>Type a name and press Find</span></div>';
                     stripchatProfile.style.display = 'none';
                     return;
                 }
