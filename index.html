@@ -37,21 +37,16 @@
             overflow-x: hidden;
         }
 
-        /* Fondo con patrones geométricos más visibles y animados */
         body::before {
             content: "";
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
             background-image: 
-                /* Líneas diagonales animadas */
                 repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 2px, transparent 2px, transparent 10px),
                 repeating-linear-gradient(-45deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 2px, transparent 2px, transparent 10px),
-                /* Rejilla horizontal */
                 repeating-linear-gradient(0deg, rgba(255,255,255,0.04) 0px, rgba(255,255,255,0.04) 1px, transparent 1px, transparent 20px),
-                /* Rejilla vertical */
                 repeating-linear-gradient(90deg, rgba(255,255,255,0.04) 0px, rgba(255,255,255,0.04) 1px, transparent 1px, transparent 20px),
-                /* Destellos tecnológicos */
                 radial-gradient(circle at 80% 20%, rgba(255,255,255,0.06) 0%, transparent 40%),
                 radial-gradient(circle at 20% 80%, rgba(255,255,255,0.04) 0%, transparent 40%);
             pointer-events: none;
@@ -64,7 +59,6 @@
             100% { background-position: 50px 50px, -50px 50px, 0 20px, 20px 0, 0 0, 0 0; }
         }
 
-        /* Efecto de escaneo horizontal */
         body::after {
             content: "";
             position: fixed;
@@ -97,7 +91,6 @@
             overflow: hidden;
         }
 
-        /* Borde brillante animado */
         .glass-panel::before {
             content: "";
             position: absolute;
@@ -115,7 +108,6 @@
             100% { opacity: 0.3; }
         }
 
-        /* Rejilla interna sutil */
         .glass-panel::after {
             content: "";
             position: absolute;
@@ -156,21 +148,21 @@
         }
 
         .tabs {
-            display: flex; gap: 0.4rem; margin-bottom: 1.2rem;
-            background: rgba(255,255,255,0.02); border-radius: 50px; padding: 0.3rem;
+            display: flex; gap: 0.25rem; margin-bottom: 1.2rem;
+            background: rgba(255,255,255,0.02); border-radius: 50px; padding: 0.2rem;
             border: 1px solid var(--border);
             position: relative; z-index: 1;
         }
         .tab {
             flex: 1; background: transparent; border: none;
-            color: var(--text-secondary); font-weight: 600; font-size: 0.8rem;
-            padding: 0.55rem 0.4rem; border-radius: 50px; cursor: pointer;
-            transition: all var(--transition); white-space: nowrap; letter-spacing: 0.5px;
+            color: var(--text-secondary); font-weight: 600; font-size: 0.65rem;
+            padding: 0.45rem 0.15rem; border-radius: 50px; cursor: pointer;
+            transition: all var(--transition); white-space: nowrap; letter-spacing: 0.2px;
         }
         .tab.active {
             background: var(--accent);
             color: #000;
-            box-shadow: 0 0 15px rgba(255,255,255,0.3);
+            box-shadow: 0 0 12px rgba(255,255,255,0.3);
             font-weight: 700;
         }
 
@@ -231,7 +223,6 @@
         }
         .sort-btn:hover:not(.active) { color: #fff; background: rgba(255,255,255,0.05); }
 
-        /* Lista de modelos (favoritos, latina, other) justo debajo del buscador */
         .chips-container {
             display: flex; flex-wrap: wrap; gap: 0.45rem;
             max-height: 280px; overflow-y: auto; padding-right: 0.3rem;
@@ -339,6 +330,8 @@
             <button class="tab active" data-tab="favs">⭐ FAVS</button>
             <button class="tab" data-tab="latina">🌶️ LATINA</button>
             <button class="tab" data-tab="other">🌑 OTHER</button>
+            <button class="tab" data-tab="paja">💦 PAJA</button>
+            <button class="tab" data-tab="lila">💎 LILA</button>
         </div>
 
         <div class="search-box">
@@ -354,10 +347,8 @@
             <button class="sort-btn" data-sort="newest">🆕 NEWEST</button>
         </div>
 
-        <!-- Lista de modelos (favoritos, latina, other) justo debajo del buscador -->
         <div class="chips-container" id="chipsContainer"></div>
 
-        <!-- Enlaces directos después de las listas de modelos -->
         <div class="section-label" style="margin-top: 0.5rem;"><span>🔗</span> DIRECT LINKS</div>
         <div class="chips-container" id="directChipsContainer" style="max-height: none; margin-bottom: 0;"></div>
 
@@ -399,7 +390,6 @@
             ];
             const stripchatProfileUrl = 'https://stripchat.com/{model}';
 
-            // Solo 2 sitios
             const sites = [
                 { name: 'CumCams', icon: '🎥', urlPattern: 'https://es.cumcams.cc/performer/{model}' },
                 { name: 'LiveCamRips', icon: '📹', urlPattern: 'https://livecamrips.to/search/{model}' }
@@ -511,7 +501,35 @@
                 { name: 'NickyBabieX_X', isLatina: false, isFav: false },
                 { name: 'madison_rowan', isLatina: false, isFav: false },
                 { name: 'VictoriaSecretXXX', isLatina: false, isFav: false },
-                { name: 'brendacrean', isLatina: false, isFav: false }
+                { name: 'brendacrean', isLatina: false, isFav: false },
+                { name: 'La toxica', isLatina: true, isFav: false },
+                { name: 'Celeste3', isLatina: false, isFav: false },
+                { name: 'samiacooper25', isLatina: false, isFav: false },
+                { name: 'tara20_', isLatina: false, isFav: false }
+            ];
+
+            const pajaItems = [
+                { type: 'link', label: '🎥 CumCams Vid 184465694', url: 'https://es.cumcams.cc/video/184465694/play' },
+                { type: 'model', name: 'JulianaCastillo' },
+                { type: 'model', name: 'LindaWz_' },
+                { type: 'model', name: 'michelle_olivers1' },
+                { type: 'model', name: 'Sammy_Sweet01' },
+                { type: 'model', name: 'Ahincale' }
+            ];
+
+            // Sección DIAMANTE LILA
+            const lilaItems = [
+                { type: 'model', name: 'KarolVIPXXX' },
+                { type: 'model', name: 'scarlet_tommy' },
+                { type: 'model', name: '_Alicee_1' },
+                { type: 'link', label: '🔗 SearchHubcam', url: 'https://juancarrasc204.github.io/SearchHubcam/index.html' },
+                { type: 'link', label: '🎥 CumCams Vid 180809217', url: 'https://es.cumcams.cc/video/180809217/play' },
+                { type: 'link', label: '☁️ CloudBate Vid', url: 'https://www.cloudbate.com/video/789894/catalina-spec-porn-cam-03-08-2026/?play=true' },
+                { type: 'link', label: '🎬 SpankBang op 38', url: 'https://spankbang.party/89hm7/video/op+38' },
+                { type: 'link', label: '🎬 SpankBang evandmikee', url: 'https://spankbang.party/5r47g/video/evandmikee+2020+latina+with+big+ass' },
+                { type: 'link', label: '🎬 SpankBang sloppy', url: 'https://spankbang.party/4zc15/playlist/sloppy/' },
+                { type: 'link', label: '🎬 SpankBang rimjob 43', url: 'https://spankbang.party/7ijw3/video/rimjob+part+43+50' },
+                { type: 'link', label: '🎬 SpankBang nastylez', url: 'https://spankbang.party/7sxa2/video/nastylezcamspit' }
             ];
 
             const specialFavs = new Set([
@@ -530,9 +548,9 @@
                 'Jadee_grey', 'paola_rodriguez', 'niky_smit'
             ]);
 
-            // Solo SxyPrn en enlaces directos
             const directLinks = [
-                { label: 'SxyPrn Video', url: 'https://sxyprn.com/post/6a16236f557a0.html?asgtbndr=1' }
+                { label: 'SxyPrn Video', url: 'https://sxyprn.com/post/6a16236f557a0.html?asgtbndr=1' },
+                { label: 'CumCams Vid 184465694', url: 'https://es.cumcams.cc/video/184465694/play' }
             ];
 
             let currentSort = 'az';
@@ -541,7 +559,8 @@
             function getModelsForTab(tab) {
                 if (tab === 'favs') return allModels.filter(m => m.isFav);
                 if (tab === 'latina') return allModels.filter(m => m.isLatina);
-                return allModels.filter(m => !m.isLatina);
+                if (tab === 'other') return allModels.filter(m => !m.isLatina);
+                return [];
             }
 
             function sortModels(modelArray, sortMode) {
@@ -554,7 +573,36 @@
                 }
             }
 
+            function renderSpecialSection(items, prefix) {
+                chipsContainer.innerHTML = '';
+                items.forEach(item => {
+                    const chip = document.createElement('button');
+                    if (item.type === 'link') {
+                        chip.className = 'model-chip direct-link-chip';
+                        chip.textContent = item.label;
+                        chip.addEventListener('click', () => window.open(item.url, '_blank', 'noopener,noreferrer'));
+                    } else {
+                        chip.className = 'model-chip fav';
+                        chip.textContent = prefix + ' ' + item.name;
+                        chip.addEventListener('click', () => {
+                            input.value = item.name;
+                            handleGenerate();
+                        });
+                    }
+                    chipsContainer.appendChild(chip);
+                });
+            }
+
             function renderChips() {
+                if (currentTab === 'paja') {
+                    renderSpecialSection(pajaItems, '💦');
+                    return;
+                }
+                if (currentTab === 'lila') {
+                    renderSpecialSection(lilaItems, '💎');
+                    return;
+                }
+
                 const filterText = input.value.trim().toLowerCase();
                 let models = getModelsForTab(currentTab);
                 if (filterText) {
@@ -609,6 +657,11 @@
                     tabs.forEach(t => t.classList.remove('active'));
                     tab.classList.add('active');
                     currentTab = tab.getAttribute('data-tab');
+                    if (currentTab === 'paja' || currentTab === 'lila') {
+                        document.getElementById('sortBar').style.display = 'none';
+                    } else {
+                        document.getElementById('sortBar').style.display = 'flex';
+                    }
                     renderChips();
                 });
             });
