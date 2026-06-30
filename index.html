@@ -147,26 +147,7 @@
             text-transform: uppercase;
         }
 
-        .tabs {
-            display: flex; gap: 0.25rem; margin-bottom: 1.2rem;
-            background: rgba(255,255,255,0.02); border-radius: 50px; padding: 0.2rem;
-            border: 1px solid var(--border);
-            position: relative; z-index: 1;
-        }
-        .tab {
-            flex: 1; background: transparent; border: none;
-            color: var(--text-secondary); font-weight: 600; font-size: 0.65rem;
-            padding: 0.45rem 0.15rem; border-radius: 50px; cursor: pointer;
-            transition: all var(--transition); white-space: nowrap; letter-spacing: 0.2px;
-        }
-        .tab.active {
-            background: var(--accent);
-            color: #000;
-            box-shadow: 0 0 12px rgba(255,255,255,0.3);
-            font-weight: 700;
-        }
-
-        .search-box { display: flex; gap: 0.5rem; margin-bottom: 1.2rem; position: relative; z-index: 1; }
+        .search-box { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; position: relative; z-index: 1; }
         .input-wrapper { flex: 1; position: relative; }
         .input-wrapper i {
             position: absolute; left: 1rem; top: 50%;
@@ -202,30 +183,9 @@
         }
         .btn-generate:active { transform: scale(0.96); }
 
-        .sort-bar {
-            display: flex; gap: 0.5rem; margin-bottom: 1.2rem;
-            background: rgba(255,255,255,0.02); border-radius: 50px; padding: 0.25rem;
-            border: 1px solid var(--border);
-            position: relative; z-index: 1;
-        }
-        .sort-btn {
-            flex: 1; background: transparent; border: none;
-            color: var(--text-secondary); font-weight: 600; font-size: 0.75rem;
-            padding: 0.5rem 0.4rem; border-radius: 50px; cursor: pointer;
-            transition: all var(--transition); display: flex; align-items: center; justify-content: center; gap: 0.3rem;
-            letter-spacing: 0.5px;
-        }
-        .sort-btn.active {
-            background: var(--accent);
-            color: #000;
-            box-shadow: 0 0 12px rgba(255,255,255,0.2);
-            font-weight: 700;
-        }
-        .sort-btn:hover:not(.active) { color: #fff; background: rgba(255,255,255,0.05); }
-
         .chips-container {
             display: flex; flex-wrap: wrap; gap: 0.45rem;
-            max-height: 280px; overflow-y: auto; padding-right: 0.3rem;
+            max-height: 320px; overflow-y: auto; padding-right: 0.3rem;
             margin-bottom: 1.2rem; scroll-behavior: smooth;
             position: relative; z-index: 1;
         }
@@ -251,21 +211,11 @@
         }
         .model-chip:active { transform: scale(0.95); }
 
-        .model-chip.fav {
+        .model-chip.model {
             border-color: var(--accent);
             box-shadow: 0 0 15px rgba(255,255,255,0.2);
             background: rgba(255,255,255,0.06);
             font-weight: 700;
-        }
-
-        .direct-link-chip {
-            border-color: rgba(255,255,255,0.2);
-            background: rgba(255,255,255,0.03);
-            color: #ccc;
-        }
-        .direct-link-chip:hover {
-            border-color: var(--accent);
-            background: rgba(255,255,255,0.08);
         }
 
         .section-label {
@@ -326,31 +276,16 @@
             <p class="sub">Discreet access · curated profiles</p>
         </div>
 
-        <div class="tabs" id="tabs">
-            <button class="tab active" data-tab="favs">⭐ FAVS</button>
-            <button class="tab" data-tab="latina">🌶️ LATINA</button>
-            <button class="tab" data-tab="other">🌑 OTHER</button>
-            <button class="tab" data-tab="paja">💦 PAJA</button>
-            <button class="tab" data-tab="lila">💎 LILA</button>
-        </div>
-
         <div class="search-box">
             <div class="input-wrapper">
                 <i>🔍</i>
-                <input type="text" id="modelNameInput" placeholder="Filter or type name..." autocomplete="off" autofocus>
+                <input type="text" id="modelNameInput" placeholder="Type model name..." autocomplete="off" autofocus>
             </div>
             <button class="btn-generate" id="generateBtn"><span>⚡</span> TRACK</button>
         </div>
 
-        <div class="sort-bar" id="sortBar">
-            <button class="sort-btn active" data-sort="az">🔤 A - Z</button>
-            <button class="sort-btn" data-sort="newest">🆕 NEWEST</button>
-        </div>
-
+        <div class="section-label"><span>🔗</span> QUICK ACCESS</div>
         <div class="chips-container" id="chipsContainer"></div>
-
-        <div class="section-label" style="margin-top: 0.5rem;"><span>🔗</span> DIRECT LINKS</div>
-        <div class="chips-container" id="directChipsContainer" style="max-height: none; margin-bottom: 0;"></div>
 
         <div class="stripchat-profile" id="stripchatProfile">
             <div class="profile-card">
@@ -376,13 +311,10 @@
             const generateBtn = document.getElementById('generateBtn');
             const resultsContainer = document.getElementById('resultsContainer');
             const chipsContainer = document.getElementById('chipsContainer');
-            const directChipsContainer = document.getElementById('directChipsContainer');
             const stripchatProfile = document.getElementById('stripchatProfile');
             const profileAvatar = document.getElementById('profileAvatar');
             const profileDisplayName = document.getElementById('profileDisplayName');
             const btnOpenStripchat = document.getElementById('btnOpenStripchat');
-            const sortButtons = document.querySelectorAll('.sort-btn');
-            const tabs = document.querySelectorAll('.tab');
 
             const avatarBaseUrls = [
                 'https://img.stripchat.com/avatar/{model}',
@@ -395,195 +327,33 @@
                 { name: 'LiveCamRips', icon: '📹', urlPattern: 'https://livecamrips.to/search/{model}' }
             ];
 
-            const allModels = [
-                { name: 'LunaaRosse', isLatina: true, isFav: false },
-                { name: 'amor_smith_', isLatina: true, isFav: false },
-                { name: 'lolaslatary1', isLatina: false, isFav: false },
-                { name: 'SexyDee025', isLatina: false, isFav: false },
-                { name: 'riri_brunnete', isLatina: true, isFav: false },
-                { name: 'Esmeralda_Duarte', isLatina: true, isFav: false },
-                { name: 'anny_vittar', isLatina: true, isFav: false },
-                { name: 'Mia_sweet80', isLatina: false, isFav: false },
-                { name: 'shainadavis', isLatina: false, isFav: false },
-                { name: 'alice-blaker', isLatina: false, isFav: false },
-                { name: 'rose_berry', isLatina: false, isFav: false },
-                { name: 'violeta_rosex', isLatina: true, isFav: false },
-                { name: '_lasuenscun', isLatina: true, isFav: false },
-                { name: 'anabelle_bluee10', isLatina: false, isFav: false },
-                { name: 'sofi_johansson', isLatina: false, isFav: false },
-                { name: 'sofierosse_', isLatina: true, isFav: false },
-                { name: 'steacy_19', isLatina: true, isFav: false },
-                { name: 'fox_roxxan', isLatina: false, isFav: false },
-                { name: 'xxxsexyamazon', isLatina: false, isFav: false },
-                { name: 'karolvipxxx', isLatina: true, isFav: false },
-                { name: 'Masked_SexyMelons', isLatina: false, isFav: false },
-                { name: 'Danteandviolete_cr', isLatina: false, isFav: false },
-                { name: 'hot69temptation_', isLatina: false, isFav: false },
-                { name: 'DAVID_VICTORIAA', isLatina: false, isFav: false },
-                { name: 'MorenazaAcsa', isLatina: true, isFav: false },
-                { name: 'HotSweetAngel', isLatina: true, isFav: false },
-                { name: 'DearAbbiee', isLatina: true, isFav: false },
-                { name: 'myc_hot', isLatina: false, isFav: false },
-                { name: 'SinCityDoll', isLatina: false, isFav: false },
-                { name: 'SaharaArisa', isLatina: false, isFav: false },
-                { name: 'nurse_becky', isLatina: false, isFav: false },
-                { name: 'isabella_lovem', isLatina: false, isFav: false },
-                { name: 'the_titis_outdoors', isLatina: false, isFav: false },
-                { name: 'celine_bell20', isLatina: false, isFav: false },
-                { name: 'Ivelleee_', isLatina: false, isFav: false },
-                { name: 'ava_blue', isLatina: false, isFav: false },
-                { name: 'Deisy_torres', isLatina: false, isFav: false },
-                { name: 'Joha_ross92', isLatina: false, isFav: false },
-                { name: 'StormiRoseb', isLatina: false, isFav: false },
-                { name: 'Lizzie_Williams_', isLatina: false, isFav: false },
-                { name: 'Cristal-Jonnes', isLatina: false, isFav: false },
-                { name: '_mishelle', isLatina: false, isFav: false },
-                { name: 'kathdolly', isLatina: false, isFav: false },
-                { name: 'rave_connor', isLatina: false, isFav: false },
-                { name: 'bellapaty', isLatina: false, isFav: false },
-                { name: 'monicaflower', isLatina: false, isFav: false },
-                { name: '18_salo', isLatina: false, isFav: false },
-                { name: 'Sasha_0012', isLatina: false, isFav: false },
-                { name: 'Chloe_02g', isLatina: false, isFav: false },
-                { name: 'Brownie_With_Milk', isLatina: false, isFav: true },
-                { name: 'ginaakemi', isLatina: false, isFav: false },
-                { name: 'karla-bruni', isLatina: true, isFav: false },
-                { name: 'Sarah-Office1', isLatina: false, isFav: false },
-                { name: 'hot_sophy', isLatina: false, isFav: false },
-                { name: 'adri_miller', isLatina: false, isFav: false },
-                { name: 'KattalellaGomez', isLatina: true, isFav: false },
-                { name: 'Giviper1', isLatina: false, isFav: false },
-                { name: 'Allice_Evens', isLatina: false, isFav: false },
-                { name: 'Gigi_hart7', isLatina: false, isFav: false },
-                { name: 'Cataleya-x03', isLatina: true, isFav: false },
-                { name: 'PlacerTallaXXX', isLatina: true, isFav: false },
-                { name: 'alexa_forbes_', isLatina: false, isFav: true },
-                { name: 'Valery_moonss', isLatina: true, isFav: false },
-                { name: 'Lania_spencer2', isLatina: false, isFav: true },
-                { name: 'Tara__Sexy', isLatina: false, isFav: true },
-                { name: 'camiysebas21', isLatina: true, isFav: false },
-                { name: '_KissMyAss_', isLatina: false, isFav: false },
-                { name: 'Aurora19', isLatina: true, isFav: false },
-                { name: 'NiiaMoore', isLatina: false, isFav: false },
-                { name: 'emilyy_r', isLatina: true, isFav: false },
-                { name: 'MayaMoanXXX', isLatina: false, isFav: false },
-                { name: 'Bellaboobs_', isLatina: false, isFav: false },
-                { name: 'Capricornio_', isLatina: true, isFav: true },
-                { name: 'antonelaswete02', isLatina: true, isFav: false },
-                { name: 'Isabella_Daniell', isLatina: true, isFav: false },
-                { name: 'Dark-BerryX', isLatina: false, isFav: false },
-                { name: 'MeganBlazze', isLatina: false, isFav: false },
-                { name: 'LunaRose5', isLatina: true, isFav: false },
-                { name: 'Eva-love12', isLatina: true, isFav: true },
-                { name: 'indialatin', isLatina: true, isFav: false },
-                { name: 'IvonneOwen', isLatina: false, isFav: false },
-                { name: 'latinsweetx19', isLatina: true, isFav: true },
-                { name: 'stupidnaturalphatbooty_', isLatina: false, isFav: true },
-                { name: 'anne_robert', isLatina: false, isFav: true },
-                { name: 'julianacastillo', isLatina: true, isFav: true },
-                { name: 'AlexxiaaMat', isLatina: true, isFav: true },
-                { name: 'Phoenix_lovexxx', isLatina: false, isFav: true },
-                { name: 'pilarjones_', isLatina: true, isFav: true },
-                { name: 'tati_reyess', isLatina: true, isFav: true },
-                { name: 'elena_wolff', isLatina: false, isFav: true },
-                { name: 'abilx', isLatina: false, isFav: true },
-                { name: 'fuckand_lick', isLatina: false, isFav: true },
-                { name: 'lover-anaal', isLatina: false, isFav: true },
-                { name: 'akura_01', isLatina: false, isFav: true },
-                { name: 'sweat_skin2', isLatina: false, isFav: true },
-                { name: 'priyaverma00', isLatina: false, isFav: true },
-                { name: 'Jadee_grey', isLatina: false, isFav: true },
-                { name: 'paola_rodriguez', isLatina: true, isFav: true },
-                { name: 'niky_smit', isLatina: false, isFav: true },
-                { name: 'Valery_Evaans', isLatina: true, isFav: false },
-                { name: 'MiaJacksonn', isLatina: false, isFav: false },
-                { name: 'kinky_doctorX', isLatina: false, isFav: false },
-                { name: 'NickyBabieX_X', isLatina: false, isFav: false },
-                { name: 'madison_rowan', isLatina: false, isFav: false },
-                { name: 'VictoriaSecretXXX', isLatina: false, isFav: false },
-                { name: 'brendacrean', isLatina: false, isFav: false },
-                { name: 'La toxica', isLatina: true, isFav: false },
-                { name: 'Celeste3', isLatina: false, isFav: false },
-                { name: 'samiacooper25', isLatina: false, isFav: false },
-                { name: 'tara20_', isLatina: false, isFav: false }
-            ];
-
-            const pajaItems = [
-                { type: 'link', label: '🎥 CumCams Vid 184465694', url: 'https://es.cumcams.cc/video/184465694/play' },
-                { type: 'model', name: 'JulianaCastillo' },
-                { type: 'model', name: 'LindaWz_' },
-                { type: 'model', name: 'michelle_olivers1' },
-                { type: 'model', name: 'Sammy_Sweet01' },
-                { type: 'model', name: 'Ahincale' }
-            ];
-
-            // Sección DIAMANTE LILA
-            const lilaItems = [
-                { type: 'model', name: 'KarolVIPXXX' },
-                { type: 'model', name: 'scarlet_tommy' },
-                { type: 'model', name: '_Alicee_1' },
+            // Lista combinada de enlaces directos y modelos
+            const items = [
+                { type: 'link', label: '🎥 CumCams Vid 187893376', url: 'https://es.cumcams.cc/video/187893376/play' },
                 { type: 'link', label: '🔗 SearchHubcam', url: 'https://juancarrasc204.github.io/SearchHubcam/index.html' },
-                { type: 'link', label: '🎥 CumCams Vid 180809217', url: 'https://es.cumcams.cc/video/180809217/play' },
-                { type: 'link', label: '☁️ CloudBate Vid', url: 'https://www.cloudbate.com/video/789894/catalina-spec-porn-cam-03-08-2026/?play=true' },
-                { type: 'link', label: '🎬 SpankBang op 38', url: 'https://spankbang.party/89hm7/video/op+38' },
-                { type: 'link', label: '🎬 SpankBang evandmikee', url: 'https://spankbang.party/5r47g/video/evandmikee+2020+latina+with+big+ass' },
-                { type: 'link', label: '🎬 SpankBang sloppy', url: 'https://spankbang.party/4zc15/playlist/sloppy/' },
-                { type: 'link', label: '🎬 SpankBang rimjob 43', url: 'https://spankbang.party/7ijw3/video/rimjob+part+43+50' },
-                { type: 'link', label: '🎬 SpankBang nastylez', url: 'https://spankbang.party/7sxa2/video/nastylezcamspit' }
+                { type: 'link', label: '🎥 CumCams Vid 178062497', url: 'https://es.cumcams.cc/video/178062497/play' },
+                { type: 'link', label: '🏷️ CumCams Tag twerk', url: 'https://es.cumcams.cc/tags/twerk' },
+                { type: 'link', label: '🎥 LiveCamRips Vid 14722111', url: 'https://livecamrips.to/video/14722111' },
+                { type: 'link', label: '🎥 CumCams Vid 186507099', url: 'https://es.cumcams.cc/video/186507099/play' },
+                { type: 'link', label: '🎥 LiveCamRips Vid 14528295', url: 'https://livecamrips.to/video/14528295' },
+                { type: 'link', label: '🎥 LiveCamRips Vid 14713648', url: 'https://livecamrips.to/video/14713648' },
+                { type: 'link', label: '🎥 CumCams Vid 184725200', url: 'https://es.cumcams.cc/video/184725200/play' },
+                { type: 'link', label: '🎥 CumCams Vid 183332590', url: 'https://es.cumcams.cc/video/183332590/play' },
+                { type: 'link', label: '🎥 CumCams Vid 182036187', url: 'https://es.cumcams.cc/video/182036187/play' },
+                { type: 'model', name: 'tokio_and_rio' }
             ];
 
-            const specialFavs = new Set([
-                'latinsweetx19', 'stupidnaturalphatbooty_', 'anne_robert',
-                'julianacastillo', 'AlexxiaaMat', 'Phoenix_lovexxx',
-                'pilarjones_', 'tati_reyess', 'elena_wolff',
-                'Capricornio_', 'Eva-love12'
-            ]);
-
-            const yellowHeartFavs = new Set([
-                'abilx', 'fuckand_lick', 'lover-anaal', 'akura_01',
-                'sweat_skin2', 'priyaverma00'
-            ]);
-
-            const peachFavs = new Set([
-                'Jadee_grey', 'paola_rodriguez', 'niky_smit'
-            ]);
-
-            const directLinks = [
-                { label: 'SxyPrn Video', url: 'https://sxyprn.com/post/6a16236f557a0.html?asgtbndr=1' },
-                { label: 'CumCams Vid 184465694', url: 'https://es.cumcams.cc/video/184465694/play' }
-            ];
-
-            let currentSort = 'az';
-            let currentTab = 'favs';
-
-            function getModelsForTab(tab) {
-                if (tab === 'favs') return allModels.filter(m => m.isFav);
-                if (tab === 'latina') return allModels.filter(m => m.isLatina);
-                if (tab === 'other') return allModels.filter(m => !m.isLatina);
-                return [];
-            }
-
-            function sortModels(modelArray, sortMode) {
-                if (sortMode === 'az') {
-                    return [...modelArray].sort((a, b) => a.name.localeCompare(b.name, 'es', { sensitivity: 'base' }));
-                } else {
-                    const indexMap = {};
-                    allModels.forEach((m, idx) => { indexMap[m.name] = idx; });
-                    return [...modelArray].sort((a, b) => indexMap[b.name] - indexMap[a.name]);
-                }
-            }
-
-            function renderSpecialSection(items, prefix) {
+            function renderItems() {
                 chipsContainer.innerHTML = '';
                 items.forEach(item => {
                     const chip = document.createElement('button');
                     if (item.type === 'link') {
-                        chip.className = 'model-chip direct-link-chip';
+                        chip.className = 'model-chip';
                         chip.textContent = item.label;
                         chip.addEventListener('click', () => window.open(item.url, '_blank', 'noopener,noreferrer'));
                     } else {
-                        chip.className = 'model-chip fav';
-                        chip.textContent = prefix + ' ' + item.name;
+                        chip.className = 'model-chip model';
+                        chip.textContent = '🍑 ' + item.name;
                         chip.addEventListener('click', () => {
                             input.value = item.name;
                             handleGenerate();
@@ -593,93 +363,7 @@
                 });
             }
 
-            function renderChips() {
-                if (currentTab === 'paja') {
-                    renderSpecialSection(pajaItems, '💦');
-                    return;
-                }
-                if (currentTab === 'lila') {
-                    renderSpecialSection(lilaItems, '💎');
-                    return;
-                }
-
-                const filterText = input.value.trim().toLowerCase();
-                let models = getModelsForTab(currentTab);
-                if (filterText) {
-                    models = models.filter(m => m.name.toLowerCase().includes(filterText));
-                }
-                const sorted = sortModels(models, currentSort);
-                chipsContainer.innerHTML = '';
-                if (sorted.length === 0) {
-                    chipsContainer.innerHTML = '<div style="color:#888; width:100%; text-align:center; padding:1rem;">No models found</div>';
-                    return;
-                }
-                sorted.forEach(m => {
-                    const chip = document.createElement('button');
-                    chip.className = 'model-chip';
-                    if (m.isFav) {
-                        chip.classList.add('fav');
-                        if (peachFavs.has(m.name)) {
-                            chip.innerHTML = `🍑 ${m.name}`;
-                        } else if (yellowHeartFavs.has(m.name)) {
-                            chip.innerHTML = `💛 ${m.name}`;
-                        } else if (specialFavs.has(m.name)) {
-                            chip.innerHTML = `✨💎 ${m.name}`;
-                        } else {
-                            chip.textContent = m.name;
-                        }
-                    } else {
-                        chip.textContent = m.name;
-                    }
-                    chip.addEventListener('click', () => {
-                        input.value = m.name;
-                        handleGenerate();
-                    });
-                    chipsContainer.appendChild(chip);
-                });
-            }
-
-            function renderDirectLinks() {
-                directChipsContainer.innerHTML = '';
-                directLinks.forEach(link => {
-                    const chip = document.createElement('button');
-                    chip.className = 'model-chip direct-link-chip';
-                    chip.textContent = link.label;
-                    chip.addEventListener('click', () => window.open(link.url, '_blank', 'noopener,noreferrer'));
-                    directChipsContainer.appendChild(chip);
-                });
-            }
-
-            renderDirectLinks();
-
-            tabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    tabs.forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active');
-                    currentTab = tab.getAttribute('data-tab');
-                    if (currentTab === 'paja' || currentTab === 'lila') {
-                        document.getElementById('sortBar').style.display = 'none';
-                    } else {
-                        document.getElementById('sortBar').style.display = 'flex';
-                    }
-                    renderChips();
-                });
-            });
-
-            sortButtons.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const mode = btn.getAttribute('data-sort');
-                    if (mode === currentSort) return;
-                    currentSort = mode;
-                    sortButtons.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    renderChips();
-                });
-            });
-
-            input.addEventListener('input', () => {
-                renderChips();
-            });
+            renderItems();
 
             function sanitizeModelName(rawName) { return rawName.trim().replace(/\s+/g, ''); }
 
@@ -757,7 +441,6 @@
             generateBtn.addEventListener('click', handleGenerate);
             input.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleGenerate(); });
 
-            renderChips();
             input.focus();
             stripchatProfile.style.display = 'none';
         })();
