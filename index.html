@@ -147,6 +147,25 @@
             text-transform: uppercase;
         }
 
+        .tabs {
+            display: flex; gap: 0.4rem; margin-bottom: 1.2rem;
+            background: rgba(255,255,255,0.02); border-radius: 50px; padding: 0.25rem;
+            border: 1px solid var(--border);
+            position: relative; z-index: 1;
+        }
+        .tab {
+            flex: 1; background: transparent; border: none;
+            color: var(--text-secondary); font-weight: 600; font-size: 0.75rem;
+            padding: 0.55rem 0.4rem; border-radius: 50px; cursor: pointer;
+            transition: all var(--transition); white-space: nowrap; letter-spacing: 0.3px;
+        }
+        .tab.active {
+            background: var(--accent);
+            color: #000;
+            box-shadow: 0 0 12px rgba(255,255,255,0.3);
+            font-weight: 700;
+        }
+
         .search-box { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; position: relative; z-index: 1; }
         .input-wrapper { flex: 1; position: relative; }
         .input-wrapper i {
@@ -276,6 +295,11 @@
             <p class="sub">Discreet access · curated profiles</p>
         </div>
 
+        <div class="tabs" id="tabs">
+            <button class="tab active" data-tab="quick">🔗 QUICK</button>
+            <button class="tab" data-tab="diamantito">💠 DIAMANTITO</button>
+        </div>
+
         <div class="search-box">
             <div class="input-wrapper">
                 <i>🔍</i>
@@ -284,7 +308,6 @@
             <button class="btn-generate" id="generateBtn"><span>⚡</span> TRACK</button>
         </div>
 
-        <div class="section-label"><span>🔗</span> QUICK ACCESS</div>
         <div class="chips-container" id="chipsContainer"></div>
 
         <div class="stripchat-profile" id="stripchatProfile">
@@ -315,6 +338,7 @@
             const profileAvatar = document.getElementById('profileAvatar');
             const profileDisplayName = document.getElementById('profileDisplayName');
             const btnOpenStripchat = document.getElementById('btnOpenStripchat');
+            const tabs = document.querySelectorAll('.tab');
 
             const avatarBaseUrls = [
                 'https://img.stripchat.com/avatar/{model}',
@@ -327,8 +351,8 @@
                 { name: 'LiveCamRips', icon: '📹', urlPattern: 'https://livecamrips.to/search/{model}' }
             ];
 
-            // Lista combinada de enlaces directos y modelos
-            const items = [
+            // Pestaña QUICK ACCESS
+            const quickItems = [
                 { type: 'link', label: '🎥 CumCams Vid 187893376', url: 'https://es.cumcams.cc/video/187893376/play' },
                 { type: 'link', label: '🔗 SearchHubcam', url: 'https://juancarrasc204.github.io/SearchHubcam/index.html' },
                 { type: 'link', label: '🎥 CumCams Vid 178062497', url: 'https://es.cumcams.cc/video/178062497/play' },
@@ -340,10 +364,32 @@
                 { type: 'link', label: '🎥 CumCams Vid 184725200', url: 'https://es.cumcams.cc/video/184725200/play' },
                 { type: 'link', label: '🎥 CumCams Vid 183332590', url: 'https://es.cumcams.cc/video/183332590/play' },
                 { type: 'link', label: '🎥 CumCams Vid 182036187', url: 'https://es.cumcams.cc/video/182036187/play' },
-                { type: 'model', name: 'tokio_and_rio' }
+                { type: 'model', name: 'tokio_and_rio' },
+                { type: 'model', name: 'AntonelaMorriz' },
+                { type: 'model', name: 'Molly_h0t' },
+                { type: 'model', name: 'analia18_' },
+                { type: 'model', name: 'yameil' },
+                { type: 'model', name: 'Michelle_Brito1' },
+                { type: 'model', name: 'mercedes_555' },
+                { type: 'model', name: 'nikita_glsm' }
             ];
 
-            function renderItems() {
+            // Pestaña DIAMANTITO LATINO
+            const diamantitoItems = [
+                { type: 'model', name: 'Yui-Ch06' },
+                { type: 'model', name: 'AngelinaDuvall' },
+                { type: 'model', name: 'ALEJA__22' },
+                { type: 'model', name: 'Naatalia' },
+                { type: 'model', name: 'AmaranttayLunay' },
+                { type: 'model', name: 'ANDREA-10_' },
+                { type: 'model', name: 'Emily_Gomezz' },
+                { type: 'model', name: 'Abby_Garciaa' },
+                { type: 'model', name: 'isabelateran' }
+            ];
+
+            let currentTab = 'quick';
+
+            function renderItems(items, prefix) {
                 chipsContainer.innerHTML = '';
                 items.forEach(item => {
                     const chip = document.createElement('button');
@@ -353,7 +399,7 @@
                         chip.addEventListener('click', () => window.open(item.url, '_blank', 'noopener,noreferrer'));
                     } else {
                         chip.className = 'model-chip model';
-                        chip.textContent = '🍑 ' + item.name;
+                        chip.textContent = prefix + ' ' + item.name;
                         chip.addEventListener('click', () => {
                             input.value = item.name;
                             handleGenerate();
@@ -363,7 +409,22 @@
                 });
             }
 
-            renderItems();
+            function renderChips() {
+                if (currentTab === 'quick') {
+                    renderItems(quickItems, '🍑');
+                } else {
+                    renderItems(diamantitoItems, '💠');
+                }
+            }
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    currentTab = tab.getAttribute('data-tab');
+                    renderChips();
+                });
+            });
 
             function sanitizeModelName(rawName) { return rawName.trim().replace(/\s+/g, ''); }
 
@@ -441,6 +502,7 @@
             generateBtn.addEventListener('click', handleGenerate);
             input.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleGenerate(); });
 
+            renderChips();
             input.focus();
             stripchatProfile.style.display = 'none';
         })();
