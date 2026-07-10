@@ -148,16 +148,16 @@
         }
 
         .tabs {
-            display: flex; gap: 0.4rem; margin-bottom: 1.2rem;
-            background: rgba(255,255,255,0.02); border-radius: 50px; padding: 0.25rem;
+            display: flex; gap: 0.3rem; margin-bottom: 1.2rem;
+            background: rgba(255,255,255,0.02); border-radius: 50px; padding: 0.2rem;
             border: 1px solid var(--border);
             position: relative; z-index: 1;
         }
         .tab {
             flex: 1; background: transparent; border: none;
-            color: var(--text-secondary); font-weight: 600; font-size: 0.75rem;
-            padding: 0.55rem 0.4rem; border-radius: 50px; cursor: pointer;
-            transition: all var(--transition); white-space: nowrap; letter-spacing: 0.3px;
+            color: var(--text-secondary); font-weight: 600; font-size: 0.6rem;
+            padding: 0.5rem 0.2rem; border-radius: 50px; cursor: pointer;
+            transition: all var(--transition); white-space: nowrap; letter-spacing: 0.2px;
         }
         .tab.active {
             background: var(--accent);
@@ -298,6 +298,9 @@
         <div class="tabs" id="tabs">
             <button class="tab active" data-tab="quick">🔗 QUICK</button>
             <button class="tab" data-tab="diamantito">💠 DIAMANTITO</button>
+            <button class="tab" data-tab="kkk">🖤 KKK</button>
+            <button class="tab" data-tab="garganta">🌊 GARGANTA</button>
+            <button class="tab" data-tab="embarazada">🤰 EMBARAZADA</button>
         </div>
 
         <div class="search-box">
@@ -387,6 +390,21 @@
                 { type: 'model', name: 'isabelateran' }
             ];
 
+            // Pestaña KKK
+            const kkkItems = [
+                { type: 'link', label: '🎥 CumCams Vid 187966558', url: 'https://es.cumcams.cc/video/187966558/play' }
+            ];
+
+            // Pestaña GARGANTA PROFUNDA
+            const gargantaItems = [
+                { type: 'link', label: '🎥 CumCams Vid 185388510', url: 'https://es.cumcams.cc/video/185388510/play' }
+            ];
+
+            // Pestaña EMBARAZADA
+            const embarazadaItems = [
+                { type: 'link', label: '🎥 CumCams Vid 188658624', url: 'https://es.cumcams.cc/video/188658624/play' }
+            ];
+
             let currentTab = 'quick';
 
             function renderItems(items, prefix) {
@@ -410,10 +428,12 @@
             }
 
             function renderChips() {
-                if (currentTab === 'quick') {
-                    renderItems(quickItems, '🍑');
-                } else {
-                    renderItems(diamantitoItems, '💠');
+                switch(currentTab) {
+                    case 'quick': renderItems(quickItems, '🍑'); break;
+                    case 'diamantito': renderItems(diamantitoItems, '💠'); break;
+                    case 'kkk': renderItems(kkkItems, '🖤'); break;
+                    case 'garganta': renderItems(gargantaItems, '🌊'); break;
+                    case 'embarazada': renderItems(embarazadaItems, '🤰'); break;
                 }
             }
 
