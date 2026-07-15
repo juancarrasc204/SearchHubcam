@@ -401,8 +401,8 @@
             ];
             const stripchatProfileUrl = 'https://stripchat.com/{model}';
 
-            // CAMBIA ESTA URL BASE POR LA REAL DE TUS IMÁGENES
-            const IMAGE_BASE_URL = 'https://via.placeholder.com/200x200/0a1a0a/00ff41?text=';
+            // RUTA DE IMÁGENES: misma carpeta que el index.html
+            const IMAGE_BASE_URL = './';
 
             const sites = [
                 { name: 'CumCams', icon: '🎥', urlPattern: 'https://es.cumcams.cc/performer/{model}' },
@@ -460,24 +460,21 @@
                     handleGenerate();
                 });
 
-                // Imagen wrapper
                 const imgWrapper = document.createElement('div');
                 imgWrapper.className = 'img-wrapper';
 
                 const img = document.createElement('img');
                 img.alt = modelName;
                 img.loading = 'lazy';
-                img.src = IMAGE_BASE_URL + encodeURIComponent(modelName);
+                // La imagen se busca en la misma carpeta: ./NombreModelo.jpg
+                img.src = IMAGE_BASE_URL + modelName + '.jpg';
 
-                // Fallback si la imagen no carga
                 img.onerror = function() {
-                    // Reemplazar con emoji rojo
                     imgWrapper.innerHTML = '<span class="img-fallback">❌</span>';
                 };
 
                 imgWrapper.appendChild(img);
 
-                // Nombre
                 const nameEl = document.createElement('span');
                 nameEl.className = 'model-name';
                 nameEl.textContent = modelName;
