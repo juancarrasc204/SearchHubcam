@@ -377,20 +377,30 @@
             ];
             const stripchatProfileUrl = 'https://stripchat.com/{model}';
 
-            // URL base para imágenes de las tarjetas (avatares de Stripchat)
-            const IMAGE_BASE_URL = 'https://img.stripchat.com/avatar/';
+            // Ruta local de las imágenes (misma carpeta que index.html)
+            const IMAGE_BASE_URL = './';
 
             const sites = [
                 { name: 'CumCams', icon: '🎥', urlPattern: 'https://es.cumcams.cc/performer/{model}' },
                 { name: 'LiveCamRips', icon: '📹', urlPattern: 'https://livecamrips.to/search/{model}' }
             ];
 
-            // Lista actualizada (sin AntonelaMorriz, Michelle_Brito1, nikita_glsm, ALEJA__22, amarantaylunay; con Sammy_garciaa1)
+            // Nombres exactos de los archivos de imagen (sin extensión .jpg)
             const allModels = [
-                'tokio_and_rio', 'Molly_h0t', 'analia18_', 'yameil',
-                'mercedes_555', 'Yui-Ch06', 'AngelinaDuvall',
-                'Naatalia', 'ANDREA-10_', 'Emily_Gomezz', 'Abby_Garciaa',
-                'isabelateran', 'SEXBAEL', 'AnthonelaRusso_', 'Sammy_garciaa1'
+                'tokio_and_rio',
+                'molly_h0t',
+                'analia18_',
+                'yameil',
+                'mercedes_555',
+                'yui-ch06',
+                'angelinaduvall',
+                'Naatalia',
+                'Andrea-10_',
+                'Emily_Gomezz',
+                'Abby_Garciaa',
+                'isabelateran',
+                'SEXBAEL',
+                'Sammy_garciaa1'
             ];
 
             const allLinks = [
@@ -425,8 +435,7 @@
                 const img = document.createElement('img');
                 img.alt = modelName;
                 img.loading = 'lazy';
-                // Usa el avatar directo de Stripchat
-                img.src = IMAGE_BASE_URL + modelName;
+                img.src = IMAGE_BASE_URL + modelName + '.jpg';
                 img.onerror = () => {
                     imgWrapper.innerHTML = '<span class="img-fallback">❌</span>';
                 };
