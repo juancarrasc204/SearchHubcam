@@ -84,7 +84,7 @@
             border: 1px solid var(--border);
             border-radius: var(--radius-xl);
             box-shadow: var(--shadow), inset 0 0 30px rgba(0,255,65,0.03), 0 0 0 1px rgba(0,255,65,0.1);
-            padding: 2rem 1.5rem 1.8rem;
+            padding: 2rem 1.2rem 1.8rem;
             animation: floatIn 0.8s ease-out;
             position: relative;
             z-index: 2;
@@ -202,16 +202,86 @@
         }
         .btn-generate:active { transform: scale(0.96); }
 
-        .chips-container {
-            display: flex; flex-wrap: wrap; gap: 0.45rem;
-            max-height: 350px; overflow-y: auto; padding-right: 0.3rem;
-            margin-bottom: 1.2rem; scroll-behavior: smooth;
-            position: relative; z-index: 1;
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.8rem;
+            max-height: 450px;
+            overflow-y: auto;
+            padding-right: 0.3rem;
+            margin-bottom: 1.2rem;
+            scroll-behavior: smooth;
+            position: relative;
+            z-index: 1;
         }
-        .chips-container::-webkit-scrollbar { width: 4px; }
-        .chips-container::-webkit-scrollbar-track { background: transparent; }
-        .chips-container::-webkit-scrollbar-thumb { background: #00ff41; border-radius: 10px; }
+        .cards-grid::-webkit-scrollbar { width: 4px; }
+        .cards-grid::-webkit-scrollbar-track { background: transparent; }
+        .cards-grid::-webkit-scrollbar-thumb { background: #00ff41; border-radius: 10px; }
 
+        .model-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: all var(--transition);
+            animation: fadeUp 0.35s ease backwards;
+            border-radius: var(--radius-md);
+            padding: 0.5rem;
+            border: 1px solid transparent;
+        }
+        .model-card:hover {
+            border-color: var(--accent);
+            background: rgba(0,255,65,0.05);
+            box-shadow: 0 0 15px rgba(0,255,65,0.15);
+            transform: translateY(-2px);
+        }
+        .model-card:active { transform: scale(0.95); }
+
+        .img-wrapper {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            border-radius: 12px;
+            overflow: hidden;
+            background: rgba(0,255,65,0.05);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.4rem;
+        }
+        .img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .img-fallback {
+            font-size: 2rem;
+            color: #ff3333;
+            text-shadow: 0 0 8px rgba(255,0,0,0.5);
+        }
+        .model-name {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--text);
+            text-align: center;
+            letter-spacing: 0.3px;
+            line-height: 1.2;
+            word-break: break-word;
+        }
+
+        .chips-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+            max-height: 350px;
+            overflow-y: auto;
+            padding-right: 0.3rem;
+            margin-bottom: 1.2rem;
+            scroll-behavior: smooth;
+            position: relative;
+            z-index: 1;
+        }
         .model-chip {
             font-weight: 600; font-size: 0.78rem;
             padding: 0.45rem 0.9rem; border-radius: 50px; cursor: pointer;
@@ -229,21 +299,6 @@
             transform: translateY(-2px);
         }
         .model-chip:active { transform: scale(0.95); }
-
-        .model-chip.model {
-            border-color: var(--accent);
-            box-shadow: 0 0 15px rgba(0,255,65,0.25);
-            background: rgba(0,255,65,0.08);
-            font-weight: 700;
-        }
-
-        .section-label {
-            font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px;
-            font-weight: 700; color: var(--accent); margin-bottom: 0.5rem;
-            display: flex; align-items: center; gap: 0.4rem;
-            position: relative; z-index: 1;
-            text-shadow: 0 0 5px rgba(0,255,65,0.3);
-        }
 
         .stripchat-profile { margin: 1rem 0 1.5rem; display: none; animation: fadeSlide 0.4s ease; position: relative; z-index: 1; }
         @keyframes fadeSlide { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -308,7 +363,7 @@
             <button class="btn-generate" id="generateBtn"><span>⚡</span> TRACK</button>
         </div>
 
-        <div class="chips-container" id="chipsContainer"></div>
+        <div id="modelsContainer"></div>
 
         <div class="stripchat-profile" id="stripchatProfile">
             <div class="profile-card">
@@ -333,7 +388,7 @@
             const input = document.getElementById('modelNameInput');
             const generateBtn = document.getElementById('generateBtn');
             const resultsContainer = document.getElementById('resultsContainer');
-            const chipsContainer = document.getElementById('chipsContainer');
+            const modelsContainer = document.getElementById('modelsContainer');
             const stripchatProfile = document.getElementById('stripchatProfile');
             const profileAvatar = document.getElementById('profileAvatar');
             const profileDisplayName = document.getElementById('profileDisplayName');
@@ -346,12 +401,15 @@
             ];
             const stripchatProfileUrl = 'https://stripchat.com/{model}';
 
+            // CAMBIA ESTA URL BASE POR LA REAL DE TUS IMÁGENES
+            const IMAGE_BASE_URL = 'https://via.placeholder.com/200x200/0a1a0a/00ff41?text=';
+
             const sites = [
                 { name: 'CumCams', icon: '🎥', urlPattern: 'https://es.cumcams.cc/performer/{model}' },
                 { name: 'LiveCamRips', icon: '📹', urlPattern: 'https://livecamrips.to/search/{model}' }
             ];
 
-            // TODAS LAS MODELOS UNIFICADAS (sin eliminar ninguna)
+            // TODAS LAS MODELOS UNIFICADAS
             const allModels = [
                 'tokio_and_rio',
                 'AntonelaMorriz',
@@ -374,7 +432,7 @@
                 'AnthonelaRusso_'
             ];
 
-            // TODOS LOS ENLACES DIRECTOS UNIFICADOS
+            // TODOS LOS ENLACES DIRECTOS
             const allLinks = [
                 { label: '🎥 CumCams Vid 187893376', url: 'https://es.cumcams.cc/video/187893376/play' },
                 { label: '🔗 SearchHubcam', url: 'https://juancarrasc204.github.io/SearchHubcam/index.html' },
@@ -394,22 +452,55 @@
 
             let currentTab = 'models';
 
-            function renderModels() {
-                chipsContainer.innerHTML = '';
-                allModels.forEach(name => {
-                    const chip = document.createElement('button');
-                    chip.className = 'model-chip model';
-                    chip.textContent = '🍑 ' + name;
-                    chip.addEventListener('click', () => {
-                        input.value = name;
-                        handleGenerate();
-                    });
-                    chipsContainer.appendChild(chip);
+            function createModelCard(modelName) {
+                const card = document.createElement('div');
+                card.className = 'model-card';
+                card.addEventListener('click', () => {
+                    input.value = modelName;
+                    handleGenerate();
                 });
+
+                // Imagen wrapper
+                const imgWrapper = document.createElement('div');
+                imgWrapper.className = 'img-wrapper';
+
+                const img = document.createElement('img');
+                img.alt = modelName;
+                img.loading = 'lazy';
+                img.src = IMAGE_BASE_URL + encodeURIComponent(modelName);
+
+                // Fallback si la imagen no carga
+                img.onerror = function() {
+                    // Reemplazar con emoji rojo
+                    imgWrapper.innerHTML = '<span class="img-fallback">❌</span>';
+                };
+
+                imgWrapper.appendChild(img);
+
+                // Nombre
+                const nameEl = document.createElement('span');
+                nameEl.className = 'model-name';
+                nameEl.textContent = modelName;
+
+                card.appendChild(imgWrapper);
+                card.appendChild(nameEl);
+                return card;
+            }
+
+            function renderModels() {
+                modelsContainer.innerHTML = '';
+                const grid = document.createElement('div');
+                grid.className = 'cards-grid';
+                allModels.forEach(name => {
+                    grid.appendChild(createModelCard(name));
+                });
+                modelsContainer.appendChild(grid);
             }
 
             function renderLinks() {
-                chipsContainer.innerHTML = '';
+                modelsContainer.innerHTML = '';
+                const chipsContainer = document.createElement('div');
+                chipsContainer.className = 'chips-container';
                 allLinks.forEach(link => {
                     const chip = document.createElement('button');
                     chip.className = 'model-chip';
@@ -417,9 +508,10 @@
                     chip.addEventListener('click', () => window.open(link.url, '_blank', 'noopener,noreferrer'));
                     chipsContainer.appendChild(chip);
                 });
+                modelsContainer.appendChild(chipsContainer);
             }
 
-            function renderChips() {
+            function renderCurrentTab() {
                 if (currentTab === 'models') {
                     renderModels();
                 } else {
@@ -432,7 +524,7 @@
                     tabs.forEach(t => t.classList.remove('active'));
                     tab.classList.add('active');
                     currentTab = tab.getAttribute('data-tab');
-                    renderChips();
+                    renderCurrentTab();
                 });
             });
 
@@ -512,7 +604,7 @@
             generateBtn.addEventListener('click', handleGenerate);
             input.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleGenerate(); });
 
-            renderChips();
+            renderCurrentTab();
             input.focus();
             stripchatProfile.style.display = 'none';
         })();
