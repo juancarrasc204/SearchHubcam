@@ -93,11 +93,6 @@
         .header .icon-row {
             font-size: 2.4rem; letter-spacing: 4px;
             filter: drop-shadow(0 0 10px var(--accent-glow));
-            animation: glitchPulse 3s infinite ease-in-out;
-        }
-        @keyframes glitchPulse {
-            0%, 100% { text-shadow: 0 0 5px rgba(0,255,65,0.6); }
-            50% { text-shadow: 0 0 20px rgba(0,255,65,0.9); }
         }
         .header h1 {
             font-family: 'Share Tech Mono', monospace;
@@ -382,20 +377,20 @@
             ];
             const stripchatProfileUrl = 'https://stripchat.com/{model}';
 
-            const IMAGE_BASE_URL = './';
+            // URL base para imágenes de las tarjetas (avatares de Stripchat)
+            const IMAGE_BASE_URL = 'https://img.stripchat.com/avatar/';
 
             const sites = [
                 { name: 'CumCams', icon: '🎥', urlPattern: 'https://es.cumcams.cc/performer/{model}' },
                 { name: 'LiveCamRips', icon: '📹', urlPattern: 'https://livecamrips.to/search/{model}' }
             ];
 
-            // Lista actualizada (sin AntonelaMorriz, Michelle_Brito1, nikita_glsm, ALEJA__22)
+            // Lista actualizada (sin AntonelaMorriz, Michelle_Brito1, nikita_glsm, ALEJA__22, amarantaylunay; con Sammy_garciaa1)
             const allModels = [
                 'tokio_and_rio', 'Molly_h0t', 'analia18_', 'yameil',
                 'mercedes_555', 'Yui-Ch06', 'AngelinaDuvall',
-                'Naatalia', 'AmaranttayLunay', 'ANDREA-10_',
-                'Emily_Gomezz', 'Abby_Garciaa', 'isabelateran', 'SEXBAEL',
-                'AnthonelaRusso_'
+                'Naatalia', 'ANDREA-10_', 'Emily_Gomezz', 'Abby_Garciaa',
+                'isabelateran', 'SEXBAEL', 'AnthonelaRusso_', 'Sammy_garciaa1'
             ];
 
             const allLinks = [
@@ -430,7 +425,8 @@
                 const img = document.createElement('img');
                 img.alt = modelName;
                 img.loading = 'lazy';
-                img.src = IMAGE_BASE_URL + modelName + '.jpg';
+                // Usa el avatar directo de Stripchat
+                img.src = IMAGE_BASE_URL + modelName;
                 img.onerror = () => {
                     imgWrapper.innerHTML = '<span class="img-fallback">❌</span>';
                 };
