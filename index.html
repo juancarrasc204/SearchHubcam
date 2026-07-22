@@ -10,7 +10,6 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
-            /* Tema oscuro (tinta electrónica) - por defecto */
             --bg: #1a1c1a;
             --panel-bg: rgba(30, 32, 30, 0.92);
             --accent: #c0a060;
@@ -29,7 +28,6 @@
             --input-bg: rgba(0,0,0,0.3);
         }
         body.light {
-            /* Tema claro (papel envejecido) */
             --bg: #f4ecd8;
             --panel-bg: rgba(255, 252, 242, 0.9);
             --accent: #8b5e3c;
@@ -59,7 +57,6 @@
             transition: background 0.4s, color 0.4s;
         }
 
-        /* Textura sutil de papel / tinta */
         body::before {
             content: "";
             position: fixed;
@@ -261,6 +258,12 @@
             box-shadow: 0 0 15px var(--accent-glow);
             transform: translateY(-2px);
         }
+        .model-chip.special-chip {
+            border-color: var(--accent);
+            background: var(--accent-dim);
+            box-shadow: 0 0 12px var(--accent-glow);
+            font-weight: 700;
+        }
 
         .stripchat-profile {
             margin: 1.2rem 0 1.5rem;
@@ -325,7 +328,6 @@
             padding-top: 1rem;
         }
 
-        /* Botones flotantes */
         .floating-btns {
             position: fixed;
             bottom: 1.5rem;
@@ -400,7 +402,6 @@
         <div class="footer-note"><span>🔞</span> Adults only · 18+</div>
     </main>
 
-    <!-- Botones flotantes -->
     <div class="floating-btns">
         <button class="float-btn" id="toggleImagesBtn" title="Mostrar/ocultar imágenes">🖼️</button>
         <button class="float-btn" id="toggleThemeBtn" title="Cambiar tema">🌓</button>
@@ -433,35 +434,20 @@
                 { name: 'LiveCamRips', icon: '📹', urlPattern: 'https://livecamrips.to/search/{model}' }
             ];
 
-            // Lista de modelos (incluye las nuevas extraídas)
             const allModels = [
-                'Abby_garciaa',
-                'analia18_',
-                'Andrea-10_',
-                'angelinaduvall',
-                'Angellit_Afrodita_',
-                'curvydesire1',
-                'Emily_gomezz',
-                'isabelateran',
-                'Kitty_Melodi',
-                'Leamonroe__',
-                'lelety79',
-                'mercedes_555',
-                'MerliaSsomer',
-                'mia_222',
-                'molly_h0t',
-                'morafit_',
-                'Naatalia',
-                'ParanoidTemptaion_',
-                'Sammy_garciaa1',
-                'SEXBAEL',
-                'the_queen_of_street',
-                'tokio_and_rio',
-                'yameil',
-                'yui-ch06'
+                'Abby_garciaa', 'analia18_', 'Andrea-10_', 'angelinaduvall',
+                'Angellit_Afrodita_', 'BrianaSweetxxx', 'curvydesire1', 'Dalgom-i',
+                'debboraWagner', 'emma_jamess', 'Emily_gomezz', 'HairyAillyn',
+                'Im_Little', 'isabelateran', 'JuliettaGmz', 'KATIAMOSS',
+                'kinky_malinaa', 'Kitty_Melodi', 'Laura_smith0', 'Leamonroe__',
+                'lelety79', 'mercedes_555', 'MerliaSsomer', 'mia_222',
+                'molly_h0t', 'morafit_', 'Naatalia', 'Osirisjackson22',
+                'ParanoidTemptaion_', 'sabrivelvet', 'Sammy_garciaa1', 'SEXBAEL',
+                'the_queen_of_street', 'tokio_and_rio', 'yameil', 'yui-ch06'
             ];
 
             const allLinks = [
+                { label: '🔥 CumCams Vid 190089759', url: 'https://es.cumcams.cc/video/190089759/play', special: true },
                 { label: '🎥 CumCams 187893376', url: 'https://es.cumcams.cc/video/187893376/play' },
                 { label: '🔗 SearchHubcam', url: 'https://juancarrasc204.github.io/SearchHubcam/index.html' },
                 { label: '🎥 CumCams 178062497', url: 'https://es.cumcams.cc/video/178062497/play' },
@@ -475,11 +461,12 @@
                 { label: '🎥 CumCams 182036187', url: 'https://es.cumcams.cc/video/182036187/play' },
                 { label: '🎥 CumCams 187966558', url: 'https://es.cumcams.cc/video/187966558/play' },
                 { label: '🎥 CumCams 185388510', url: 'https://es.cumcams.cc/video/185388510/play' },
-                { label: '🎥 CumCams 188658624', url: 'https://es.cumcams.cc/video/188658624/play' }
+                { label: '🎥 CumCams 188658624', url: 'https://es.cumcams.cc/video/188658624/play' },
+                { label: '🎥 CumCams Vid 190280371', url: 'https://es.cumcams.cc/video/190280371/play' }
             ];
 
             let currentTab = 'models';
-            let imagesVisible = false; // Por defecto no se ven las imágenes
+            let imagesVisible = false;
 
             function createModelCard(modelName) {
                 const card = document.createElement('div');
@@ -491,7 +478,7 @@
 
                 const imgWrapper = document.createElement('div');
                 imgWrapper.className = 'img-wrapper';
-                imgWrapper.style.display = 'none'; // Oculto por defecto
+                imgWrapper.style.display = 'none';
 
                 const img = document.createElement('img');
                 img.alt = modelName;
@@ -503,14 +490,8 @@
                 fallback.textContent = '❌';
                 fallback.style.display = 'none';
 
-                img.onerror = () => {
-                    img.style.display = 'none';
-                    fallback.style.display = 'block';
-                };
-                img.onload = () => {
-                    img.style.display = 'block';
-                    fallback.style.display = 'none';
-                };
+                img.onerror = () => { img.style.display = 'none'; fallback.style.display = 'block'; };
+                img.onload = () => { img.style.display = 'block'; fallback.style.display = 'none'; };
 
                 imgWrapper.appendChild(img);
                 imgWrapper.appendChild(fallback);
@@ -521,7 +502,6 @@
 
                 card.appendChild(imgWrapper);
                 card.appendChild(nameEl);
-
                 card._imgWrapper = imgWrapper;
                 card._img = img;
                 card._fallback = fallback;
@@ -532,10 +512,7 @@
                 modelsContainer.innerHTML = '';
                 const grid = document.createElement('div');
                 grid.className = 'cards-grid';
-                allModels.forEach(name => {
-                    const card = createModelCard(name);
-                    grid.appendChild(card);
-                });
+                allModels.forEach(name => grid.appendChild(createModelCard(name)));
                 modelsContainer.appendChild(grid);
             }
 
@@ -545,7 +522,7 @@
                 chips.className = 'chips-container';
                 allLinks.forEach(link => {
                     const chip = document.createElement('button');
-                    chip.className = 'model-chip';
+                    chip.className = 'model-chip' + (link.special ? ' special-chip' : '');
                     chip.textContent = link.label;
                     chip.addEventListener('click', () => window.open(link.url, '_blank', 'noopener,noreferrer'));
                     chips.appendChild(chip);
@@ -554,18 +531,15 @@
             }
 
             function renderCurrentTab() {
-                if (currentTab === 'models') renderModels();
-                else renderLinks();
+                currentTab === 'models' ? renderModels() : renderLinks();
             }
 
             function updateAllImagesVisibility() {
-                const allCards = document.querySelectorAll('.model-card');
-                allCards.forEach(card => {
+                document.querySelectorAll('.model-card').forEach(card => {
                     const wrapper = card._imgWrapper;
                     const img = card._img;
                     const fallback = card._fallback;
                     if (!wrapper) return;
-
                     if (imagesVisible) {
                         wrapper.style.display = 'flex';
                         if (img && img.complete && img.naturalWidth > 0) {
@@ -591,14 +565,12 @@
                 });
             });
 
-            // Toggle imágenes
             toggleImagesBtn.addEventListener('click', () => {
                 imagesVisible = !imagesVisible;
                 toggleImagesBtn.textContent = imagesVisible ? '🙈' : '🖼️';
                 updateAllImagesVisibility();
             });
 
-            // Toggle tema
             function applyTheme(theme) {
                 if (theme === 'light') {
                     document.body.classList.add('light');
@@ -616,7 +588,6 @@
                 localStorage.setItem('velvetlink-theme', newTheme);
             });
 
-            // Cargar tema guardado
             const savedTheme = localStorage.getItem('velvetlink-theme') || 'dark';
             applyTheme(savedTheme);
 
