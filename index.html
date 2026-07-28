@@ -377,7 +377,7 @@
         <div class="search-box">
             <div class="input-wrapper">
                 <i>🔍</i>
-                <input type="text" id="modelNameInput" placeholder="Buscar modelo..." autocomplete="off" autofocus>
+                <input type="text" id="modelNameInput" placeholder="Nombre o enlace..." autocomplete="off" autofocus>
             </div>
             <button class="btn-generate" id="generateBtn"><span>⚡</span> TRACK</button>
         </div>
@@ -434,16 +434,60 @@
                 { name: 'LiveCamRips', icon: '📹', urlPattern: 'https://livecamrips.to/search/{model}' }
             ];
 
+            // Modelos con indicador de favorito
             const allModels = [
-                'Abby_garciaa', 'analia18_', 'Andrea-10_', 'angelinaduvall',
-                'Angellit_Afrodita_', 'BrianaSweetxxx', 'curvydesire1', 'Dalgom-i',
-                'debboraWagner', 'emma_jamess', 'Emily_gomezz', 'HairyAillyn',
-                'Im_Little', 'isabelateran', 'JuliettaGmz', 'KATIAMOSS',
-                'kinky_malinaa', 'Kitty_Melodi', 'Laura_smith0', 'Leamonroe__',
-                'lelety79', 'mercedes_555', 'MerliaSsomer', 'mia_222',
-                'molly_h0t', 'morafit_', 'Naatalia', 'Osirisjackson22',
-                'ParanoidTemptaion_', 'sabrivelvet', 'Sammy_garciaa1', 'SEXBAEL',
-                'the_queen_of_street', 'tokio_and_rio', 'yameil', 'yui-ch06'
+                { name: '_aurora18_', fav: false },
+                { name: 'Abby_garciaa', fav: false },
+                { name: 'alhana_pulido', fav: false },
+                { name: 'amandaa_21', fav: false },
+                { name: 'analia18_', fav: false },
+                { name: 'Andrea-10_', fav: false },
+                { name: 'angelinaduvall', fav: false },
+                { name: 'Angellit_Afrodita_', fav: false },
+                { name: 'anny_vittar', fav: false },
+                { name: 'Ashley_Beaomunt', fav: true },
+                { name: 'BrianaSweetxxx', fav: false },
+                { name: 'camila_scoth', fav: true },
+                { name: 'Catalina_ramos', fav: false },
+                { name: 'cherryxxox', fav: false },
+                { name: 'curvydesire1', fav: false },
+                { name: 'Dalgom-i', fav: false },
+                { name: 'debboraWagner', fav: false },
+                { name: 'emma_jamess', fav: false },
+                { name: 'Emily_gomezz', fav: false },
+                { name: 'HairyAillyn', fav: false },
+                { name: 'Im_Little', fav: false },
+                { name: 'isabelateran', fav: false },
+                { name: 'JuliettaGmz', fav: false },
+                { name: 'KATIAMOSS', fav: false },
+                { name: 'kinky_malinaa', fav: false },
+                { name: 'Kitty_Melodi', fav: false },
+                { name: 'Laura_smith0', fav: false },
+                { name: 'Leamonroe__', fav: false },
+                { name: 'mary_cute9', fav: true },
+                { name: 'mercedes_555', fav: false },
+                { name: 'MerliaSsomer', fav: false },
+                { name: 'mia_222', fav: false },
+                { name: 'milfanal_dana', fav: true },
+                { name: 'molly_h0t', fav: false },
+                { name: 'morafit_', fav: false },
+                { name: 'Naatalia', fav: false },
+                { name: 'natalyWilliams', fav: true },
+                { name: 'Osirisjackson22', fav: false },
+                { name: 'ParanoidTemptaion_', fav: false },
+                { name: 'rubi_foxx22', fav: true },
+                { name: 'sabrivelvet', fav: true },
+                { name: 'Sammy_garciaa1', fav: false },
+                { name: 'Saorii_kiido', fav: false },
+                { name: 'Sara_Collinnss', fav: false },
+                { name: 'SEXBAEL', fav: false },
+                { name: 'SharaArisa', fav: false },
+                { name: 'SofiaGarcia7', fav: false },
+                { name: 'tokio_and_rio', fav: false },
+                { name: 'Tulipxo', fav: true },
+                { name: 'vendimur', fav: false },
+                { name: 'yameil', fav: false },
+                { name: 'yui-ch06', fav: false }
             ];
 
             const allLinks = [
@@ -462,17 +506,21 @@
                 { label: '🎥 CumCams 187966558', url: 'https://es.cumcams.cc/video/187966558/play' },
                 { label: '🎥 CumCams 185388510', url: 'https://es.cumcams.cc/video/185388510/play' },
                 { label: '🎥 CumCams 188658624', url: 'https://es.cumcams.cc/video/188658624/play' },
-                { label: '🎥 CumCams Vid 190280371', url: 'https://es.cumcams.cc/video/190280371/play' }
+                { label: '🎥 CumCams Vid 190280371', url: 'https://es.cumcams.cc/video/190280371/play' },
+                { label: '🎥 ShowCamRips Milaa Star', url: 'https://www.showcamrips.com/show-cam-sex-movies/2017067-milaa-star-chaturbate-webcam-rip-20260529-105306.html' },
+                { label: '🎥 CumCams Vid 191273218', url: 'https://es.cumcams.cc/video/191273218/play' },
+                { label: '🎥 LiveCamRips Vid 15086243', url: 'https://livecamrips.to/video/15086243' },
+                { label: '🎥 LiveCamRips Vid 14775881', url: 'https://livecamrips.to/video/14775881' }
             ];
 
             let currentTab = 'models';
             let imagesVisible = false;
 
-            function createModelCard(modelName) {
+            function createModelCard(model) {
                 const card = document.createElement('div');
                 card.className = 'model-card';
                 card.addEventListener('click', () => {
-                    input.value = modelName;
+                    input.value = model.name;
                     handleGenerate();
                 });
 
@@ -481,9 +529,9 @@
                 imgWrapper.style.display = 'none';
 
                 const img = document.createElement('img');
-                img.alt = modelName;
+                img.alt = model.name;
                 img.loading = 'lazy';
-                img.src = IMAGE_BASE_URL + modelName + '.jpg';
+                img.src = IMAGE_BASE_URL + model.name + '.jpg';
 
                 const fallback = document.createElement('span');
                 fallback.className = 'img-fallback';
@@ -498,7 +546,7 @@
 
                 const nameEl = document.createElement('span');
                 nameEl.className = 'model-name';
-                nameEl.textContent = modelName;
+                nameEl.textContent = model.fav ? '⭐ ' + model.name : model.name;
 
                 card.appendChild(imgWrapper);
                 card.appendChild(nameEl);
@@ -512,7 +560,7 @@
                 modelsContainer.innerHTML = '';
                 const grid = document.createElement('div');
                 grid.className = 'cards-grid';
-                allModels.forEach(name => grid.appendChild(createModelCard(name)));
+                allModels.forEach(model => grid.appendChild(createModelCard(model)));
                 modelsContainer.appendChild(grid);
             }
 
@@ -591,7 +639,32 @@
             const savedTheme = localStorage.getItem('velvetlink-theme') || 'dark';
             applyTheme(savedTheme);
 
-            function sanitizeModelName(rawName) { return rawName.trim().replace(/\s+/g, ''); }
+            // Extrae el nombre de usuario de una URL
+            function extractModelName(rawValue) {
+                const trimmed = rawValue.trim();
+                // Si parece una URL (contiene http o comienza con www.)
+                if (/^(https?:\/\/|www\.)/i.test(trimmed)) {
+                    try {
+                        const url = new URL(trimmed);
+                        // Eliminar barra final si existe
+                        let path = url.pathname.replace(/\/$/, '');
+                        // Obtener el último segmento de la ruta
+                        const segments = path.split('/').filter(s => s !== '');
+                        if (segments.length > 0) {
+                            return segments[segments.length - 1];
+                        }
+                    } catch (e) {
+                        // Si falla el parseo, devolvemos el texto original
+                        return trimmed;
+                    }
+                }
+                // Si no es URL, se asume que ya es un nombre de modelo
+                return trimmed;
+            }
+
+            function sanitizeModelName(rawName) {
+                return rawName.replace(/\s+/g, '');
+            }
 
             function loadAvatar(cleanName) {
                 profileDisplayName.textContent = cleanName;
@@ -643,7 +716,10 @@
             }
 
             function handleGenerate() {
-                const cleanName = sanitizeModelName(input.value);
+                const rawValue = input.value;
+                // Extraer nombre desde posible enlace
+                const extracted = extractModelName(rawValue);
+                const cleanName = sanitizeModelName(extracted);
                 if (!cleanName) {
                     resultsContainer.innerHTML = '<div class="empty-state"><span style="font-size:2.2rem;">🐺</span><span>Escribe un nombre y pulsa Track</span></div>';
                     stripchatProfile.style.display = 'none';
