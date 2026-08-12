@@ -1,746 +1,624 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>VelvetLink · Discreet Access</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FORTNITE · Login</title>
+    <!-- Fuentes y librerías -->
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root {
-            --bg: #1a1c1a;
-            --panel-bg: rgba(30, 32, 30, 0.92);
-            --accent: #c0a060;
-            --accent-dim: rgba(192, 160, 96, 0.15);
-            --accent-glow: rgba(192, 160, 96, 0.25);
-            --text: #e8e4d8;
-            --text-secondary: #a09880;
-            --border: rgba(192, 160, 96, 0.3);
-            --shadow: 0 20px 40px rgba(0,0,0,0.7), 0 0 0 1px rgba(192,160,96,0.15);
-            --radius-xl: 24px;
-            --radius-lg: 18px;
-            --radius-md: 14px;
-            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --card-bg: rgba(192, 160, 96, 0.04);
-            --chip-bg: rgba(192, 160, 96, 0.06);
-            --input-bg: rgba(0,0,0,0.3);
+        /* Reset y base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        body.light {
-            --bg: #f4ecd8;
-            --panel-bg: rgba(255, 252, 242, 0.9);
-            --accent: #8b5e3c;
-            --accent-dim: rgba(139, 94, 60, 0.1);
-            --accent-glow: rgba(139, 94, 60, 0.15);
-            --text: #4a3320;
-            --text-secondary: #7a6a54;
-            --border: rgba(139, 94, 60, 0.35);
-            --shadow: 0 12px 30px rgba(139,94,60,0.1), 0 0 0 1px rgba(139,94,60,0.2);
-            --card-bg: rgba(139, 94, 60, 0.04);
-            --chip-bg: rgba(139, 94, 60, 0.06);
-            --input-bg: rgba(139, 94, 60, 0.08);
-        }
+
         body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg);
             min-height: 100vh;
             display: flex;
-            align-items: center;
             justify-content: center;
-            padding: 1rem;
-            color: var(--text);
-            -webkit-tap-highlight-color: transparent;
-            background-attachment: fixed;
-            position: relative;
-            overflow-x: hidden;
-            transition: background 0.4s, color 0.4s;
-        }
-
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background-image: 
-                repeating-linear-gradient(0deg, var(--accent-dim) 0px, var(--accent-dim) 1px, transparent 1px, transparent 25px),
-                repeating-linear-gradient(90deg, var(--accent-dim) 0px, var(--accent-dim) 1px, transparent 1px, transparent 25px);
-            pointer-events: none;
-            z-index: 0;
-            opacity: 0.5;
-        }
-
-        .glass-panel {
-            width: 100%;
-            max-width: 420px;
-            background: var(--panel-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-xl);
-            box-shadow: var(--shadow);
-            padding: 1.8rem 1.2rem 1.5rem;
-            animation: floatIn 0.8s ease-out;
-            position: relative;
-            z-index: 2;
-            transition: background 0.4s, box-shadow 0.4s;
-        }
-
-        @keyframes floatIn {
-            0% { opacity: 0; transform: translateY(30px) scale(0.96); }
-            100% { opacity: 1; transform: translateY(0) scale(1); }
-        }
-
-        .header { text-align: center; margin-bottom: 1.5rem; }
-        .header .icon-row {
-            font-size: 2.4rem; letter-spacing: 4px;
-            filter: drop-shadow(0 0 8px var(--accent-glow));
-        }
-        .header h1 {
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 2rem; font-weight: 400;
-            color: var(--accent);
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin: 0.2rem 0;
-        }
-        .header .sub {
-            font-size: 0.7rem;
-            color: var(--text-secondary);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .tabs {
-            display: flex; gap: 0.5rem; margin-bottom: 1.2rem;
-            background: var(--accent-dim); border-radius: 50px; padding: 0.3rem;
-            border: 1px solid var(--border);
-        }
-        .tab {
-            flex: 1; background: transparent; border: none;
-            color: var(--text-secondary); font-weight: 600; font-size: 0.8rem;
-            padding: 0.6rem 0.5rem; border-radius: 50px; cursor: pointer;
-            transition: all var(--transition); letter-spacing: 0.5px;
-        }
-        .tab.active {
-            background: var(--accent);
-            color: #fff;
-            box-shadow: 0 0 15px var(--accent-glow);
-            font-weight: 700;
-        }
-
-        .search-box { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; }
-        .input-wrapper { flex: 1; position: relative; }
-        .input-wrapper i {
-            position: absolute; left: 1rem; top: 50%;
-            transform: translateY(-50%); color: var(--accent); font-size: 0.9rem;
-        }
-        input {
-            width: 100%; padding: 0.8rem 1rem 0.8rem 2.5rem;
-            background: var(--input-bg);
-            border: 1px solid var(--border);
-            border-radius: 50px; font-size: 0.95rem; font-weight: 500;
-            color: var(--text); outline: none; transition: all var(--transition);
-            letter-spacing: 0.5px;
-        }
-        input::placeholder { color: var(--text-secondary); opacity: 0.7; }
-        input:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 15px var(--accent-glow);
-            background: var(--input-bg);
-        }
-        .btn-generate {
-            background: var(--accent);
-            border: none; color: #fff; font-weight: 700; font-size: 0.9rem;
-            padding: 0 1.3rem; height: 48px; border-radius: 50px;
-            display: flex; align-items: center; gap: 0.3rem;
-            cursor: pointer; transition: all var(--transition); white-space: nowrap;
-            box-shadow: 0 0 15px var(--accent-glow);
-            letter-spacing: 0.5px;
-        }
-        .btn-generate:hover {
-            background: var(--accent);
-            filter: brightness(1.1);
-            box-shadow: 0 0 25px var(--accent-glow);
-            transform: translateY(-1px);
-        }
-        .btn-generate:active { transform: scale(0.96); }
-
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 0.9rem;
-            max-height: 450px;
-            overflow-y: auto;
-            padding-right: 0.3rem;
-            margin-bottom: 1.2rem;
-            scroll-behavior: smooth;
-        }
-        .cards-grid::-webkit-scrollbar { width: 4px; }
-        .cards-grid::-webkit-scrollbar-track { background: transparent; }
-        .cards-grid::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
-
-        .model-card {
-            display: flex;
-            flex-direction: column;
             align-items: center;
-            cursor: pointer;
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            padding: 0.8rem 0.5rem 0.5rem;
-            transition: all var(--transition);
-            animation: fadeUp 0.4s ease backwards;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-        }
-        .model-card:hover {
-            border-color: var(--accent);
-            background: var(--accent-dim);
-            box-shadow: 0 0 20px var(--accent-glow);
-            transform: translateY(-3px);
-        }
-        .model-card:active { transform: scale(0.96); }
-
-        .img-wrapper {
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            border-radius: 14px;
+            font-family: 'Quicksand', sans-serif;
+            background: #0b0e1a;
             overflow: hidden;
-            background: var(--input-bg);
-            border: 1px solid var(--border);
-            margin-bottom: 0.5rem;
-            box-shadow: inset 0 0 15px rgba(0,0,0,0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            position: relative;
         }
-        .img-wrapper img {
+
+        /* Fondo animado estilo tormenta / cielo de Fortnite */
+        .storm-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            z-index: 0;
+            background: linear-gradient(135deg, #1a1f35 0%, #2a1f3d 30%, #1e2a4a 60%, #0f1a2e 100%);
+            background-size: 400% 400%;
+            animation: stormMove 18s ease-in-out infinite alternate;
+        }
+
+        @keyframes stormMove {
+            0% {
+                background-position: 0% 0%;
+            }
+            50% {
+                background-position: 100% 100%;
+            }
+            100% {
+                background-position: 0% 0%;
+            }
+        }
+
+        /* Partículas (estilo polvo / estrellas) */
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Contenedor principal del login */
+        .login-container {
+            position: relative;
+            z-index: 10;
+            background: rgba(10, 14, 30, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 2px solid rgba(255, 255, 255, 0.08);
+            border-radius: 48px 48px 32px 32px;
+            padding: 3rem 2.5rem 2.8rem;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 215, 0, 0.15) inset;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .login-container:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.9), 0 0 0 2px rgba(255, 215, 0, 0.25) inset;
+        }
+
+        /* Logo estilo Fortnite */
+        .logo {
+            font-family: 'Bangers', cursive;
+            font-size: 3.6rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: #fff;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.6), 0 0 40px rgba(255, 165, 0, 0.4), 0 4px 0 #b8860b;
+            margin-bottom: 0.2rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .logo span {
+            display: inline-block;
+            animation: glitch 2s infinite;
+        }
+
+        .logo .fortnite-icon {
+            color: #ffd700;
+            font-size: 2.8rem;
+            margin-right: 6px;
+            filter: drop-shadow(0 0 12px #ffa500);
+        }
+
+        @keyframes glitch {
+            0%,
+            100% {
+                transform: skew(0deg);
+            }
+            5% {
+                transform: skew(2deg) translateX(2px);
+                text-shadow: 2px 0 #ff0055, -2px 0 #00ffff;
+            }
+            10% {
+                transform: skew(-2deg) translateX(-2px);
+                text-shadow: -2px 0 #ff0055, 2px 0 #00ffff;
+            }
+            15% {
+                transform: skew(0deg);
+            }
+        }
+
+        .sub-logo {
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 6px;
+            color: rgba(255, 215, 0, 0.7);
+            text-transform: uppercase;
+            margin-top: -6px;
+            margin-bottom: 2rem;
+            background: linear-gradient(90deg, #ffd700, #ff8c00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Separador decorativo */
+        .divider {
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #ffd700, transparent);
+            margin: 0.5rem auto 1.8rem;
+            border-radius: 10px;
+        }
+
+        /* Campos del formulario */
+        .input-group {
+            position: relative;
+            margin-bottom: 1.8rem;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 6px;
+            margin-left: 4px;
+        }
+
+        .input-group .icon {
+            position: absolute;
+            left: 16px;
+            top: 42px;
+            color: rgba(255, 215, 0, 0.6);
+            font-size: 1rem;
+            transition: color 0.2s;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px 18px 14px 48px;
+            font-size: 1rem;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.06);
+            border: 2px solid rgba(255, 255, 255, 0.08);
+            border-radius: 60px;
+            color: #fff;
+            outline: none;
+            transition: all 0.25s ease;
+            letter-spacing: 0.3px;
+        }
+
+        .input-group input::placeholder {
+            color: rgba(255, 255, 255, 0.25);
+            font-weight: 400;
+        }
+
+        .input-group input:focus {
+            border-color: #ffd700;
+            background: rgba(255, 215, 0, 0.05);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.08), 0 0 0 3px rgba(255, 215, 0, 0.1);
+        }
+
+        .input-group input:focus+.icon,
+        .input-group input:focus~.icon {
+            color: #ffd700;
+        }
+
+        /* Botón principal */
+        .btn-login {
+            width: 100%;
+            padding: 16px;
+            font-family: 'Bangers', cursive;
+            font-size: 1.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #1a1f35;
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            border: none;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 8px 0 #b86b00, 0 10px 30px rgba(255, 165, 0, 0.3);
+            margin-top: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 0 #b86b00, 0 20px 40px rgba(255, 165, 0, 0.5);
+        }
+
+        .btn-login:active {
+            transform: translateY(6px);
+            box-shadow: 0 2px 0 #b86b00;
+        }
+
+        .btn-login::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s;
+            pointer-events: none;
+        }
+
+        .btn-login:hover::after {
+            opacity: 1;
+        }
+
+        /* Enlaces adicionales (estilo Fortnite) */
+        .extra-links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1.8rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .extra-links a {
+            color: rgba(255, 215, 0, 0.7);
+            text-decoration: none;
+            transition: color 0.2s, text-shadow 0.2s;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .extra-links a:hover {
+            color: #ffd700;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        /* Mensaje de error falso */
+        .fake-error {
+            margin-top: 1.8rem;
+            padding: 10px 16px;
+            background: rgba(255, 0, 0, 0.08);
+            border-left: 4px solid #ff4444;
+            border-radius: 12px;
+            color: #ff6b6b;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            display: none;
+            backdrop-filter: blur(4px);
+            animation: shake 0.4s ease;
+        }
+
+        .fake-error.show {
             display: block;
         }
-        .img-fallback {
-            font-size: 2.5rem;
-            color: #d44;
-            text-shadow: 0 0 8px rgba(255,0,0,0.3);
-        }
-        .model-name {
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: var(--text);
-            text-align: center;
-            letter-spacing: 0.4px;
-            line-height: 1.3;
-            word-break: break-word;
+
+        @keyframes shake {
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+            20% {
+                transform: translateX(-12px);
+            }
+            40% {
+                transform: translateX(12px);
+            }
+            60% {
+                transform: translateX(-8px);
+            }
+            80% {
+                transform: translateX(8px);
+            }
         }
 
-        .chips-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            max-height: 350px;
-            overflow-y: auto;
-            padding-right: 0.3rem;
-            margin-bottom: 1.2rem;
-        }
-        .model-chip {
-            font-weight: 600; font-size: 0.8rem;
-            padding: 0.55rem 1rem; border-radius: 50px; cursor: pointer;
-            transition: all var(--transition); letter-spacing: 0.4px;
-            border: 1px solid var(--border); background: var(--chip-bg);
-            color: var(--text); white-space: nowrap;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-        }
-        .model-chip:hover {
-            border-color: var(--accent);
-            background: var(--accent-dim);
-            box-shadow: 0 0 15px var(--accent-glow);
-            transform: translateY(-2px);
-        }
-        .model-chip.special-chip {
-            border-color: var(--accent);
-            background: var(--accent-dim);
-            box-shadow: 0 0 12px var(--accent-glow);
-            font-weight: 700;
+        /* Responsive */
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 2rem 1.5rem 2rem;
+                border-radius: 32px;
+                margin: 1rem;
+            }
+            .logo {
+                font-size: 2.8rem;
+            }
+            .btn-login {
+                font-size: 1.5rem;
+                padding: 14px;
+            }
+            .input-group input {
+                padding: 12px 14px 12px 44px;
+                font-size: 0.95rem;
+            }
         }
 
-        .stripchat-profile {
-            margin: 1.2rem 0 1.5rem;
-            display: none;
-            animation: fadeSlide 0.4s ease;
-        }
-        @keyframes fadeSlide {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .profile-card {
-            background: var(--card-bg); border: 1px solid var(--border);
-            border-radius: var(--radius-lg); padding: 1rem;
-            display: flex; align-items: center; gap: 0.8rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        }
-        .avatar-wrapper {
-            width: 55px; height: 55px; border-radius: 50%; overflow: hidden;
-            border: 2px solid var(--accent); box-shadow: 0 0 15px var(--accent-glow);
-        }
-        .avatar-img { width: 100%; height: 100%; object-fit: cover; }
-        .profile-info { flex: 1; }
-        .profile-name { font-weight: 700; font-size: 1rem; color: var(--text); }
-        .profile-site { font-size: 0.7rem; color: var(--accent); }
-        .btn-stripchat {
-            background: var(--accent); border: none; color: #fff; font-weight: 700;
-            padding: 0.5rem 1rem; border-radius: 50px; cursor: pointer;
-            transition: all var(--transition); font-size: 0.8rem;
-            box-shadow: 0 0 10px var(--accent-glow);
-        }
-        .btn-stripchat:hover { filter: brightness(1.1); }
-
-        #resultsContainer {
-            display: flex; flex-direction: column; gap: 0.7rem;
-            margin-top: 0.8rem;
-        }
-        .link-card {
-            background: var(--card-bg); border: 1px solid var(--border);
-            border-radius: var(--radius-md); padding: 0.9rem 1rem;
-            display: flex; align-items: center; justify-content: space-between;
-            cursor: pointer; transition: all var(--transition);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-        }
-        .link-card:hover {
-            border-color: var(--accent);
-            background: var(--accent-dim);
-            box-shadow: 0 0 15px var(--accent-glow);
-        }
-        .site-info { display: flex; align-items: center; gap: 0.7rem; font-weight: 600; font-size: 0.9rem; color: var(--text); }
-        .btn-visit {
-            background: transparent; border: 1px solid var(--accent);
-            color: var(--accent); font-weight: 700; font-size: 0.8rem;
-            padding: 0.5rem 1.1rem; border-radius: 50px;
-            cursor: pointer; transition: all var(--transition);
-        }
-        .btn-visit:hover { background: var(--accent); color: #fff; }
-
-        .empty-state { text-align: center; color: var(--text-secondary); padding: 1.5rem; }
-        .footer-note {
-            margin-top: 1.5rem; text-align: center; font-size: 0.7rem;
-            color: var(--text-secondary); border-top: 1px solid var(--border);
-            padding-top: 1rem;
+        /* Efecto de "carga" en el botón */
+        .btn-login.loading {
+            pointer-events: none;
+            opacity: 0.7;
+            background: linear-gradient(135deg, #a67c00, #b86b00);
         }
 
-        .floating-btns {
+        .btn-login.loading::before {
+            content: '⚡';
+            display: inline-block;
+            animation: spin 1s linear infinite;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Firma sutil */
+        .footer-credit {
             position: fixed;
-            bottom: 1.5rem;
-            right: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-            z-index: 200;
+            bottom: 18px;
+            right: 24px;
+            z-index: 20;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 0.65rem;
+            color: rgba(255, 255, 255, 0.15);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            pointer-events: none;
         }
-        .float-btn {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: var(--accent);
-            border: none;
-            color: #fff;
-            font-size: 1.4rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 4px 12px var(--accent-glow);
-            transition: all var(--transition);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+        .footer-credit a {
+            color: rgba(255, 215, 0, 0.2);
+            text-decoration: none;
+            pointer-events: auto;
         }
-        .float-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 8px 20px var(--accent-glow);
+        .footer-credit a:hover {
+            color: rgba(255, 215, 0, 0.5);
         }
-        .float-btn:active { transform: scale(0.95); }
     </style>
 </head>
-<body class="dark">
-    <main class="glass-panel">
-        <div class="header">
-            <div class="icon-row">🐺</div>
-            <h1>VELVETLINK</h1>
-            <p class="sub">Discreet access · curated profiles</p>
-        </div>
+<body>
 
-        <div class="tabs" id="tabs">
-            <button class="tab active" data-tab="models">🍑 MODELOS</button>
-            <button class="tab" data-tab="links">🔗 ENLACES</button>
-        </div>
+    <!-- Fondo tormenta -->
+    <div class="storm-bg"></div>
 
-        <div class="search-box">
-            <div class="input-wrapper">
-                <i>🔍</i>
-                <input type="text" id="modelNameInput" placeholder="Nombre o enlace..." autocomplete="off" autofocus>
+    <!-- Canvas para partículas -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Contenedor del login -->
+    <div class="login-container" id="loginBox">
+
+        <!-- Logo Fortnite -->
+        <div class="logo">
+            <i class="fas fa-solid fa-helmet-battle fortnite-icon"></i>
+            <span>FORTNITE</span>
+        </div>
+        <div class="sub-logo">· BATTLE ROYALE ·</div>
+        <div class="divider"></div>
+
+        <!-- Formulario -->
+        <form id="loginForm" autocomplete="off">
+            <div class="input-group">
+                <label for="username">Nombre de usuario</label>
+                <input type="text" id="username" placeholder="Ej: Guerrero_74" value="Ninja_23" />
+                <i class="fas fa-user icon"></i>
             </div>
-            <button class="btn-generate" id="generateBtn"><span>⚡</span> TRACK</button>
-        </div>
 
-        <div id="modelsContainer"></div>
-
-        <div class="stripchat-profile" id="stripchatProfile">
-            <div class="profile-card">
-                <div class="avatar-wrapper"><img class="avatar-img" id="profileAvatar" src="" alt="Model"></div>
-                <div class="profile-info">
-                    <span class="profile-name" id="profileDisplayName"></span>
-                    <span class="profile-site">🍑 Stripchat · live</span>
-                    <button class="btn-stripchat" id="btnOpenStripchat">Visit ↗️</button>
-                </div>
+            <div class="input-group">
+                <label for="password">Contraseña</label>
+                <input type="password" id="password" placeholder="••••••••" value="123456" />
+                <i class="fas fa-lock icon"></i>
             </div>
+
+            <button type="submit" class="btn-login" id="loginBtn">¡Iniciar!</button>
+        </form>
+
+        <!-- Enlaces falsos -->
+        <div class="extra-links">
+            <a href="#" id="forgotLink"><i class="fas fa-question-circle"></i> ¿Olvidaste tu cuenta?</a>
+            <a href="#" id="signupLink"><i class="fas fa-user-plus"></i> Registrarse</a>
         </div>
 
-        <div id="resultsContainer">
-            <div class="empty-state"><span style="font-size:2.2rem;">🐺</span><span>Escribe un nombre y pulsa Track</span></div>
+        <!-- Mensaje de error falso -->
+        <div class="fake-error" id="fakeError">
+            <i class="fas fa-exclamation-triangle" style="margin-right: 8px;"></i>
+            <span id="errorMsg">Acceso denegado. Verifica tus credenciales.</span>
         </div>
+    </div>
 
-        <div class="footer-note"><span>🔞</span> Adults only · 18+</div>
-    </main>
-
-    <div class="floating-btns">
-        <button class="float-btn" id="toggleImagesBtn" title="Mostrar/ocultar imágenes">🖼️</button>
-        <button class="float-btn" id="toggleThemeBtn" title="Cambiar tema">🌓</button>
+    <!-- Crédito -->
+    <div class="footer-credit">
+        <a href="#" target="_blank">⚡ Falso Login · Estética Fortnite</a>
     </div>
 
     <script>
         (function() {
-            const input = document.getElementById('modelNameInput');
-            const generateBtn = document.getElementById('generateBtn');
-            const resultsContainer = document.getElementById('resultsContainer');
-            const modelsContainer = document.getElementById('modelsContainer');
-            const stripchatProfile = document.getElementById('stripchatProfile');
-            const profileAvatar = document.getElementById('profileAvatar');
-            const profileDisplayName = document.getElementById('profileDisplayName');
-            const btnOpenStripchat = document.getElementById('btnOpenStripchat');
-            const tabs = document.querySelectorAll('.tab');
-            const toggleImagesBtn = document.getElementById('toggleImagesBtn');
-            const toggleThemeBtn = document.getElementById('toggleThemeBtn');
+            'use strict';
 
-            const avatarBaseUrls = [
-                'https://img.stripchat.com/avatar/{model}',
-                'https://edge.stripchat.com/avatar/{model}'
-            ];
-            const stripchatProfileUrl = 'https://stripchat.com/{model}';
+            // --- Partículas ---
+            const canvas = document.getElementById('particles-canvas');
+            const ctx = canvas.getContext('2d');
+            let width, height;
+            let particles = [];
+            const PARTICLE_COUNT = 110;
 
-            const IMAGE_BASE_URL = './';
+            function resizeCanvas() {
+                width = window.innerWidth;
+                height = window.innerHeight;
+                canvas.width = width;
+                canvas.height = height;
+            }
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
 
-            const sites = [
-                { name: 'CumCams', icon: '🎥', urlPattern: 'https://es.cumcams.cc/performer/{model}' },
-                { name: 'LiveCamRips', icon: '📹', urlPattern: 'https://livecamrips.to/search/{model}' }
-            ];
+            class Particle {
+                constructor() {
+                    this.reset();
+                }
+                reset() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.size = Math.random() * 2.5 + 0.8;
+                    this.speedX = (Math.random() - 0.5) * 0.25;
+                    this.speedY = (Math.random() - 0.5) * 0.25;
+                    this.opacity = Math.random() * 0.6 + 0.2;
+                    this.color = `hsla(${40 + Math.random() * 30}, 80%, 70%, ${this.opacity})`;
+                }
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    if (this.x < 0 || this.x > width || this.y < 0 || this.y > height) {
+                        this.reset();
+                        // Reposicionar en borde opuesto
+                        if (this.x < 0) this.x = width;
+                        if (this.x > width) this.x = 0;
+                        if (this.y < 0) this.y = height;
+                        if (this.y > height) this.y = 0;
+                    }
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fillStyle = this.color;
+                    ctx.shadowColor = 'rgba(255, 215, 0, 0.3)';
+                    ctx.shadowBlur = 6;
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                }
+            }
 
-            // Modelos con indicador de favorito
-            const allModels = [
-                { name: '_aurora18_', fav: false },
-                { name: 'Abby_garciaa', fav: false },
-                { name: 'alhana_pulido', fav: false },
-                { name: 'amandaa_21', fav: false },
-                { name: 'analia18_', fav: false },
-                { name: 'Andrea-10_', fav: false },
-                { name: 'angelinaduvall', fav: false },
-                { name: 'Angellit_Afrodita_', fav: false },
-                { name: 'anny_vittar', fav: false },
-                { name: 'Ashley_Beaomunt', fav: true },
-                { name: 'BrianaSweetxxx', fav: false },
-                { name: 'camila_scoth', fav: true },
-                { name: 'Catalina_ramos', fav: false },
-                { name: 'cherryxxox', fav: false },
-                { name: 'curvydesire1', fav: false },
-                { name: 'Dalgom-i', fav: false },
-                { name: 'debboraWagner', fav: false },
-                { name: 'emma_jamess', fav: false },
-                { name: 'Emily_gomezz', fav: false },
-                { name: 'HairyAillyn', fav: false },
-                { name: 'Im_Little', fav: false },
-                { name: 'isabelateran', fav: false },
-                { name: 'JuliettaGmz', fav: false },
-                { name: 'KATIAMOSS', fav: false },
-                { name: 'kinky_malinaa', fav: false },
-                { name: 'Kitty_Melodi', fav: false },
-                { name: 'Laura_smith0', fav: false },
-                { name: 'Leamonroe__', fav: false },
-                { name: 'mary_cute9', fav: true },
-                { name: 'mercedes_555', fav: false },
-                { name: 'MerliaSsomer', fav: false },
-                { name: 'mia_222', fav: false },
-                { name: 'milfanal_dana', fav: true },
-                { name: 'molly_h0t', fav: false },
-                { name: 'morafit_', fav: false },
-                { name: 'Naatalia', fav: false },
-                { name: 'natalyWilliams', fav: true },
-                { name: 'Osirisjackson22', fav: false },
-                { name: 'ParanoidTemptaion_', fav: false },
-                { name: 'rubi_foxx22', fav: true },
-                { name: 'sabrivelvet', fav: true },
-                { name: 'Sammy_garciaa1', fav: false },
-                { name: 'Saorii_kiido', fav: false },
-                { name: 'Sara_Collinnss', fav: false },
-                { name: 'SEXBAEL', fav: false },
-                { name: 'SharaArisa', fav: false },
-                { name: 'SofiaGarcia7', fav: false },
-                { name: 'tokio_and_rio', fav: false },
-                { name: 'Tulipxo', fav: true },
-                { name: 'vendimur', fav: false },
-                { name: 'yameil', fav: false },
-                { name: 'yui-ch06', fav: false }
-            ];
+            // Inicializar partículas
+            for (let i = 0; i < PARTICLE_COUNT; i++) {
+                particles.push(new Particle());
+            }
 
-            const allLinks = [
-                { label: '🔥 CumCams Vid 190089759', url: 'https://es.cumcams.cc/video/190089759/play', special: true },
-                { label: '🎥 CumCams 187893376', url: 'https://es.cumcams.cc/video/187893376/play' },
-                { label: '🔗 SearchHubcam', url: 'https://juancarrasc204.github.io/SearchHubcam/index.html' },
-                { label: '🎥 CumCams 178062497', url: 'https://es.cumcams.cc/video/178062497/play' },
-                { label: '🏷️ CumCams twerk', url: 'https://es.cumcams.cc/tags/twerk' },
-                { label: '🎥 LiveCamRips 14722111', url: 'https://livecamrips.to/video/14722111' },
-                { label: '🎥 CumCams 186507099', url: 'https://es.cumcams.cc/video/186507099/play' },
-                { label: '🎥 LiveCamRips 14528295', url: 'https://livecamrips.to/video/14528295' },
-                { label: '🎥 LiveCamRips 14713648', url: 'https://livecamrips.to/video/14713648' },
-                { label: '🎥 CumCams 184725200', url: 'https://es.cumcams.cc/video/184725200/play' },
-                { label: '🎥 CumCams 183332590', url: 'https://es.cumcams.cc/video/183332590/play' },
-                { label: '🎥 CumCams 182036187', url: 'https://es.cumcams.cc/video/182036187/play' },
-                { label: '🎥 CumCams 187966558', url: 'https://es.cumcams.cc/video/187966558/play' },
-                { label: '🎥 CumCams 185388510', url: 'https://es.cumcams.cc/video/185388510/play' },
-                { label: '🎥 CumCams 188658624', url: 'https://es.cumcams.cc/video/188658624/play' },
-                { label: '🎥 CumCams Vid 190280371', url: 'https://es.cumcams.cc/video/190280371/play' },
-                { label: '🎥 ShowCamRips Milaa Star', url: 'https://www.showcamrips.com/show-cam-sex-movies/2017067-milaa-star-chaturbate-webcam-rip-20260529-105306.html' },
-                { label: '🎥 CumCams Vid 191273218', url: 'https://es.cumcams.cc/video/191273218/play' },
-                { label: '🎥 LiveCamRips Vid 15086243', url: 'https://livecamrips.to/video/15086243' },
-                { label: '🎥 LiveCamRips Vid 14775881', url: 'https://livecamrips.to/video/14775881' }
-            ];
-
-            let currentTab = 'models';
-            let imagesVisible = false;
-
-            function createModelCard(model) {
-                const card = document.createElement('div');
-                card.className = 'model-card';
-                card.addEventListener('click', () => {
-                    input.value = model.name;
-                    handleGenerate();
+            function animateParticles() {
+                ctx.clearRect(0, 0, width, height);
+                particles.forEach(p => {
+                    p.update();
+                    p.draw();
                 });
-
-                const imgWrapper = document.createElement('div');
-                imgWrapper.className = 'img-wrapper';
-                imgWrapper.style.display = 'none';
-
-                const img = document.createElement('img');
-                img.alt = model.name;
-                img.loading = 'lazy';
-                img.src = IMAGE_BASE_URL + model.name + '.jpg';
-
-                const fallback = document.createElement('span');
-                fallback.className = 'img-fallback';
-                fallback.textContent = '❌';
-                fallback.style.display = 'none';
-
-                img.onerror = () => { img.style.display = 'none'; fallback.style.display = 'block'; };
-                img.onload = () => { img.style.display = 'block'; fallback.style.display = 'none'; };
-
-                imgWrapper.appendChild(img);
-                imgWrapper.appendChild(fallback);
-
-                const nameEl = document.createElement('span');
-                nameEl.className = 'model-name';
-                nameEl.textContent = model.fav ? '⭐ ' + model.name : model.name;
-
-                card.appendChild(imgWrapper);
-                card.appendChild(nameEl);
-                card._imgWrapper = imgWrapper;
-                card._img = img;
-                card._fallback = fallback;
-                return card;
-            }
-
-            function renderModels() {
-                modelsContainer.innerHTML = '';
-                const grid = document.createElement('div');
-                grid.className = 'cards-grid';
-                allModels.forEach(model => grid.appendChild(createModelCard(model)));
-                modelsContainer.appendChild(grid);
-            }
-
-            function renderLinks() {
-                modelsContainer.innerHTML = '';
-                const chips = document.createElement('div');
-                chips.className = 'chips-container';
-                allLinks.forEach(link => {
-                    const chip = document.createElement('button');
-                    chip.className = 'model-chip' + (link.special ? ' special-chip' : '');
-                    chip.textContent = link.label;
-                    chip.addEventListener('click', () => window.open(link.url, '_blank', 'noopener,noreferrer'));
-                    chips.appendChild(chip);
-                });
-                modelsContainer.appendChild(chips);
-            }
-
-            function renderCurrentTab() {
-                currentTab === 'models' ? renderModels() : renderLinks();
-            }
-
-            function updateAllImagesVisibility() {
-                document.querySelectorAll('.model-card').forEach(card => {
-                    const wrapper = card._imgWrapper;
-                    const img = card._img;
-                    const fallback = card._fallback;
-                    if (!wrapper) return;
-                    if (imagesVisible) {
-                        wrapper.style.display = 'flex';
-                        if (img && img.complete && img.naturalWidth > 0) {
-                            img.style.display = 'block';
-                            if (fallback) fallback.style.display = 'none';
-                        } else if (img && img.complete && img.naturalWidth === 0) {
-                            img.style.display = 'none';
-                            if (fallback) fallback.style.display = 'block';
+                // Dibujar algunas líneas entre partículas cercanas (efecto extra)
+                ctx.strokeStyle = 'rgba(255, 215, 0, 0.03)';
+                ctx.lineWidth = 0.6;
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 120) {
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.strokeStyle = `rgba(255, 215, 0, ${0.03 * (1 - dist / 120)})`;
+                            ctx.stroke();
                         }
-                    } else {
-                        wrapper.style.display = 'none';
-                    }
-                });
-            }
-
-            tabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    tabs.forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active');
-                    currentTab = tab.getAttribute('data-tab');
-                    renderCurrentTab();
-                    setTimeout(updateAllImagesVisibility, 50);
-                });
-            });
-
-            toggleImagesBtn.addEventListener('click', () => {
-                imagesVisible = !imagesVisible;
-                toggleImagesBtn.textContent = imagesVisible ? '🙈' : '🖼️';
-                updateAllImagesVisibility();
-            });
-
-            function applyTheme(theme) {
-                if (theme === 'light') {
-                    document.body.classList.add('light');
-                    document.body.classList.remove('dark');
-                } else {
-                    document.body.classList.remove('light');
-                    document.body.classList.add('dark');
-                }
-            }
-
-            toggleThemeBtn.addEventListener('click', () => {
-                const isLight = document.body.classList.contains('light');
-                const newTheme = isLight ? 'dark' : 'light';
-                applyTheme(newTheme);
-                localStorage.setItem('velvetlink-theme', newTheme);
-            });
-
-            const savedTheme = localStorage.getItem('velvetlink-theme') || 'dark';
-            applyTheme(savedTheme);
-
-            // Extrae el nombre de usuario de una URL
-            function extractModelName(rawValue) {
-                const trimmed = rawValue.trim();
-                // Si parece una URL (contiene http o comienza con www.)
-                if (/^(https?:\/\/|www\.)/i.test(trimmed)) {
-                    try {
-                        const url = new URL(trimmed);
-                        // Eliminar barra final si existe
-                        let path = url.pathname.replace(/\/$/, '');
-                        // Obtener el último segmento de la ruta
-                        const segments = path.split('/').filter(s => s !== '');
-                        if (segments.length > 0) {
-                            return segments[segments.length - 1];
-                        }
-                    } catch (e) {
-                        // Si falla el parseo, devolvemos el texto original
-                        return trimmed;
                     }
                 }
-                // Si no es URL, se asume que ya es un nombre de modelo
-                return trimmed;
+                requestAnimationFrame(animateParticles);
+            }
+            animateParticles();
+
+            // --- Lógica del login falso ---
+            const form = document.getElementById('loginForm');
+            const usernameInput = document.getElementById('username');
+            const passwordInput = document.getElementById('password');
+            const loginBtn = document.getElementById('loginBtn');
+            const fakeError = document.getElementById('fakeError');
+            const errorMsg = document.getElementById('errorMsg');
+
+            // Mensajes aleatorios de error
+            const errorMessages = [
+                '¡Acceso denegado! La tormenta te ha alcanzado.',
+                'Credenciales incorrectas. ¡Intenta de nuevo, guerrero!',
+                'No tienes pase de batalla. ¡Actualiza tu cuenta!',
+                'Error de autenticación. ¿Olvidaste tu baile?',
+                '¡Servidor ocupado! La tormenta se acerca...',
+                'Cuenta bloqueada por exceso de victorias falsas.'
+            ];
+
+            function showError() {
+                const randomMsg = errorMessages[Math.floor(Math.random() * errorMessages.length)];
+                errorMsg.textContent = randomMsg;
+                fakeError.classList.add('show');
+                // Ocultar después de 4s
+                clearTimeout(window.errorTimeout);
+                window.errorTimeout = setTimeout(() => {
+                    fakeError.classList.remove('show');
+                }, 4000);
             }
 
-            function sanitizeModelName(rawName) {
-                return rawName.replace(/\s+/g, '');
-            }
+            // Manejar envío
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
 
-            function loadAvatar(cleanName) {
-                profileDisplayName.textContent = cleanName;
-                profileAvatar.src = '';
-                let loaded = false;
-                function tryNext(index) {
-                    if (index >= avatarBaseUrls.length || loaded) {
-                        if (!loaded) stripchatProfile.style.display = 'none';
-                        return;
-                    }
-                    const url = avatarBaseUrls[index].replace('{model}', cleanName);
-                    const testImg = new Image();
-                    testImg.onload = () => {
-                        if (!loaded) { loaded = true; profileAvatar.src = url; stripchatProfile.style.display = 'block'; }
-                    };
-                    testImg.onerror = () => tryNext(index + 1);
-                    testImg.src = url;
-                }
-                tryNext(0);
-            }
+                // Simular carga
+                loginBtn.classList.add('loading');
+                loginBtn.textContent = 'Conectando...';
 
-            function setupStripchatLink(cleanName) {
-                const url = stripchatProfileUrl.replace('{model}', cleanName);
-                btnOpenStripchat.onclick = (e) => {
-                    e.stopPropagation();
-                    window.open(url, '_blank', 'noopener,noreferrer');
-                };
-            }
-
-            function renderLinksResults(cleanName) {
-                resultsContainer.innerHTML = '';
-                if (!cleanName) {
-                    resultsContainer.innerHTML = '<div class="empty-state"><span style="font-size:2.2rem;">🐺</span><span>Nombre no válido</span></div>';
-                    stripchatProfile.style.display = 'none';
-                    return;
-                }
-                sites.forEach((site, index) => {
-                    const finalUrl = site.urlPattern.replace('{model}', cleanName);
-                    const card = document.createElement('div');
-                    card.className = 'link-card';
-                    card.style.animationDelay = `${index * 0.07}s`;
-                    card.innerHTML = `
-                        <div class="site-info"><span>${site.icon}</span><span>${site.name}</span></div>
-                        <button class="btn-visit">Open ↗️</button>
-                    `;
-                    card.addEventListener('click', () => window.open(finalUrl, '_blank', 'noopener,noreferrer'));
-                    resultsContainer.appendChild(card);
-                });
-            }
-
-            function handleGenerate() {
-                const rawValue = input.value;
-                // Extraer nombre desde posible enlace
-                const extracted = extractModelName(rawValue);
-                const cleanName = sanitizeModelName(extracted);
-                if (!cleanName) {
-                    resultsContainer.innerHTML = '<div class="empty-state"><span style="font-size:2.2rem;">🐺</span><span>Escribe un nombre y pulsa Track</span></div>';
-                    stripchatProfile.style.display = 'none';
-                    return;
-                }
-                generateBtn.style.opacity = '0.7';
+                // Pequeño retraso para efecto
                 setTimeout(() => {
-                    loadAvatar(cleanName);
-                    setupStripchatLink(cleanName);
-                    renderLinksResults(cleanName);
-                    generateBtn.style.opacity = '1';
-                    resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }, 200);
-            }
+                    loginBtn.classList.remove('loading');
+                    loginBtn.textContent = '¡Iniciar!';
+                    showError();
 
-            generateBtn.addEventListener('click', handleGenerate);
-            input.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleGenerate(); });
+                    // Efecto de "sacudida" en el contenedor
+                    const box = document.getElementById('loginBox');
+                    box.style.animation = 'none';
+                    setTimeout(() => {
+                        box.style.animation = 'shake 0.4s ease';
+                    }, 10);
+                    setTimeout(() => {
+                        box.style.animation = '';
+                    }, 500);
 
-            renderCurrentTab();
-            input.focus();
-            stripchatProfile.style.display = 'none';
+                    // Limpiar campos opcional (divertido)
+                    // usernameInput.value = '';
+                    // passwordInput.value = '';
+                }, 1200);
+            });
+
+            // Enlaces falsos (solo alertas)
+            document.getElementById('forgotLink').addEventListener('click', function(e) {
+                e.preventDefault();
+                showError();
+                errorMsg.textContent = '¡Recuperación de cuenta desactivada! (Modo demostración)';
+                fakeError.classList.add('show');
+                setTimeout(() => fakeError.classList.remove('show'), 3500);
+            });
+
+            document.getElementById('signupLink').addEventListener('click', function(e) {
+                e.preventDefault();
+                showError();
+                errorMsg.textContent = '¡Registro cerrado por la tormenta! Vuelve más tarde.';
+                fakeError.classList.add('show');
+                setTimeout(() => fakeError.classList.remove('show'), 3500);
+            });
+
+            // Efecto al hacer clic en el logo (easter egg)
+            document.querySelector('.logo').addEventListener('click', function() {
+                this.style.transform = 'scale(1.1)';
+                setTimeout(() => this.style.transform = '', 200);
+                const msgs = ['¡VICTORY ROYALE!', '¡Saqueo épico!', '¡Tormenta despejada!', '¡Baila, baila!'];
+                errorMsg.textContent = msgs[Math.floor(Math.random() * msgs.length)];
+                fakeError.classList.add('show');
+                fakeError.style.borderLeftColor = '#ffd700';
+                fakeError.style.color = '#ffd700';
+                setTimeout(() => {
+                    fakeError.classList.remove('show');
+                    fakeError.style.borderLeftColor = '#ff4444';
+                    fakeError.style.color = '#ff6b6b';
+                }, 2500);
+            });
+
         })();
     </script>
 </body>
