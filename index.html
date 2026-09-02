@@ -235,6 +235,13 @@
             word-break: break-word;
         }
 
+        .empty-models {
+            text-align: center;
+            color: var(--text-secondary);
+            padding: 1rem 0.5rem;
+            font-size: 0.85rem;
+        }
+
         .chips-container {
             display: flex;
             flex-wrap: wrap;
@@ -427,94 +434,30 @@
             ];
             const stripchatProfileUrl = 'https://stripchat.com/{model}';
 
-            const IMAGE_BASE_URL = './';
-
+            // Sitios de búsqueda (CumCams eliminado)
             const sites = [
-                { name: 'CumCams', icon: '🎥', urlPattern: 'https://es.cumcams.cc/performer/{model}' },
-                { name: 'LiveCamRips', icon: '📹', urlPattern: 'https://livecamrips.to/search/{model}' }
+                { name: 'LiveCamRips', icon: '📹', urlPattern: 'https://livecamrips.to/search/{model}' },
+                { name: 'CloudBate', icon: '☁️', urlPattern: 'https://www.cloudbate.com/models/{model}/' }
             ];
 
-            // Modelos con indicador de favorito
-            const allModels = [
-                { name: '_aurora18_', fav: false },
-                { name: 'Abby_garciaa', fav: false },
-                { name: 'Abby_zoee', fav: false },
-                { name: 'alhana_pulido', fav: false },
-                { name: 'amandaa_21', fav: false },
-                { name: 'analia18_', fav: false },
-                { name: 'Andrea-10_', fav: false },
-                { name: 'angelinaduvall', fav: false },
-                { name: 'Angellit_Afrodita_', fav: false },
-                { name: 'anny_vittar', fav: false },
-                { name: 'Ashley_Beaomunt', fav: true },
-                { name: 'BrianaSweetxxx', fav: false },
-                { name: 'camila_scoth', fav: true },
-                { name: 'Catalina_ramos', fav: false },
-                { name: 'cherryxxox', fav: false },
-                { name: 'curvydesire1', fav: false },
-                { name: 'Dalgom-i', fav: false },
-                { name: 'debboraWagner', fav: false },
-                { name: 'emma_jamess', fav: false },
-                { name: 'Emily_gomezz', fav: false },
-                { name: 'HairyAillyn', fav: false },
-                { name: 'Im_Little', fav: false },
-                { name: 'isabelateran', fav: false },
-                { name: 'jessi_4', fav: false },
-                { name: 'JuliettaGmz', fav: false },
-                { name: 'KATIAMOSS', fav: false },
-                { name: 'kinky_malinaa', fav: false },
-                { name: 'Kitty_Melodi', fav: false },
-                { name: 'Laura_smith0', fav: false },
-                { name: 'Leamonroe__', fav: false },
-                { name: 'mary_cute9', fav: true },
-                { name: 'mercedes_555', fav: false },
-                { name: 'MerliaSsomer', fav: false },
-                { name: 'mia_222', fav: false },
-                { name: 'milfanal_dana', fav: true },
-                { name: 'molly_h0t', fav: false },
-                { name: 'morafit_', fav: false },
-                { name: 'Naatalia', fav: false },
-                { name: 'natalyWilliams', fav: true },
-                { name: 'orianazoe', fav: false },
-                { name: 'Osirisjackson22', fav: false },
-                { name: 'ParanoidTemptaion_', fav: false },
-                { name: 'rubi_foxx22', fav: true },
-                { name: 'sabrivelvet', fav: true },
-                { name: 'Sammy_garciaa1', fav: false },
-                { name: 'Saorii_kiido', fav: false },
-                { name: 'Sara_Collinnss', fav: false },
-                { name: 'seraphine23', fav: false },
-                { name: 'SEXBAEL', fav: false },
-                { name: 'SharaArisa', fav: false },
-                { name: 'SofiaGarcia7', fav: false },
-                { name: 'tokio_and_rio', fav: false },
-                { name: 'Tulipxo', fav: true },
-                { name: 'vendimur', fav: false },
-                { name: 'yameil', fav: false },
-                { name: 'yui-ch06', fav: false }
-            ];
-
+            // Webs de sustitución añadidas (enlaces fijos)
             const allLinks = [
-                { label: '🔥 CumCams Vid 190089759', url: 'https://es.cumcams.cc/video/190089759/play', special: true },
-                { label: '🎥 CumCams 187893376', url: 'https://es.cumcams.cc/video/187893376/play' },
+                { label: '🔥 FIJADO LiveCamRips Vid 10296868', url: 'https://livecamrips.to/video/10296868', special: true },
+                { label: '☁️ CloudBate', url: 'https://www.cloudbate.com/' },
+                { label: '🎬 ShowCamRips', url: 'https://www.showcamrips.com/' },
+                { label: '📼 ArchiveBate', url: 'https://archivebate.com/' },
+                { label: '🔥 CamsMut', url: 'https://camsmut.com/' },
                 { label: '🔗 SearchHubcam', url: 'https://juancarrasc204.github.io/SearchHubcam/index.html' },
-                { label: '🎥 CumCams 178062497', url: 'https://es.cumcams.cc/video/178062497/play' },
-                { label: '🏷️ CumCams twerk', url: 'https://es.cumcams.cc/tags/twerk' },
-                { label: '🎥 LiveCamRips 14722111', url: 'https://livecamrips.to/video/14722111' },
-                { label: '🎥 CumCams 186507099', url: 'https://es.cumcams.cc/video/186507099/play' },
-                { label: '🎥 LiveCamRips 14528295', url: 'https://livecamrips.to/video/14528295' },
-                { label: '🎥 LiveCamRips 14713648', url: 'https://livecamrips.to/video/14713648' },
-                { label: '🎥 CumCams 184725200', url: 'https://es.cumcams.cc/video/184725200/play' },
-                { label: '🎥 CumCams 183332590', url: 'https://es.cumcams.cc/video/183332590/play' },
-                { label: '🎥 CumCams 182036187', url: 'https://es.cumcams.cc/video/182036187/play' },
-                { label: '🎥 CumCams 187966558', url: 'https://es.cumcams.cc/video/187966558/play' },
-                { label: '🎥 CumCams 185388510', url: 'https://es.cumcams.cc/video/185388510/play' },
-                { label: '🎥 CumCams 188658624', url: 'https://es.cumcams.cc/video/188658624/play' },
-                { label: '🎥 CumCams Vid 190280371', url: 'https://es.cumcams.cc/video/190280371/play' },
                 { label: '🎥 ShowCamRips Milaa Star', url: 'https://www.showcamrips.com/show-cam-sex-movies/2017067-milaa-star-chaturbate-webcam-rip-20260529-105306.html' },
-                { label: '🎥 CumCams Vid 191273218', url: 'https://es.cumcams.cc/video/191273218/play' },
                 { label: '🎥 LiveCamRips Vid 15086243', url: 'https://livecamrips.to/video/15086243' },
                 { label: '🎥 LiveCamRips Vid 14775881', url: 'https://livecamrips.to/video/14775881' }
+            ];
+
+            // Lista de modelos (3 añadidas)
+            const allModels = [
+                { name: 'BrianaSweetxxx', fav: false },
+                { name: 'kinky_malinaa', fav: false },
+                { name: 'amandaa_21', fav: false }
             ];
 
             let currentTab = 'models';
@@ -535,7 +478,7 @@
                 const img = document.createElement('img');
                 img.alt = model.name;
                 img.loading = 'lazy';
-                img.src = IMAGE_BASE_URL + model.name + '.jpg';
+                img.src = './' + model.name + '.jpg';
 
                 const fallback = document.createElement('span');
                 fallback.className = 'img-fallback';
@@ -562,6 +505,13 @@
 
             function renderModels() {
                 modelsContainer.innerHTML = '';
+                if (allModels.length === 0) {
+                    const emptyDiv = document.createElement('div');
+                    emptyDiv.className = 'empty-models';
+                    emptyDiv.innerHTML = '✨ No hay modelos en la lista.<br>Usa el buscador para rastrear un nombre.';
+                    modelsContainer.appendChild(emptyDiv);
+                    return;
+                }
                 const grid = document.createElement('div');
                 grid.className = 'cards-grid';
                 allModels.forEach(model => grid.appendChild(createModelCard(model)));
